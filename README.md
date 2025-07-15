@@ -36,3 +36,21 @@ Check List:
     [] reading from files and writing to files
     [] req data from an API and displaying output
 
+## DRY PRINCIPALS:
+
+DRY = Don't Repeat Yourself
+- A software development principle to avoid code duplication.
+- Encourages writing modular, reusable, and clean code.
+
+Why is DRY Important?
+- Avoids Repetition
+- Prevents writing the same logic multiple times.
+- Improves Code Readability
+- Easier to understand and maintain.
+- Easier Maintenance
+- Fixing bugs in one place updates all uses.
+- Reduces Errors
+- Less duplicated logic = fewer chances for mistakes.
+- Supports Scalability
+- Code can grow and evolve without becoming messy.
+- Functions () , def function_name()
