@@ -6,7 +6,7 @@ User input
 Meaningful output
 Accessing data from external sources
 
-Designa. functioning app - web browser OR terminal (CLI) in python.
+Designa. fu`nctioning app - web browser OR terminal (CLI) in python.
 
 Check List:
 [] README.md file
@@ -54,3 +54,9 @@ Why is DRY Important?
 - Supports Scalability
 - Code can grow and evolve without becoming messy.
 - Functions () , def function_name()
+
+# Brainstorm of ideas
+
+
+# Reference list:
+
