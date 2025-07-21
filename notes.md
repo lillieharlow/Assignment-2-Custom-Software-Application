@@ -67,4 +67,27 @@ Why is DRY Important?
 - Code can grow and evolve without becoming messy.
 - Functions () , def function_name()
 
-# Brainstorm of ideas
+# Brainstorm of idea
+
+### What do I want to build?
+
+A tamgotchi type game - Commmand-line pet game in python3. That evolves the users pet from one animal to the next (leveling up in the game). They need to care for the pet and make sure if doesn't die. So feeding, love, playing, cleaning poop, etc.
+
+### How will I achieve this?
+
+#### Step 1
+
+[] Decide on what animals each level will evolve into? I want to use the VE cowsay.
+[] What stats will pet have? Hunger, love, poop, energy, happiness, tired? Should I use emojis?
+[] App runs in terminal so how do I want to display the menu/user input?
+    - menu and give options linked to a number or letter user types in.
+    - Ask them to type in what they want to do? e.g. type 'feed' 'play'
+[] Add extra interactivity to keep user engagememt high, educational? Add fun facts?
+[] File structure? What do I need to have as my py files, do I need to call them specific names?
+[] Define what libraries and packages I will use?
+    - 4+ from 3rd parties (libraries and packages)
+    - 6+ functions I make myself
+    - use functions from 3rd party libs/packages
+    - 3+ classes
+
+#### Step 2
