@@ -36,6 +36,18 @@ Check List:
     [] reading from files and writing to files
     [] req data from an API and displaying output
 
+## Set up of files:
+- readme.md
+- main.py
+- packages folder
+    - __init__.py
+    - area to organise other py files?
+- virtual environment folder
+- requirements.txt
+- license - copyright info, etc
+- testing - test.py
+
+
 ## DRY PRINCIPALS:
 
 DRY = Don't Repeat Yourself
