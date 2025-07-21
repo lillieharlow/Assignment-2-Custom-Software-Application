@@ -91,3 +91,10 @@ A tamgotchi type game - Commmand-line pet game in python3. That evolves the user
     - 3+ classes
 
 #### Step 2
+
+[] Create and structure my folders correctly
+[] Add virutal environemnts - also document set up so it is easier down the line when wirting my readme.md
+[] Create requirements.txt
+[] install all packages
+
+####
