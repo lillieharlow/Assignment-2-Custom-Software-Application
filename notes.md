@@ -81,7 +81,16 @@ A tamgotchi type game - Commmand-line pet game in python3. That evolves the user
 [] What stats will pet have? Hunger, love, poop, energy, happiness, tired? Should I use emojis?
 [] App runs in terminal so how do I want to display the menu/user input?
     - menu and give options linked to a number or letter user types in.
-    - Ask them to type in what they want to do? e.g. type 'feed' 'play'
+``` What would you like to do?
+1. Feed your pet 🥕
+2. Play with your pet 🎾
+3. Rest 😴
+4. Show stats 📊
+5. Quit ❌
+
+Enter your choice:
+```
+
 [] Add extra interactivity to keep user engagememt high, educational? Add fun facts?
 [] File structure? What do I need to have as my py files, do I need to call them specific names?
 [] Define what libraries and packages I will use?
@@ -96,5 +105,21 @@ A tamgotchi type game - Commmand-line pet game in python3. That evolves the user
 [] Add virutal environemnts - also document set up so it is easier down the line when wirting my readme.md
 [] Create requirements.txt
 [] install all packages
+[] main.py
+[] py for classes I make - pets.py
+[] game.py - game classes and logic
+[] api.py - so I can get fun animals facts off the internet into the command line
 
-####
+``` import requests
+
+response = requests.get("https:// ......)
+data = response.json()
+print(data['fact'])
+```
+
+[] storage.py - save game for user?
+[] test.py
+
+#### Step 3
+
+[]
