@@ -1,62 +1,82 @@
-# All user / player details. User login or user create new account
+'''Functions for ALL new & existing users.
+Stored using JSON and gathered with user input.
+Securely handles ALL loading & saving of user data.'''
 
-import json # Saving username, password to a file and loading it back
-import os # Check if user file exists and creates new one if it doesn't
-from getpass import getpass # safety - asks for password without showing password
 
-# Add new user (username & password)
-def add_user():
-    # Load the existing users from file (or empty dict if none)
+import json
+import os
+from getpass import getpass
+
+# Location of user info
+USERS_FILE = "data/users.json"
+
+# Load user
+def load_users():
+    if not os.path.exists(USERS_FILE): # No user data
+        return {} # Start new — create empty dictionary to add key-value
+    try:
+        with open(USERS_FILE, "r") as f: # r = read mode/read file as new variable 'f'
+            return json.load(f)
+    except (json.JSONDecodeError, IOError):
+        print("Oh no! Your account is in jail! It's been corrupted by the evil JSON overlords. Time to start fresh!")
+        return {}
+
+# Save user
+def save_users(users):
+    os.makedirs(os.path.dirname(USERS_FILE), exist_ok=True)
+    try:
+        with open(USERS_FILE, "w") as f: # w = write mode
+            json.dump(users, f, indent=2) # makes it human readable json
+    except IOError as e:
+        print(f"Oops! We tried to save but hit a snag... guess it couldn't *cache* it. But seriously: {e}")
+
+# New User
+def register_user():
     users = load_users()
-
-    print("\n New User Registration")
-
-    # Loop until a valid, unique username is entered
+    print("\nWoohoo! Let's get you signed up!")
     while True:
-        # Prompt for username and strip whitespace at start/end
-        username = input("Please enter your username: ").strip()
-        
-        # Check if username is empty
+        username = input("Choose your username: ").strip()
         if not username:
-            print("Username can't be empty.")
+            print("Ugh, it's empty... this is awkward. Please try again!")
             continue
-        
-        # Check if username is already taken
         if username in users:
-            print("That username is already taken.")
+            print("Second place! That username's already taken. Try another one?")
             continue
-        
-        # Valid username found, exit loop
         break
 
-    # Loop until a valid password is entered and confirmed
     while True:
-        # Prompt for password safely (hidden input)
-        password = getpass("Password: ").strip()
-        # Prompt again to confirm
-        password2 = getpass("Re-enter password: ").strip()
+        password = getpass("Please enter your password (5+ characters: ").strip()
+        password_confirm = getpass("Second times a charm! Please re-enter your password: ").strip()
 
-        # Verify minimum password length
         if len(password) < 5:
-            print("Your password is too short.")
+            print("That password's too short. Give me a stronger one!")
             continue
-
-        # Check if both passwords match
-        if password != password2:
-            print("Your passwords don't match.")
+        if password != password_confirm:
+            print("Hmm, your passwords don't match. Want to try again?")
             continue
-
-        # Valid password confirmed, exit loop
         break
 
-    # Add the new user and their password to the users dictionary
     users[username] = {"password": password}
-
-    # Save updated users dictionary back to file
     save_users(users)
 
-    # Confirm successful registration
-    print("YAY! You've successfully created an account.")
-
-    # Return the new username to calling function
+    print(f"Awesome! Your account '{username}' is all set up. Welcome to PETvolution()!")
     return username
+
+# Login user
+def login_user():
+    users = load_users()
+    print("\nWelcome back! (Type 'exit' or leave empty to cancel login)")
+
+    while True:
+        username = input("Username: ").strip()
+        if username.lower() == "exit" or username == "":
+            print("Login cancelled. Farwell, goodbye, the end! See you next time!")
+            return None
+
+        password = getpass("Password: ").strip()
+
+        if username in users and users[username]["password"] == password:
+            print(f"Welcome back, {username}! It's nice to see you agai, let's play PETvolution()!")
+            return username
+        else:
+            print("Oops! That username or password didn't check out. Try again or type 'exit' to quit.")
