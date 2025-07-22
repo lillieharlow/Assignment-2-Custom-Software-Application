@@ -1,60 +1,27 @@
-Name - Petvolution()!
-Overview - A fun CLI virtual pet app! Help your pet grow and evolve from a puppy --> lion --> dragon!
+# Step 1 - Set up files, imports and virtual environment.
 
-You will feed, care, clean and play with your pet whilst learning fun animal facts and testing your quiz skills!
+- Activate virtual environment
+- install ```rich```, ```colorma```, ```pyfiglet```, ```requests```, ```questionary```, ```animals```
+- Create files/moduels to organise code
 
-# 1 - Prepare moduels
+# Step 2 - User/player management code
 
-Virtual Pet Game - Petvolution()!
+- login, user input, validate, error handling
+- get username/password inputs, save to JSON
 
-Folder name - ?
-Files I will need:
-[] main.py
-[] pet.py
-[] games.py
-[] utilities.py
-[] requirements.txt
-[] README.md
-[] notes.md (& other md files that display psuedocode / planning ideas)
+# Step 3 - pet.py
 
-# 2 - Prepare virtual environemnt
+- classes and functions for code pet.py moduel, keep all of it in here, comments
+- methods and attributes that affect pet and player progression e.g. play, feed, clean.
+- save progression in game?
 
-Set up my virutal environemnt
-```
-python3 -m venv venv
-source venv/bin/activate
-```
+# Step 4 - main.py
 
-# 3 - Figure out third party libraries and packages and create requirements.txt
+- prompt player login, creates new account, exit game
+- test login code works
+- pet creation for new user
 
-```
-pip install pyfiglet colorama requests emoji questionary
-```
+# Step 5 - quiz
 
-``` 
-pip freeze > requirements.text
-```
+# Step 6 - animal facts
 
-# 4 - Lets begin! You've got this! main.py
-
-[] display welcome message
-[] short blurb about the game - dog > lion > dragon, complete games/quizzes to level up and care for your pet
-[] does user need to load a saved pet or create a new one?
-[] show menu for return to saved pet, create new pet or exit user input
-[] respond - "return" = account login. "new" = acount sign up (enter your name, pets name, password) loops until user has signed in or exits if they cloose "exit" = display goodbye message (but have input option to easily show welome message again if they accidentally exited)
-[] Once signed in or signed up - proceed with main code. Code for save and load pet data in moduel pet
-
-``` import pyfiglet
-import emoji
-from colorama import Fore, Style, init
-from pet import load_pet, save_pet, create_new_pet
-from games import play_game
-from utilities import get_animal_fact
-```
-
-# 5 - Pet moduel - pet.py
-[] functions I need to create about users pet
-    - save pet
-    - load pet
-    - create new pet
-    - pet (name, level, points, animal, hungry, clean, happy)
