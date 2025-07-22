@@ -1,45 +1,62 @@
-# user.py = All user / player details
-# login, create new user
+# All user / player details. User login or user create new account
 
-import json # saving username, password to a file and loading it back
-import os # check if user file exists and creates new one if it doesn't
+import json # Saving username, password to a file and loading it back
+import os # Check if user file exists and creates new one if it doesn't
 from getpass import getpass # safety - asks for password without showing password
 
+# Add new user (username & password)
+def add_user():
+    # Load the existing users from file (or empty dict if none)
+    users = load_users()
 
-# location of saved player files
-players_file = "data/players.json" # players.json = file where info is stored
+    print("\n New User Registration")
 
-# load existing player or start new
-# dictionary because we need key-value pairs (username & password)
-def load_users():
-    if not os.path.exists(players_file): # players file doesn't exist
-        return {} # start fresh - return empty dictionary
-    with open(players_file, "r") as f: # open players file in read mode as new variable
-        try:
-            return json.load(f)
-        except json.JSONDecodeError: # if file is corrupted it starts fresh
-            return{}
-        
-# save players to file, ensure folder exists
-def save_players(players):
-    os.makedirs("data", exist_ok=True) # if folder exists continue
-    with open(players_file, "w") as f: # open in write mode
-        json.dump(players, f, indent=2) # human readable file storing player data
-        
-# add new player (username & password)
-def add_player():
-    players = load_players()
-    print("\n New Player")
+    # Loop until a valid, unique username is entered
     while True:
-        playername = input("Please enter your name: ").strip() # .strip() = remove whitespace from start and end of str
-        if not playername:
-            print("Player name can't be empty.")
+        # Prompt for username and strip whitespace at start/end
+        username = input("Please enter your username: ").strip()
+        
+        # Check if username is empty
+        if not username:
+            print("Username can't be empty.")
             continue
-        if playername in players:
-            print("That player name is already taken.")
+        
+        # Check if username is already taken
+        if username in users:
+            print("That username is already taken.")
             continue
+        
+        # Valid username found, exit loop
         break
+
+    # Loop until a valid password is entered and confirmed
     while True:
+        # Prompt for password safely (hidden input)
         password = getpass("Password: ").strip()
+        # Prompt again to confirm
         password2 = getpass("Re-enter password: ").strip()
-        
+
+        # Verify minimum password length
+        if len(password) < 5:
+            print("Your password is too short.")
+            continue
+
+        # Check if both passwords match
+        if password != password2:
+            print("Your passwords don't match.")
+            continue
+
+        # Valid password confirmed, exit loop
+        break
+
+    # Add the new user and their password to the users dictionary
+    users[username] = {"password": password}
+
+    # Save updated users dictionary back to file
+    save_users(users)
+
+    # Confirm successful registration
+    print("YAY! You've successfully created an account.")
+
+    # Return the new username to calling function
+    return username
