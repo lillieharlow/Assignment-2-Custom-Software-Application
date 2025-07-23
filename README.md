@@ -72,3 +72,8 @@ https://dagster.io/blog/python-project-best-practices
 
 https://docs.python-guide.org/writing/structure/
 
+https://www.youtube.com/watch?v=TburgnvAPLE
+
+
+
+https://slides.com/tatianatylosky/deck-3

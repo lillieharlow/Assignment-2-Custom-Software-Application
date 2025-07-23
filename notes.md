@@ -1,12 +1,7 @@
 # Assignment-2-Custom-Software-Application
 Assignment 2 for Coder Academy - aka my first software application.
 
-File IO
-User input
-Meaningful output
-Accessing data from external sources
-
-Design a functioning app - web browser OR terminal (CLI) in python.
+Design a functioning python app for terminal (CLI).
 
 Check List:
 [] README.md file
@@ -36,16 +31,56 @@ Check List:
     [] reading from files and writing to files
     [] req data from an API and displaying output
 
-## Set up of files:
-- readme.md
-- main.py
-- packages folder
-    - __init__.py
-    - area to organise other py files?
-- virtual environment folder
-- requirements.txt
-- license - copyright info, etc
-- testing - test.py
+# What?
+
+- Virtual pet app
+- choose, care for your pet with interactive input
+- Goal = keep your pet happy, healthy, and engaged over time by performing actions like feeding, playing, and letting it rest. Here’s how it will work:
+
+How the app works:
+
+Choose and name a pet:
+At the start, you pick the type of pet (dog, cat, fish, etc.) and give it a name. This creates a personalized experience.
+
+See your pet’s status:
+The app displays your pet’s key stats (e.g., hunger, happiness, energy, and health), often on a 0–10 or 0–100 scale. These numbers change based on your actions (for example, playing makes your pet happier but may decrease its energy).
+
+Care for your pet through actions:
+You interact via menu choices for things like:
+
+Feeding (restores hunger)
+
+Playing (increases happiness)
+
+Resting (restores energy)
+
+Sometimes, customizing your pet (appearance or name)
+
+Viewing fun facts, jokes, or images fetched from external APIs (these can enrich the gameplay and demonstrate third-party library usage).
+
+Time-based simulation:
+The pet’s stats may slowly decay or change over time, encouraging regular interaction. For example, hunger or boredom increases if ignored.
+
+Real-time feedback:
+After each action, you see updated pet stats and receive messages or ASCII graphics reflecting your pet’s mood or activities. For CLI output, colored text can highlight changes.
+
+Error handling:
+The app will check for invalid inputs and handle them gracefully by displaying a user-friendly error message and reprompting you, ensuring the game doesn't crash.
+
+Save/load feature:
+Your pet’s status is saved to a file, so you can return later and continue caring for the same pet. You can load your saved pet at startup.
+
+API integration:
+The app fetches live information (like pet facts or weather for your pet’s mood) using web APIs, expanding interactivity and showing real-world data use.
+
+Multi-class design with inheritance:
+The application uses object-oriented programming to represent different pet types, their behaviors, and associated objects (like toys). Classes are structured to demonstrate inheritance (e.g., Dog and Cat subclasses of Animal) and composition (e.g., Pet has a Toy).
+
+Extensible and fun:
+The core game can be easily expanded (adding custom actions, sounds, or even a simple graphical interface using libraries like Pygame), making it a fantastic beginner project you can iterate on over time.
+
+Summary:
+Your app simulates a virtual pet’s life, letting users actively care for it by performing actions that affect its virtual wellbeing. It gives clear, immediate feedback, uses multiple Python libraries, persists data, and handles input and errors robustly—all in a simple, approachable framework suitable for beginners
 
 
 ## DRY PRINCIPALS:
@@ -74,6 +109,35 @@ Why is DRY Important?
 A tamgotchi type game - Commmand-line pet game in python3. That evolves the users pet from one animal to the next (leveling up in the game). They need to care for the pet and make sure if doesn't die. So feeding, love, playing, cleaning poop, etc.
 
 ### How will I achieve this?
+
+# Step 1 - Set up files, imports and virtual environment.
+
+- Activate virtual environment
+- install ```rich```, ```colorma```, ```pyfiglet```, ```requests```, ```questionary```, ```animals```
+- Create files/moduels to organise code
+
+# Step 2 - User/player management code
+
+- login, user input, validate, error handling
+- get username/password inputs, save to JSON
+
+# Step 3 - pet.py
+
+- classes and functions for code pet.py moduel, keep all of it in here, comments
+- methods and attributes that affect pet and player progression e.g. play, feed, clean.
+- save progression in game?
+
+# Step 4 - main.py
+
+- prompt player login, creates new account, exit game
+- test login code works
+- pet creation for new user
+
+# Step 5 - quiz
+
+# Step 6 - animal facts
+
+
 
 #### Step 1
 
