@@ -13,3 +13,4 @@ emoji_priority_high = emoji.emojize(":exclamation:") # ❗
 
 # USER MENU
 emoji_not_found = emoji.emojize(":cross_mark:")  # ❌
+emoji_wink_face = emoji.emojize(":winking_face:")  # 😉

@@ -22,17 +22,19 @@ def load_users():
         print(f"{emoji_not_found} Oh no! Your account is in jail! It's been corrupted by the evil JSON overlords. Time to start fresh!")
         return {}
 
-# Save user
+# SAVE USERS - Save user input to file, create 'users.json' file if it doesn't exist
+# This function will save the users dictionary to the USERS_FILE
+# It creates the directory if it doesn't exist and writes the data in JSON format
 def save_users(users):
     os.makedirs(os.path.dirname(USERS_FILE), exist_ok=True)
     try:
         with open(USERS_FILE, "w") as f: # w = write mode
             json.dump(users, f, indent=2) # makes it human readable json
-        print(f"{emoji_complete_task} User data saved successfully!")
+        print(f"Your account has been saved successfully! Or should I say, nice 'cache'! {emoji_wink_face}")
     except IOError as e:
-        print(f"{emoji_not_found} Oops! We tried to save but hit a snag... guess it couldn't *cache* it. But seriously: {e}")
+        print(f"{emoji_not_found} Oh-no! {e} ... guess we couldn't 'cache' it. Please try again!")
 
-# New User
+# NEW USER - Register a new user, check if username already exists, save user data
 def register_user():
     users = load_users()
     print(f"\n{emoji_add_task} Woohoo! Let's get you signed up!")
