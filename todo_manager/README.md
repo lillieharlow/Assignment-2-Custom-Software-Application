@@ -212,6 +212,15 @@ Validate credentials on login.
 
 Handle errors (e.g., username taken, wrong password).
 
+
+
+
+
+
+
+
+
+
 Step 3: Build the Task System
 Make a Task class in tasks/task.py to represent each to-do item.
 
