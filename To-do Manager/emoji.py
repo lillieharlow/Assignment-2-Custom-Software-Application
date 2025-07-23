@@ -10,3 +10,6 @@ emoji_quit = emoji.emojize(":waving_hand:")          # 👋
 emoji_complete_task = emoji.emojize(":check_mark:")  # ✅
 emoji_edit_task = emoji.emojize(":pencil:")          # ✏️
 emoji_priority_high = emoji.emojize(":exclamation:") # ❗
+
+# USER MENU
+emoji_not_found = emoji.emojize(":cross_mark:")  # ❌
