@@ -133,7 +133,8 @@ Step-by-Step Coding Plan
 Step 1: Structure Your Project
 Organize your project like this:
 
-text
+proper python convention - haveing '/' goes in frotn of directory to indicate folder hierachy and directory structure.
+
 /todo_manager
   /auth
     - __init__.py          # Makes it a proper Python package
@@ -161,7 +162,38 @@ text
   - .gitignore            # Ignore data files, __pycache__, etc.
 
 
+  📁 todo_manager/               ← Main project folder
+├── 📁 auth/                   ← Authentication subfolder
+│   ├── __init__.py
+│   ├── user.py
+│   └── auth_manager.py
+├── 📁 tasks/                  ← Tasks subfolder
+│   ├── __init__.py
+│   ├── task.py
+│   └── tasklist.py
+├── 📁 cli/                    ← CLI interface subfolder
+│   ├── __init__.py
+│   ├── menu.py
+│   └── theme.py
+├── 📁 data/                   ← Data storage subfolder
+│   ├── users.json
+│   └── tasks_*.json
+├── storage.py                 ← Files in main folder
+├── manager.py
+├── main.py
+└── README.md
+
+
 Each file/module will focus on a different piece of functionality.
+
+first - create main files needed
+
+📁 todo_manager/
+├── main.py                    ← Start here (entry point)
+├── user.py                    ← Move your existing user.py here
+├── tasks.py                   ← Move your existing tasks.py here
+├── emoji.py                   ← Move your existing emoji.py here
+└── requirements.txt           ← List your dependencies
 
 
 
