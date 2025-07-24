@@ -5,6 +5,11 @@ Allow new users to sign up (choose username & password).
 Store hashed passwords securely (Python's hashlib).
 Validate credentials on login.
 Handle errors (e.g., username taken, wrong password).
+
+Creating new users with secure passwords
+Authenticating logins with password verification
+Saving/loading user data to/from JSON files
+Integration with your AuthManager class
 '''
 
 import hashlib
@@ -16,7 +21,6 @@ import json
 class User:
     def __init__(self, username, password = None, password_hash = None):
         self.username = username
-        self.password = password
         self.password_hash = password_hash # loading existing user with hashed password (security)
         
         # Hash a new password or use existing hash
@@ -45,3 +49,35 @@ class User:
 
     def verify_password(self, password):
         return self.password_hash == self._hash_password(password)
+    
+    '''Convert user to dictionary for JSON storage.
+    Take user object user = User("Lillie", "password123")
+    Gets username & password_hash
+    Creates a dictionary with these key-value pairs
+    Returns dictionary, ready to be saved as JSON
+    Prepares data for storage'''
+    
+    def to_dict(self):
+        return {
+            "username": self.username,
+            "password_hash": self.password_hash
+        }
+    
+    '''Create a User instance from a dictionary (for loading from JSON)
+    @classmethod a class method called on the method itself, a factory that creates User objects
+    Receives dictionary, extracts values, creates new user and returns User object
+    This allows loading user data from JSON files or other sources
+    Rebuilds objects from storage
+    '''
+    
+    @classmethod
+    def from_dict(cls, data):
+        return cls(
+            username=data["username"],
+            password_hash=data["password_hash"]
+        )
+        
+    #User object is converted to str, shows username only
+    
+    def __str__(self):
+        return f"User: {self.username}"
