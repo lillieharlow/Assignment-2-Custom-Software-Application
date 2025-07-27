@@ -1,84 +1,31 @@
 '''
-The User class represents individual users and handles:
-- Creating new user accounts with username/password
-- Verifying user credentials during login
-- Converting user data to/from JSON format for storage
-- Secure password hashing to prevent plain-text storage
-
-Designed to integrate with AuthManager for complete authentication workflow.
+User class handles signing up, loggin in and saving user accounts.
+Stores user accounts in a JSON file so they don't get lost when the app closes.
 '''
 
-import hashlib
-import os
 import json
+import os
+import emoji import *
+from getpass import getpass
 
 class User:
-    """
-    Represents a single user with secure password storage.
-    Classes use capitalized names (lowercase is for variables/functions).
-    """
     
-    def __init__(self, username, password=None, password_hash=None):
-        """Initialize user with username and password (hashed for security)."""
-        self.username = username
+    def __init__(self, users_file="data/users.json"):
+        #Create user object, set up where to save the data and track who is logged in.
+        self.users_file = users_file
+        self.logged_in_user = None
         
-        if password:
-            self.password_hash = self._hash_password(password)
-        elif password_hash:
-            self.password_hash = password_hash
-        else:
-            raise ValueError("Must provide either password or password_hash")
-           
-    def _hash_password(self, password):
-        """
-        Hash a password using SHA-256 for secure storage.
-        
-        Takes plain text password and scrambles it into unreadable text:
-        - hashlib.sha256() uses SHA-256 algorithm to scramble the password
-        - encode() converts text to bytes (computer language)
-        - hexdigest() converts scrambled bytes back to readable text
-        """
-        return hashlib.sha256(password.encode()).hexdigest()
+    def load_users(self):
+        # Load users from json file, if no user exists - create an empty list.
+        if not os.path.exists(self.users_file):
+            print(f"{emoji_not_found} No user data found. Let's sign up!")
+            return {}
+        try:
+            with open(self.users_file, "r") as f:
+                return json.load(f)
+        except (json.JSONDecodeError, IOError):
+            print(f"{emoji_not_found} Oh no! Your account has been corrupted by the evil JSON overlords. Please sign up again.")
+            return {}
     
-    def verify_password(self, password):
-        """
-        Check if password matches stored hash.
+    def save_users(self, users):
         
-        Compares new scrambled version against the stored scrambled version.
-        Returns True if passwords match, False if they don't.
-        """
-        return self.password_hash == self._hash_password(password)
-    
-    def to_dict(self):
-        """
-        Convert user to dictionary for JSON storage.
-        
-        Takes user object like User("Lillie", "password123") and:
-        - Gets username & password_hash
-        - Creates a dictionary with these key-value pairs
-        - Returns dictionary ready to be saved as JSON
-        """
-        return {
-            "username": self.username,
-            "password_hash": self.password_hash
-        }
-    
-    @classmethod
-    def from_dict(cls, data):
-        """
-        Create a User instance from a dictionary (for loading from JSON).
-        
-        This is a factory method that creates User objects:
-        - Receives dictionary from JSON file
-        - Extracts username and password_hash values
-        - Creates new User object and returns it
-        - Allows rebuilding users from stored data
-        """
-        return cls(
-            username=data["username"],
-            password_hash=data["password_hash"]
-        )
-        
-    def __str__(self):
-        """Convert User object to string, shows username only (for security)."""
-        return f"User: {self.username}"
