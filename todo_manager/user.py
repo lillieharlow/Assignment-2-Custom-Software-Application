@@ -7,7 +7,7 @@ import json
 import os
 from emoji import *
 from getpass import getpass
-import rich
+from styling import print_error, print_success, print_info, print_warning, print_welcome
 
 class User:
     
@@ -19,13 +19,13 @@ class User:
     def load_users(self):
         """Load users from json file, if no user exists - create an empty dictionary."""
         if not os.path.exists(self.users_file):
-            print(f"{emoji_not_found} No user data found. Let's sign up!")
+            print_error(f"{emoji_not_found} No user data found. Let's sign up!")
             return {}
         try:
             with open(self.users_file, "r") as f:
                 return json.load(f)
         except (json.JSONDecodeError, IOError):
-            print(f"{emoji_not_found} Oh no! Your account has been corrupted by the evil JSON overlords. Please sign up again.")
+            print_error(f"{emoji_not_found} Oh no! Your account has been corrupted by the evil JSON overlords. Please sign up again.")
             return {}
     
     def save_users(self, users):
@@ -34,21 +34,21 @@ class User:
         try:
             with open(self.users_file, "w") as f:
                 json.dump(users, f, indent=2)
-            print(f"Your account has been saved successfully! Or should I say, nice 'cache'! {emoji_wink_face}")
+            print_success(f"Your account has been saved successfully! Or should I say, nice 'cache'! {emoji_wink_face}")
         except IOError as e:
-            print(f"{emoji_not_found} Oh-no! {e} ... guess we couldn't 'cache' it. Please try again!")
+            print_error(f"Oh-no! {e} ... guess we couldn't 'cache' it. Please try again!")
 
     def register_user(self):
         """Sign up new user with username and password."""
         users = self.load_users()
-        print(f"\n{emoji_add_task} Woohoo! Let's get you signed up!")
+        print_welcome(f"\n{emoji_add_task} Woohoo! Let's get you signed up!")
         while True:
             username = input(f"{emoji_edit_task} Choose your username: ").strip()
             if not username:
-                print(f"{emoji_not_found} Username can't be empty... this is awkward. Please try again!")
+                print_error(f"{emoji_not_found} Username can't be empty... this is awkward. Please try again!")
                 continue
             if username in users:
-                print(f"{emoji_not_found} Second place! That username's already taken. Try another one?")
+                print_error(f"{emoji_not_found} Second place! That username's already taken. Try another one?")
                 continue
             break
 
