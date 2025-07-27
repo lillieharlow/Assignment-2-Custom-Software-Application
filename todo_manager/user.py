@@ -1,23 +1,23 @@
 '''
-User class handles signing up, loggin in and saving user accounts.
+User class handles signing up, logging in and saving user accounts.
 Stores user accounts in a JSON file so they don't get lost when the app closes.
 '''
 
 import json
 import os
-import emoji import *
+from emoji import *
 from getpass import getpass
 import rich
 
 class User:
     
     def __init__(self, users_file="data/users.json"):
-        # Create user object, set up where to save the data and track who is logged in.
+        """Create user object, set up where to save the data and track who is logged in."""
         self.users_file = users_file
         self.logged_in_user = None
         
     def load_users(self):
-        # Load users from json file, if no user exists - create an empty list.
+        """Load users from json file, if no user exists - create an empty dictionary."""
         if not os.path.exists(self.users_file):
             print(f"{emoji_not_found} No user data found. Let's sign up!")
             return {}
@@ -29,7 +29,7 @@ class User:
             return {}
     
     def save_users(self, users):
-        # Save users to the file so we don't lose them
+        """Save users to file so we don't lose them."""
         os.makedirs(os.path.dirname(self.users_file), exist_ok=True)
         try:
             with open(self.users_file, "w") as f:
@@ -39,7 +39,7 @@ class User:
             print(f"{emoji_not_found} Oh-no! {e} ... guess we couldn't 'cache' it. Please try again!")
 
     def register_user(self):
-        # Sign up a new user with username and password
+        """Sign up new user with username and password."""
         users = self.load_users()
         print(f"\n{emoji_add_task} Woohoo! Let's get you signed up!")
         while True:
@@ -72,7 +72,7 @@ class User:
         return username
 
     def login_user(self):
-        # Log in an existing user by checking their username and password
+        """Log in an existing user by checking their username and password."""
         users = self.load_users()
         print(f"\n{emoji_quit} Welcome back! (Type 'exit' or leave empty to cancel login)")
 
@@ -92,7 +92,7 @@ class User:
                 print(f"{emoji_priority_high} Oops! That username or password didn't check out. Try again or type 'exit' to quit.")
 
     def logout_user(self):
-        # Log out whoever is currently logged in
+        """Log out whoever is currently logged in."""
         if self.logged_in_user:
             print(f"{emoji_quit} Goodbye, {self.logged_in_user}! Thanks for using FOR YOU!")
             self.logged_in_user = None
@@ -100,10 +100,10 @@ class User:
             print(f"{emoji_not_found} No user is currently logged in.")
 
     def get_current_user(self):
-        # Tell us who is logged in right now
+        """Tell us who is logged in right now."""
         return self.logged_in_user
 
     def is_logged_in(self):
-        # Check if someone is logged in (True) or not (False)
+        """Check if someone is logged in (True) or not (False)."""
         return self.logged_in_user is not None
         
