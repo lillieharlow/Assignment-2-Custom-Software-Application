@@ -19,7 +19,6 @@ class User:
     def load_users(self):
         """Load users from json file, if no user exists - create an empty dictionary."""
         if not os.path.exists(self.users_file):
-            print_error(f"{emoji_not_found} No user data found. Let's sign up!")
             return {}
         try:
             with open(self.users_file, "r") as f:
@@ -31,6 +30,7 @@ class User:
     def save_users(self, users):
         """Save users to file so we don't lose them."""
         os.makedirs(os.path.dirname(self.users_file), exist_ok=True)
+        
         try:
             with open(self.users_file, "w") as f:
                 json.dump(users, f, indent=2)
@@ -42,6 +42,7 @@ class User:
         """Sign up new user with username and password."""
         users = self.load_users()
         print_welcome(f"\n{emoji_add_task} Woohoo! Let's get you signed up!")
+        
         while True:
             username = input(f"{emoji_edit_task} Choose your username: ").strip()
             if not username:
@@ -57,10 +58,10 @@ class User:
             password_confirm = getpass(f"{emoji_edit_task} Second time's a charm! Please re-enter your password: ").strip()
 
             if len(password) < 5:
-                print(f"{emoji_not_found} That password's too short. Give me a stronger one!")
+                print_error(f"{emoji_not_found} That password's too short. Give me a stronger one!")
                 continue
             if password != password_confirm:
-                print(f"{emoji_not_found} Hmm, your passwords don't match. Want to try again?")
+                print_error(f"{emoji_not_found} Hmm, your passwords don't match. Want to try again?")
                 continue
             break
 
@@ -68,36 +69,36 @@ class User:
         self.save_users(users)
         self.logged_in_user = username  # Automatically log in the new user
 
-        print(f"{emoji_complete_task} Awesome! Your account '{username}' is all set up. Welcome to FOR YOU! The to-do manager that cares about you!")
+        print_success(f"{emoji_complete_task} Awesome! Your account '{username}' is all set up. Welcome to FOR YOU! The to-do manager that cares about you!")
         return username
 
     def login_user(self):
         """Log in an existing user by checking their username and password."""
         users = self.load_users()
-        print(f"\n{emoji_quit} Welcome back! (Type 'exit' or leave empty to cancel login)")
+        print_info(f"\n{emoji_quit} Welcome back! (Type 'exit' or leave empty to cancel login)")
 
         while True:
             username = input(f"{emoji_edit_task} Username: ").strip()
             if username.lower() == "exit" or username == "":
-                print(f"{emoji_quit} Login cancelled. Farewell, goodbye, the end! See you next time!")
+                print_info(f"{emoji_quit} Login cancelled. Farewell, goodbye, the end! See you next time!")
                 return None
 
             password = getpass(f"{emoji_edit_task} Password: ").strip()
 
             if username in users and users[username]["password"] == password:
-                print(f"{emoji_complete_task} Welcome back, {username}! It's nice to see you again, let's use FOR YOU!")
+                print_success(f"{emoji_complete_task} Welcome back, {username}! It's nice to see you again, let's use FOR YOU!")
                 self.logged_in_user = username  # Remember who is logged in
                 return username
             else:
-                print(f"{emoji_priority_high} Oops! That username or password didn't check out. Try again or type 'exit' to quit.")
+                print_error(f"{emoji_priority_high} Oops! That username or password didn't check out. Try again or type 'exit' to quit.")
 
     def logout_user(self):
         """Log out whoever is currently logged in."""
         if self.logged_in_user:
-            print(f"{emoji_quit} Goodbye, {self.logged_in_user}! Thanks for using FOR YOU!")
+            print_info(f"{emoji_quit} Goodbye, {self.logged_in_user}! Thanks for using FOR YOU!")
             self.logged_in_user = None
         else:
-            print(f"{emoji_not_found} No user is currently logged in.")
+            print_warning(f"{emoji_not_found} No user is currently logged in.")
 
     def get_current_user(self):
         """Tell us who is logged in right now."""

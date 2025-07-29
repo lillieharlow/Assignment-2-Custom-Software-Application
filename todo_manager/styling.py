@@ -36,3 +36,15 @@ def print_header(text):
     console.print(f"\n{'='*50}", style="bold cyan")
     console.print(text.center(50), style="bold magenta")
     console.print(f"{'='*50}", style="bold cyan")
+    
+def print_menu():
+    """Print the main menu with nice spacing."""
+    console.print("\nPlease choose an option:", style="bold white")
+    console.print("1. Sign up", style="cyan")
+    console.print("2. Log in", style="cyan") 
+    console.print("3. Log out", style="cyan")
+    console.print("4. Exit", style="cyan")
+
+def print_spacing():
+    """Add extra spacing when needed."""
+    console.print("\n")
