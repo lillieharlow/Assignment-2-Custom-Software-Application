@@ -2,7 +2,7 @@
 
 emoji_add_task = "➕"
 emoji_delete_task = "🗑️"
-emoji_list_task = "📝"
+emoji_list_task = "📋"
 emoji_quit = "👋"
 emoji_complete_task = "✅"
 emoji_edit_task = "✏️"
