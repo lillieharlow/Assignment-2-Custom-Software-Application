@@ -525,3 +525,16 @@ Assignment-2-Custom-Software-Application/
     ├── emoji.py                # 😊 Emoji definitions
     ├── base_classes.py         # 🏗️ Base classes
     └── [generated data files]  # 💾 JSON data files
+
+
+
+    🔧 Direct Dependencies (Your 5 Required Libraries):
+colorama==0.4.6 - Cross-platform colors ✅
+pyfiglet==1.0.2 - ASCII art for your "TO DO." title ✅
+requests==2.31.0 - API calls for motivational quotes ✅
+rich==13.7.1 - Beautiful console tables and styling ✅
+tabulate==0.9.0 - Alternative table display ✅
+📦 Required Dependencies (Needed by the above):
+certifi, charset-normalizer, idna, urllib3 - Required by requests
+markdown-it-py, mdurl, Pygments - Required by rich
+pip - Package manager

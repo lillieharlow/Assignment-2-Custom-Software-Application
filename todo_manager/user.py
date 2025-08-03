@@ -34,9 +34,9 @@ class User:
         try:
             with open(self.users_file, "w") as f:
                 json.dump(users, f, indent=2)
-            print_success(f"Your account has been saved successfully! Or should I say, nice 'cache'! {emoji_wink_face}")
+            print_success(f"Your account has been saved successfully! Or should I say, nice **'cache'**! {emoji_wink_face}")
         except IOError as e:
-            print_error(f"Oh-no! {e} ... guess we couldn't 'cache' it. Please try again!")
+            print_error(f"Oh-no! {e} ... guess we couldn't **'cache'** it. Please try again!")
 
     def register_user(self):
         """Sign up new user with username and password."""
@@ -44,9 +44,9 @@ class User:
         print_welcome(f"\n{emoji_add_task} Woohoo! Let's get you signed up!")
         
         while True:
-            username = input(f"{emoji_edit_task} Choose your username: ").strip()
+            username = input(f"\n{emoji_edit_task} Choose your username: ").strip()
             if not username:
-                print_error(f"{emoji_not_found} Username can't be empty... this is awkward. Please try again!")
+                print_error(f"{emoji_not_found} This is awkward... username can't be empty. Please try again!")
                 continue
             if username in users:
                 print_error(f"{emoji_not_found} Second place! That username's already taken. Try another one?")
@@ -68,8 +68,7 @@ class User:
         users[username] = {"password": password}
         self.save_users(users)
         self.logged_in_user = username  # Automatically log in the new user
-
-        print_success(f"{emoji_complete_task} Awesome! Your account '{username}' is all set up. Welcome to FOR YOU! The to-do manager that cares about you!")
+        print()
         return username
 
     def login_user(self):

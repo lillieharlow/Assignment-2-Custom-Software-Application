@@ -6,7 +6,7 @@ import sys
 from user import User
 from tasks import TaskList, Task
 from styling import print_error, print_success, print_info, print_welcome, show_app_title
-from emoji import emoji_add_task, emoji_list_task, emoji_complete_task, emoji_delete_task, emoji_quit
+from emoji import emoji_add_task, emoji_list_task, emoji_complete_task, emoji_delete_task, emoji_quit,  emoji_motivation
 
 # Global user object - this handles login and signup
 u = User()
@@ -75,10 +75,10 @@ def get_task_number(task_list, action):
 def show_motivational_quote(task_list):
     """Gets a nice motivational quote to keep the user going - because everyone needs encouragement!"""
     try:
-        print_info("Getting you some motivation... 🌟")
+        print_info(f"Getting you some motivation... {emoji_motivation}")
         task_list.get_motivational_quote()
     except:
-        print_info("💪 You're doing great! Keep up the awesome work!")
+        print_info(f"{emoji_motivation} You're doing great! Keep up the awesome work!")
 
 def task_menu(task_list):
     """This is the main task menu where users do all their task stuff"""
@@ -92,13 +92,12 @@ def task_menu(task_list):
             print(f"2. {emoji_list_task} See all my tasks")
             print(f"3. {emoji_complete_task} Mark a task as done")
             print(f"4. {emoji_delete_task} Delete a task")
-            print(f"5. 💪 Get some motivation")
-            print(f"6. 📊 Show tasks differently")
-            print(f"7. {emoji_quit} Exit the app")
+            print(f"5. {emoji_motivation} Get some motivation")
+            print(f"6. {emoji_quit} Exit the app")
             print("="*60)
-            
-            choice = input("\nWhat would you like to do? (1-7): ")
-            
+
+            choice = input("\nWhat would you like to do? (1-6): ")
+
             if choice == "1":
                 # Add a new task
                 print_welcome(f"\n{emoji_add_task} Let's add a new task!")
@@ -140,14 +139,8 @@ def task_menu(task_list):
                 # Show motivation
                 show_motivational_quote(task_list)
                 pause_and_continue()
-                
+
             elif choice == "6":
-                # Alternative view
-                print_info("\n📊 Here's a different way to see your tasks:")
-                task_list.display_tasks_tabulate()
-                pause_and_continue()
-                
-            elif choice == "7":
                 # Exit
                 print_info(f"See you later, {u.get_current_user()}! You're awesome! 👋")
                 break
@@ -165,7 +158,6 @@ def task_menu(task_list):
 def handle_signup():
     """Handles when someone wants to create a new account - pretty straightforward"""
     try:
-        print_welcome("\n📝 Let's get you set up with a new account!")
         username = u.register_user()
         if username:
             task_list = TaskList(username)

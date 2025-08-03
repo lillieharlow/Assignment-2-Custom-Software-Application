@@ -78,9 +78,9 @@ class TaskList:
             print_info(f"Loaded {len(self.tasks)} tasks for {self.username}")
             
         except FileNotFoundError:
-            print_info(f"No existing tasks found for {self.username}. Starting fresh!")
+            pass
         except:
-            print_error("Something went wrong loading tasks. Starting with an empty list.")
+            print_error("Something went wrong... let's just start with an empty list.")
 
     def add_task(self, task):
         """Add a new task to the list"""
