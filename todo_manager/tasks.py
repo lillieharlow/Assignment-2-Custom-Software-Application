@@ -1,59 +1,85 @@
-# Tasks classes for "FOR YOU" to-do manager app
+# Tasks classes for TO DO. task manager
 
-import tabulate  # For making tables pretty
-from emoji import *  # Import emoji icons for better UX
-from styling import print_error, print_success, print_info, print_warning, print_welcome  # Rich colors
+import json
+from styling import print_error, print_success, print_info
+from emoji import emoji_complete_task, emoji_incomplete_task
 
 # Task class represents one single task
 class Task:
-    def __init__(self, title, completed=False):
+    def __init__(self, title):
         """Create a new task."""
         self.title = title
-        self.completed = completed
+        self.completed = False
 
     def mark_complete(self):
-        """Mark task as complete."""
+        """Mark this task as complete."""
         self.completed = True
 
-    def to_dict(self):
-        """Convert task to dictionary for saving."""
-        return {
-            "title": self.title,
-            "completed": self.completed
-        }
-
-    @staticmethod
-    def from_dict(d):
-        """Create task from dictionary."""
-        return Task(d["title"], d["completed"])
-
-# TaskList class manages many tasks
+# TaskList class manages many tasks for one user
 class TaskList:
     def __init__(self, username):
         """Create a task list for a user."""
         self.username = username
+        self.filename = f"{username}_tasks.json"
         self.tasks = []
+        self.load_tasks()
+
+    def save_tasks(self):
+        """Save tasks to file."""
+        try:
+            task_data = []
+            for task in self.tasks:
+                task_data.append({
+                    "title": task.title,
+                    "completed": task.completed
+                })
+            
+            with open(self.filename, 'w') as file:
+                json.dump(task_data, file)
+        except:
+            print_error("Could not save tasks!")
+
+    def load_tasks(self):
+        """Load tasks from file."""
+        try:
+            with open(self.filename, 'r') as file:
+                task_data = json.load(file)
+                
+            for data in task_data:
+                task = Task(data["title"])
+                task.completed = data["completed"]
+                self.tasks.append(task)
+                
+        except FileNotFoundError:
+            pass  # No file yet, start with empty list
+        except:
+            print_error("Could not load tasks!")
 
     def add_task(self, task):
-        """Add a task to the list."""
+        """Add a new task."""
         self.tasks.append(task)
-        print_success(f"Task '{task.title}' added successfully!")
+        self.save_tasks()
+        print_success(f"Added task: {task.title}")
+        print_info("Here's your updated task list:")
+        self.display_tasks()  # Show tasks after adding
 
     def remove_task(self, index):
-        """Remove a task by index."""
+        """Remove a task by number."""
         if 0 <= index < len(self.tasks):
-            task_title = self.tasks[index].title
-            del self.tasks[index]
-            print_success(f"Task '{task_title}' deleted!")
+            task = self.tasks[index]
+            self.tasks.remove(task)
+            self.save_tasks()
+            print_success(f"Deleted: {task.title}")
         else:
             print_error("Invalid task number!")
 
     def mark_complete(self, index):
         """Mark a task as complete."""
         if 0 <= index < len(self.tasks):
-            task_title = self.tasks[index].title
-            self.tasks[index].mark_complete()
-            print_success(f"Task '{task_title}' marked as complete!")
+            task = self.tasks[index]
+            task.mark_complete()
+            self.save_tasks()
+            print_success(f"Completed: {task.title}")
         else:
             print_error("Invalid task number!")
 
@@ -62,28 +88,12 @@ class TaskList:
         return self.tasks
 
     def display_tasks(self):
-        """Show all tasks in a beautiful table."""
+        """Show all tasks in a simple list."""
         if not self.tasks:
-            print_warning("No tasks yet! Add some to get started.")
+            print_info("No tasks yet! Add some to get started.")
             return
 
-        # Prepare data for table
-        table_data = []
+        print_info(f"\nTasks for {self.username}:")
         for i, task in enumerate(self.tasks):
-            checkbox = "[✓]" if task.completed else "[ ]"
-            table_data.append([
-                i + 1,          # Task number
-                task.title,     # Task description  
-                checkbox        # Done checkbox (on the right)
-            ])
-
-        # Create table with headers
-        headers = ["#", "Task", "Done"]
-        table = tabulate.tabulate(
-            table_data,
-            headers=headers,
-            tablefmt="grid"
-        )
-
-        print_info("Your Tasks:")
-        print(table)
+            status = emoji_complete_task if task.completed else emoji_incomplete_task
+            print(f"{i + 1}. {status} {task.title}")

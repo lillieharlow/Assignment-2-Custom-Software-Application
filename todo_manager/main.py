@@ -72,6 +72,7 @@ def task_menu(task_list):
             index = get_task_number(task_list, "complete")
             if index is not None:
                 task_list.mark_complete(index)
+                task_list.display_tasks()
             pause_and_continue()
             
         elif choice == "4":
