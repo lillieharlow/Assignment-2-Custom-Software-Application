@@ -510,3 +510,18 @@ For technical issues:
 ---
 
 **Happy Task Managing! 🎉**
+
+
+Assignment-2-Custom-Software-Application/
+├── README.md                    # 📖 Project documentation
+├── requirements.txt             # 📦 Dependencies
+├── .gitignore                  # 🚫 Git ignore rules
+└── todo_manager/               # 📁 Main application package
+    ├── __init__.py             # 🐍 Python package marker
+    ├── main.py                 # 🚀 Application entry point
+    ├── user.py                 # 👤 User management
+    ├── tasks.py                # ✅ Task management  
+    ├── styling.py              # 🎨 UI styling
+    ├── emoji.py                # 😊 Emoji definitions
+    ├── base_classes.py         # 🏗️ Base classes
+    └── [generated data files]  # 💾 JSON data files
