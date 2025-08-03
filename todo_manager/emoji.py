@@ -13,6 +13,7 @@ emoji_quit = "👋"
 emoji_wink_face = "😉"
 emoji_not_found = "❌"
 emoji_motivation = "💪"
+emoji_priority_high = "🚨"
 
 # Menu emojis
 emoji_door = "🚪"

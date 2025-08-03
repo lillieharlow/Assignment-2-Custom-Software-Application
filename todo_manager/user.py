@@ -5,7 +5,7 @@ Stores user accounts in a JSON file so they don't get lost when the app closes.
 
 import json
 import os
-from emoji import *
+from emoji import emoji_add_task, emoji_edit_task, emoji_wink_face, emoji_not_found
 from getpass import getpass
 from styling import print_error, print_success, print_info, print_warning, print_welcome
 
@@ -74,7 +74,7 @@ class User:
     def login_user(self):
         """Log in an existing user by checking their username and password."""
         users = self.load_users()
-        print_info(f"\n{emoji_quit} Welcome back! (Type 'exit' or leave empty to cancel login)")
+        print_info(f"\nWelcome back! (Type 'exit' or leave empty to cancel login)")
 
         while True:
             username = input(f"{emoji_edit_task} Username: ").strip()
@@ -85,11 +85,12 @@ class User:
             password = getpass(f"{emoji_edit_task} Password: ").strip()
 
             if username in users and users[username]["password"] == password:
-                print_success(f"{emoji_complete_task} Welcome back, {username}! It's nice to see you again, let's use FOR YOU!")
+                print_success(f"{emoji_complete_task} Welcome back, {username}! It's nice to see you again, let's use TO DO!")
                 self.logged_in_user = username  # Remember who is logged in
                 return username
             else:
                 print_error(f"{emoji_priority_high} Oops! That username or password didn't check out. Try again or type 'exit' to quit.")
+                
 
     def logout_user(self):
         """Log out whoever is currently logged in."""
@@ -104,6 +105,6 @@ class User:
         return self.logged_in_user
 
     def is_logged_in(self):
-        """Check if someone is logged in (True) or not (False)."""
-        return self.logged_in_user is not None
-        
+            """Check if someone is logged in (True) or not (False)."""
+            return self.logged_in_user is not None
+            
