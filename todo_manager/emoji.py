@@ -1,7 +1,6 @@
 # Emoji definitions for the TO DO app
 
 # Task related emojis
-emoji_add_task = "✅"
 emoji_list_task = "📋"
 emoji_complete_task = "✅"
 emoji_incomplete_task = "⬜"

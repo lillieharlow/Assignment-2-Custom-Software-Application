@@ -8,24 +8,19 @@ console = Console()
 # ========= Basic Print Functions =========
 
 def print_error(message):
-    """Print error message in bold red."""
-    console.print(message, style="bold red")
+    console.print(message, style="bold #ff0000")
 
 def print_success(message):
-    """Print success message in bold green."""
-    console.print(message, style="bold green")
+    console.print(message, style="bold #69f0ae")
 
 def print_info(message):
-    """Print info message in bold cyan."""
-    console.print(message, style="bold cyan")
+    console.print(message, style="bold #ff1493")
 
 def print_warning(message):
-    """Print warning message in bold yellow."""
-    console.print(message, style="bold yellow")
+    console.print(message, style="bold #ffeb3b")
 
 def print_welcome(message):
-    """Print welcome message in bold magenta."""
-    console.print(message, style="bold magenta")
+    console.print(message, style="bold #40c4ff")
 
 # ========= ASCII Art Functions =========
 
@@ -34,8 +29,8 @@ def print_rainbow_text(text, font='ANSI_Shadow'):
     figlet_text = pyfiglet.figlet_format(text, font=font)
     
     # Colours for rainbow effect
-    rich_colors = ['bright_red', 'bright_yellow', 'bright_green', 'bright_cyan', 'bright_blue', 'bright_magenta']
-    
+    rich_colors = ["#ff7979", "#fff27e", "#94ffcb", "#9eeaff", "#d6aeff", "#ff9bcd"]
+
     lines = figlet_text.splitlines()
     
     # Find the longest line to calculate proper padding
@@ -69,4 +64,4 @@ def show_app_title():
     print("\n" + "="*50)
     print_rainbow_text("TO DO.", font='ANSI_Shadow')
     print("="*50 + "\n")
-    print_info("Your personal task manager that cares about you!")
+    print_info("A TASK MANAGEMENT APP THAT HELPS YOU STAY ON TRACK")

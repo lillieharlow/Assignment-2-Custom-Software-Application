@@ -4,25 +4,29 @@ import time
 from user import User
 from tasks import TaskList, Task
 from styling import print_error, print_success, print_info, print_welcome, show_app_title
-from emoji import emoji_add_task, emoji_list_task, emoji_complete_task, emoji_delete_task, emoji_quit, emoji_motivation, emoji_door, emoji_key, emoji_lock, emoji_person
+from emoji import emoji_add_task, emoji_list_task, emoji_complete_task, emoji_delete_task, emoji_quit, emoji_motivation, emoji_door, emoji_key, emoji_wink_face, emoji_person
 from rich.console import Console
 
-# Global user object
+# ========== Global user objects =========
 u = User()
 console = Console()
 
+# ========== Pause and continue =========
+
 def pause_and_continue():
-    """Wait for user to press Enter"""
     input("\nPress enter to continue...")
 
+# ========== User Welcome =========
+
 def welcome_user(username, is_returning=False):
-    """Welcome message for users"""
     if is_returning:
-        message = f"Hey {username}! Welcome back to your task manager!"
+        message = f"HEY {username}, WELCOME BACK!"
     else:
-        message = f"Hi {username}! Welcome to your new task manager!"
+        message = f"HEY {username}, WELCOME TO TO DO! LET'S GET STARTED! {emoji_wink_face}"
     print_success(message)
-    time.sleep(1)
+    time.sleep(2)
+
+# ========== Task Input =========
 
 def get_task_input():
     """Get task input from user"""
@@ -123,36 +127,35 @@ def task_menu(task_list):
             print_error("Please pick a number between 1 and 6!")
             time.sleep(1)
 
+# ========== User Signup =========
+
 def handle_signup():
-    """Handle user signup"""
     username = u.register_user()
     if username:
         task_list = TaskList(username)
         welcome_user(username)
         task_menu(task_list)
 
+# ========== User Login =========
+
 def handle_login():
-    """Handle user login"""
-    print_welcome(f"\n{emoji_key} Welcome back!")
+    print_welcome(f"\n{emoji_key} WELCOME BACK!")
     username = u.login_user()
     if username:
         task_list = TaskList(username)
         welcome_user(username, is_returning=True)
         task_menu(task_list)
+        
+# ========== Main Menu - login, signup or exit =========
 
 def main_menu():
-    """Main menu - login, signup, or exit"""
     while True:
-        console.print("\n" + "="*50, style="cyan")
-        console.print(f"[bold cyan]{emoji_lock} Welcome to TO DO.[/bold cyan]", justify="center")
-        console.print("="*50, style="cyan")
-        console.print()
-        console.print(f"[bold green]1.[/bold green] {emoji_person} [cyan]Create new account[/cyan]")
-        console.print(f"[bold green]2.[/bold green] {emoji_key} [cyan]Log into existing account[/cyan]") 
-        console.print(f"[bold green]3.[/bold green] {emoji_door} [cyan]Exit[/cyan]")
-        console.print()
-        console.print("="*50, style="cyan")
-        
+        print("\n" + "="*50)
+        print(f"\n1. {emoji_person} Create new account")
+        print(f"2. {emoji_key} Log into existing account") 
+        print(f"3. {emoji_door} Exit")
+        print("\n" + "="*50)
+
         choice = input("\nWhat would you like to do? (1-3): ")
 
         if choice == "1":
@@ -160,10 +163,11 @@ def main_menu():
         elif choice == "2":
             handle_login()
         elif choice == "3":
-            print_info("Thanks for checking out TO DO! Come back soon!")
+            print_info(f"Thanks for stopping by! {emoji_quit}")
             break
         else:
-            print_error("Just pick 1, 2, or 3 please!")
+            pause_and_continue(2)
+            print_error(f"Naughty! {emoji_not_found} Just pick 1, 2, or 3 please!")
 
 if __name__ == "__main__":
     show_app_title()
