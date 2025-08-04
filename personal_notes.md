@@ -54,3 +54,116 @@
 
 - shows TO DO. title in rainbow
 - starts main_menu()
+
+<hr>
+
+# user.py
+
+Blueprint for handling all user accounts - class User
+Manages sign up, log in and who is using the app
+
+- __init__()
+    - sets up where the user accounts will be stored - in a file called users.json
+    - remembers who is currently logged in
+
+### File management
+- load_users()
+    - opens file where all usernames and apsswords are stored
+    - if there isn't a matching file then creates new one, empty list
+    - catch issues by providing an empty list as default so app doesn't crash
+
+- save_users()
+    - writes usernames and passwords
+    - ensures folder exists first - creates if needed
+    - shows success and error message with an error asking input again
+
+### Creating new accounts
+- Step 1:
+    - ask for a username
+    - check it's not empty/blank
+    - check nobody else already has that name
+    - if taken, prompt to pick different username
+    - keep asking until valid username is picked
+
+- Step 2:
+    - ask for password, len > 5 char
+    - ask user to re-type
+    - check both inputs match
+    - keeps asking user until matched
+
+- Step 3:
+    - Saves new username and password to file
+    - logs in automatically
+    - returns your username
+
+### Logging into existing account
+
+Gives you three tires, stops an infite loop/unlimited for security reasons
+
+after three tries is reached, new message says too many attempts and takes user back to main menu
+
+### Extra functionality
+
+- get_current_user()
+    - tells who is currently logged into the app
+    - saying goodbye when someone exits
+
+<hr>
+
+# styling.py
+Makes everything look pretty! Handles all the colors, fancy text.
+Creates an amazing first impression with rainbow title
+- Keeps users engaged with colorful, friendly interface
+- Shows attention to detail and professional presentation
+- Makes the command line app feel modern and polished
+
+### Setup
+- Creates a console object using Rich library for fancy terminal colors
+- Imports pyfiglet for creating big ASCII art text
+- Console is used by all the color functions to display styled messages
+
+### Basic Color Functions
+
+- print_error()
+    - red
+    - impossible to miss - grabs attention immediately
+    - used for validation errors, failed logins, etc.
+
+- print_success()
+    - green
+    - makes users feel good about completing actions
+    - used for successful logins, saved tasks, confirmations
+
+- print_info()
+    - pink
+    - eye-catching but friendly - not scary like errors
+    - used for instructions, general messages, app descriptions
+
+- print_warning()
+    - yellow
+    - gets noticed but not as alarming as errors
+    - used for important notices that aren't quite errors
+
+- print_welcome()
+    - blue
+    - calm and inviting feeling
+    - used for greeting messages and friendly notifications
+
+### ASCII Art Magic
+
+- print_rainbow_text()
+    - takes any text and turns it into HUGE rainbow-colored ASCII art
+    - uses 6 carefully chosen colors that look amazing together
+    - cycles through colors character by character for rainbow effect
+    - adds proper padding above and below for clean presentation
+    - calculates exact spacing to eliminate ugly white gaps
+    - creates professional-looking title that makes app stand out
+
+- show_app_title()
+    - displays the complete app startup screen
+    - combines rainbow ASCII art with borders and tagline
+    - shows "TO DO." in massive rainbow letters
+    - adds description line explaining what the app does
+    - first thing users see - sets the tone for whole experience
+
+

@@ -1,5 +1,6 @@
 # ============= user.py ============
 # This class handles user login, signup and user management.
+# Security system to make sure only the right user can access their task list.
 
 import json
 import os

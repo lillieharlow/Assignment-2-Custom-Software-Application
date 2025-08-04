@@ -1,4 +1,5 @@
-# Emoji definitions for the TO DO app
+# =========== emoji.py ===========
+# This file contains all the emoji definitions used in the app.
 
 # Task related emojis
 emoji_list_task = "📋"

@@ -28,16 +28,12 @@ def print_rainbow_text(text, font='ANSI_Shadow'):
     """Main title - ASCII art with bright rainbow colors on black background"""
     figlet_text = pyfiglet.figlet_format(text, font=font)
     
-    # Colours for rainbow effect
-    rich_colors = ["#ff7979", "#fff27e", "#94ffcb", "#9eeaff", "#d6aeff", "#ff9bcd"]
+    rich_colors = ["#ff7979", "#fff27e", "#94ffcb", "#9eeaff", "#d6aeff", "#ff9bcd"]  # Colours for rainbow effect
 
     lines = figlet_text.splitlines()
-    
-    # Find the longest line to calculate proper padding
-    max_line_length = max(len(line) for line in lines) if lines else 0
+    max_line_length = max(len(line) for line in lines) if lines else 0  # Find the longest line to calculate proper padding
     total_width = max_line_length + 8  # 4 spaces on each side
     
-    # Add empty lines above (top padding)
     for _ in range(3):  # 3 lines of padding above
         console.print(" " * total_width, style="on black")
     
