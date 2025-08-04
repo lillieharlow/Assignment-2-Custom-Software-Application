@@ -183,5 +183,94 @@ Creates an amazing first impression with rainbow title
     - uses Rich formatting for clean output
     - keeps all tables looking consistent
 
+<hr>
 
 
+# tasks.py
+
+Manages all task-related operations - creating, storing, displaying tasks
+Two main classes: Task (individual task) and TaskList (collection of tasks)
+
+### Task Class
+
+- __init__()
+    - creates a new task with title
+    - sets completed status to False by default
+
+- mark_complete()
+    - changes task status to completed (True)
+
+- mark_incomplete()
+    - changes task status back to not completed (False)
+
+### TaskList Class Setup
+
+- __init__()
+    - creates new task list for specific user
+    - sets up filename for saving user's tasks
+    - automatically loads existing tasks from file
+
+### Task Management Functions
+
+- add_task()
+    - adds new task to the list
+    - saves updated list to file
+    - shows success message
+
+- remove_task()
+    - deletes task by number if valid
+    - saves updated list
+    - shows confirmation message or error
+
+- mark_complete()
+    - marks specific task as done by number
+    - saves changes to file
+    - celebrates completion with success message
+
+- get_tasks()
+    - returns the current list of tasks
+    - used by other functions to access tasks
+
+- display_tasks()
+    - shows all tasks in colorful table format
+    - displays message if no tasks exist yet
+    - uses create_task_table() for styling
+
+### File Operations
+
+- save_tasks()
+    - writes all tasks to user's JSON file
+    - creates data folder if needed
+    - handles file errors gracefully
+
+- load_tasks()
+    - reads tasks from user's file on startup
+    - creates Task objects from saved data
+    - handles missing files (new users)
+
+### Motivation System
+
+- get_motivational_quote()
+    - tries to fetch inspiring quote from internet API
+    - displays quote with author attribution
+    - falls back to offline quotes if no internet
+
+- show_backup_motivation()
+    - provides offline motivational quotes
+    - randomly selects from built-in collection
+    - user doesn't know it's offline mode
+
+### Helper Functions
+
+- is_valid_task_number()
+    - checks if user entered valid task number
+    - prevents crashes from invalid input
+
+- show_invalid_number_error()
+    - displays friendly error for wrong numbers
+    - guides user to pick valid option
+
+- display_quote()
+    - formats and displays quotes consistently
+    - adds emoji decorations and proper spacing
+    - used for both online and offline quotes
