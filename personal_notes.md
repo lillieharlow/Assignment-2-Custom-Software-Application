@@ -166,4 +166,22 @@ Creates an amazing first impression with rainbow title
     - adds description line explaining what the app does
     - first thing users see - sets the tone for whole experience
 
+### Table styling
+- Makes task lists look professional vs boring text
+- Colors help users scan tasks quickly  
+- Shows completed (✅) vs incomplete (⬜) clearly
+- Clean, readable format that's easy to understand
+
+- create_task_table()
+    - creates styled table for tasks
+    - sets user's name in cyan as title
+    - three columns: #, status, task (different colors)
+    - returns empty table ready for data
+
+- print_table()
+    - displays table with proper spacing
+    - uses Rich formatting for clean output
+    - keeps all tables looking consistent
+
+
 

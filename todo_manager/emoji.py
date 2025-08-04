@@ -18,12 +18,5 @@ emoji_priority_high = "🚨"
 # Menu emojis
 emoji_door = "🚪"
 emoji_key = "🔑"
-emoji_lock = "🔐"
 emoji_person = "👤"
-
-# Additional emojis
 emoji_welcome = "🌟"
-emoji_success = "✅"
-emoji_warning = "⚠️"
-emoji_info = "ℹ️"
-emoji_heart = "❤️"

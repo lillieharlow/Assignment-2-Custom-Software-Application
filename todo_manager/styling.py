@@ -2,6 +2,7 @@
 
 from rich.console import Console
 import pyfiglet
+from rich.table import Table
 
 console = Console()
 
@@ -22,7 +23,7 @@ def print_warning(message):
 def print_welcome(message):
     console.print(message, style="bold #40c4ff")
 
-# ========= ASCII Art Functions =========
+# ========= ASCII Art Title =========
 
 def print_rainbow_text(text, font='ANSI_Shadow'):
     """Main title - ASCII art with bright rainbow colors on black background"""
@@ -55,9 +56,24 @@ def print_rainbow_text(text, font='ANSI_Shadow'):
     for _ in range(3):  # 3 lines of padding below
         console.print(" " * total_width, style="on black")
 
+# ========= App Title Display =========
 def show_app_title():
     """Display the app title with rainbow styling"""
     print("\n" + "="*50)
     print_rainbow_text("TO DO.", font='ANSI_Shadow')
     print("="*50 + "\n")
     print_info("A TASK MANAGEMENT APP THAT HELPS YOU STAY ON TRACK")
+
+# ========= Task Table =========
+def create_task_table(username):
+    """Create a beautifully styled task table"""
+    table = Table(
+        title=f"[bold cyan]{username}'s Task Manager[/bold cyan]", 
+        show_header=True, 
+        header_style="bold magenta"
+    )
+    table.add_column("#", style="cyan", width=4, justify="center")
+    table.add_column("Status", style="magenta", width=8, justify="center")
+    table.add_column("Task", style="green", min_width=20)
+    
+    return table
