@@ -32,9 +32,9 @@ class User:
         try:
             with open(self.users_file, "w") as f:
                 json.dump(users, f, indent=2)
-            print_success(f"\nNICE CACHE! {emoji_wink_face}, your account has been saved successfully.")
+            print_success(f"\nNICE CACHE! {emoji_wink_face} your account has been saved successfully.")
         except:
-            print_error(f"\n{emoji_not_found}, Ugh, this is weird... your account couldn't be saved. Please try again.")
+            print_error(f"\n{emoji_not_found} UGH, THIS IS WEIRD... your account couldn't be saved. Please try again.")
 
     # ========== Sign up new user ==========
     def register_user(self):
@@ -42,24 +42,24 @@ class User:
         print_success(f"\n{emoji_complete_task} WOOHOO! LET'S CREATE AN ACCOUNT!")
 
         while True:
-            username = input(f"\n{emoji_edit_task}, Choose your username: ").strip()
+            username = input(f"\n{emoji_edit_task} Choose your username: ").strip()
             if not username:
-                print_error(f"\n{emoji_not_found}, Please enter a valid username!")
+                print_error(f"\n{emoji_not_found} Please enter a valid username!")
                 continue
             if username in users:
-                print_error(f"\n{emoji_not_found}, That username's already taken. Please try again!")
+                print_error(f"\n{emoji_not_found} That username's already taken. Please try again!")
                 continue
             break
 
         while True:
-            password = getpass(f"\n{emoji_edit_task}, Please enter your password (5+ characters): ").strip()
-            password_confirm = getpass(f"{emoji_edit_task}, Second time's a charm! Please re-enter your password: ").strip()
+            password = getpass(f"\n{emoji_edit_task} Please enter your password (5+ characters): ").strip()
+            password_confirm = getpass(f"\n{emoji_edit_task} Second time's a charm! Please re-enter your password: ").strip()
 
             if len(password) < 5:
-                print_error(f"\n{emoji_not_found}, That password's too short. Give me a stronger one!")
+                print_error(f"\n{emoji_not_found} That password's too short. Give me a stronger one!")
                 continue
             if password != password_confirm:
-                print_error(f"\n{emoji_not_found}, Hmm, your passwords don't match. Want to try again?")
+                print_error(f"\n{emoji_not_found} Hmm, your passwords don't match. Want to try again?")
                 continue
             break
 
@@ -89,7 +89,8 @@ class User:
                 return username
             else:
                 attempts += 1
-                print_error(f"\n{emoji_priority_high} OOPS! That username or password didn't check out. Please try again.")
+                if attempts < 3:
+                    print_error(f"\n{emoji_priority_high} OOPS! That username or password didn't check out. Please try again.")
     
         print_error("WOOPSEY! Too many failed attempts. Let's go back to main menu.")
         return None
