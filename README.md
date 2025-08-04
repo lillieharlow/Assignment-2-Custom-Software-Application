@@ -538,3 +538,64 @@ tabulate==0.9.0 - Alternative table display ✅
 certifi, charset-normalizer, idna, urllib3 - Required by requests
 markdown-it-py, mdurl, Pygments - Required by rich
 pip - Package manager
+
+
+📦 Third-Party Libraries & Dependencies Breakdown
+🎯 YOUR 5 MAIN THIRD-PARTY LIBRARIES:
+1. rich==13.7.1 🎨
+Purpose: Beautiful terminal styling, colors, and tables
+Why important: Makes your app look professional instead of plain text
+Used for: All colored output, task tables, styled messages
+Dependencies:
+markdown-it-py==3.0.0 - Markdown parsing for Rich's advanced text formatting
+mdurl==0.1.2 - URL utilities needed by markdown parser
+Pygments==2.19.2 - Syntax highlighting engine for code display
+2. requests==2.31.0 🌐
+Purpose: HTTP requests to external APIs
+Why important: Gets motivational quotes from internet to inspire users
+Used for: API calls to quotable.io for daily motivation
+Dependencies:
+certifi==2025.7.14 - SSL certificate verification for secure HTTPS
+charset-normalizer==3.4.2 - Character encoding detection for international text
+idna==3.10 - International domain name support for global websites
+urllib3==2.5.0 - Low-level HTTP client library that requests uses
+3. pyfiglet==1.0.2 ✨
+Purpose: ASCII art text generation
+Why important: Creates eye-catching "TO DO." title that makes app memorable
+Used for: App startup banner with large stylized text
+Dependencies: None (standalone library)
+4. bcrypt==4.3.0 🔐
+Purpose: Secure password hashing
+Why important: Protects user passwords - never stores plain text passwords
+Used for: User account security, professional-grade password protection
+Dependencies:
+six==1.17.0 - Python 2/3 compatibility utilities needed by bcrypt
+5. python-dateutil==2.9.0.post0 📅
+Purpose: Advanced date/time parsing and manipulation
+Why important: Enables natural language date input and task deadline features
+Used for: Task due dates, smart date parsing ("tomorrow", "next week")
+Dependencies:
+six==1.17.0 - Python compatibility utilities (shared with bcrypt)
+🔗 DEPENDENCY SUMMARY:
+Security & Web:
+certifi - SSL security for API calls
+charset-normalizer - Handle international characters
+idna - Support international domain names
+urllib3 - Core HTTP functionality
+Text Processing:
+markdown-it-py - Advanced text formatting
+mdurl - URL parsing utilities
+Pygments - Syntax highlighting
+Compatibility:
+six - Python version compatibility (shared by bcrypt & dateutil)
+🎯 WHY THESE CHOICES ARE SMART:
+Professional Features:
+Security - Proper password protection
+User Experience - Beautiful interface and helpful features
+Reliability - Secure web requests and error handling
+Modern - Natural date input and motivational content
+Industry Standards:
+All libraries are widely used in professional applications
+Follows best practices for security and user interface
+Creates a polished, production-ready application
+Your 5 third-party libraries create a professional, secure, and user-friendly task management application! ✨🚀

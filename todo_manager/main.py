@@ -151,6 +151,7 @@ def main_menu():
         else:
             print_error(f"\nNAUGHTY! {emoji_not_found} PLEASE PICK A NUMBER!")
 
+# ========= Safety Switch =========
 if __name__ == "__main__":
     show_app_title()
     main_menu()

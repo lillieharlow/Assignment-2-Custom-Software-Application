@@ -7,6 +7,7 @@ import os
 from getpass import getpass
 from emoji import emoji_edit_task, emoji_wink_face, emoji_not_found, emoji_complete_task, emoji_person, emoji_priority_high
 from styling import print_error, print_success
+import bcrypt
 
 # ========= User class =========
 class User:
@@ -105,3 +106,13 @@ class User:
     def get_current_user(self):
         """Who's using the app right now?"""
         return self.logged_in_user
+
+    # ========== Secure password hashing ==========
+    def hash_password(self, password):
+        """Securely hash a password using bcrypt"""
+        salt = bcrypt.gensalt()
+        return bcrypt.hashpw(password.encode(), salt)
+
+    def check_password(self, password, hashed):
+        """Verify password against hash"""
+        return bcrypt.checkpw(password.encode(), hashed)

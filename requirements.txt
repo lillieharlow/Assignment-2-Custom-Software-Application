@@ -1,8 +1,13 @@
 bcrypt==4.3.0
-click==8.2.1
+certifi==2025.7.14
+charset-normalizer==3.4.2
+idna==3.10
 markdown-it-py==3.0.0
 mdurl==0.1.2
-Pygments==2.19.1
-rich==14.0.0
-rich-pyfiglet==0.1.4
+pyfiglet==1.0.2
+Pygments==2.19.2
+python-dateutil==2.9.0.post0
 requests==2.31.0
+rich==13.7.1
+six==1.17.0
+urllib3==2.5.0

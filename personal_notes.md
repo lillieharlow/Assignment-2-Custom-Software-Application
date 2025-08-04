@@ -13,8 +13,6 @@
 
 ### Functions
 
-- pause_and_continue()
-    -wait for user to press enter before showing menu again
 - welcome_user()
     - welcome message (different for new vs returning)
 - get_task_input()

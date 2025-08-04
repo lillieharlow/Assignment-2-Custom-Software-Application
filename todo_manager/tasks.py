@@ -7,16 +7,20 @@ import requests
 import random
 from emoji import emoji_complete_task, emoji_incomplete_task, emoji_motivation, emoji_delete_task, emoji_not_found
 from styling import print_error, print_success, print_info, create_task_table, print_table
+from dateutil import parser
+from datetime import datetime, timedelta
 
 # ========= Task class =========
 class Task:
     """A single task with title and completion status"""
     
     # ===== Create new task =====
-    def __init__(self, title):
+    def __init__(self, title, due_date=None):
         """Set up a new task with a title"""
         self.title = title
         self.completed = False
+        self.due_date = parser.parse(due_date) if due_date else None
+        self.created_at = datetime.now()
     
     # ===== Mark task complete =====
     def mark_complete(self):
