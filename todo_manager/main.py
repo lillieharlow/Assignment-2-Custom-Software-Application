@@ -4,7 +4,7 @@ import time
 from user import User
 from tasks import TaskList, Task
 from styling import print_error, print_success, print_info, print_welcome, show_app_title
-from emoji import emoji_list_task, emoji_complete_task, emoji_delete_task, emoji_quit, emoji_motivation, emoji_door, emoji_key, emoji_wink_face, emoji_person
+from emoji import emoji_list_task, emoji_complete_task, emoji_delete_task, emoji_quit, emoji_motivation, emoji_door, emoji_key, emoji_wink_face, emoji_person, emoji_not_found
 from rich.console import Console
 
 # ========== Global user objects =========
@@ -139,7 +139,6 @@ def handle_signup():
 # ========== User Login =========
 
 def handle_login():
-    print_welcome(f"\n{emoji_key} WELCOME BACK!")
     username = u.login_user()
     if username:
         task_list = TaskList(username)
@@ -156,18 +155,17 @@ def main_menu():
         print(f"3. {emoji_door} Exit")
         print("\n" + "="*50)
 
-        choice = input("\nWhat would you like to do? (1-3): ")
+        choice = input("\nWhat would you like to do? (Enter a number 1-3): ")
 
         if choice == "1":
             handle_signup()
         elif choice == "2":
             handle_login()
         elif choice == "3":
-            print_info(f"Thanks for stopping by! {emoji_quit}")
+            print_info(f"\nTHANKS FOR STOPPING BY! {emoji_quit}\n")
             break
         else:
-            pause_and_continue(2)
-            print_error(f"Naughty! {emoji_not_found} Just pick 1, 2, or 3 please!")
+            print_error(f"\nNaughty! {emoji_not_found} Please pick a number.")
 
 if __name__ == "__main__":
     show_app_title()

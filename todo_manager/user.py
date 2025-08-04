@@ -4,8 +4,8 @@
 import json
 import os
 from getpass import getpass
-from emoji import emoji_add_task, emoji_edit_task, emoji_wink_face, emoji_not_found, emoji_complete_task, emoji_quit, emoji_priority_high
-from styling import print_error, print_success, print_info
+from emoji import emoji_edit_task, emoji_wink_face, emoji_not_found, emoji_complete_task, emoji_person, emoji_priority_high
+from styling import print_error, print_success
 
 # ========= User class =========
 class User:
@@ -32,34 +32,34 @@ class User:
         try:
             with open(self.users_file, "w") as f:
                 json.dump(users, f, indent=2)
-            print_success(f"NICE CACHE! {emoji_wink_face}, your account has been saved successfully.")
+            print_success(f"\nNICE CACHE! {emoji_wink_face}, your account has been saved successfully.")
         except:
-            print_error(f"{emoji_not_found}, Ugh, this is weird... your account couldn't be saved. Please try again.")
+            print_error(f"\n{emoji_not_found}, Ugh, this is weird... your account couldn't be saved. Please try again.")
 
     # ========== Sign up new user ==========
     def register_user(self):
         users = self.load_users()
-        print_success(f"\n{emoji_add_task} WOOHOO! LET'S CREATE AN ACCOUNT!")
+        print_success(f"\n{emoji_complete_task} WOOHOO! LET'S CREATE AN ACCOUNT!")
 
         while True:
             username = input(f"\n{emoji_edit_task}, Choose your username: ").strip()
             if not username:
-                print_error(f"{emoji_not_found}, Please enter a valid username!")
+                print_error(f"\n{emoji_not_found}, Please enter a valid username!")
                 continue
             if username in users:
-                print_error(f"{emoji_not_found}, That username's already taken. Please try again!")
+                print_error(f"\n{emoji_not_found}, That username's already taken. Please try again!")
                 continue
             break
 
         while True:
-            password = getpass(f"{emoji_edit_task}, Please enter your password (5+ characters): ").strip()
+            password = getpass(f"\n{emoji_edit_task}, Please enter your password (5+ characters): ").strip()
             password_confirm = getpass(f"{emoji_edit_task}, Second time's a charm! Please re-enter your password: ").strip()
 
             if len(password) < 5:
-                print_error(f"{emoji_not_found}, That password's too short. Give me a stronger one!")
+                print_error(f"\n{emoji_not_found}, That password's too short. Give me a stronger one!")
                 continue
             if password != password_confirm:
-                print_error(f"{emoji_not_found}, Hmm, your passwords don't match. Want to try again?")
+                print_error(f"\n{emoji_not_found}, Hmm, your passwords don't match. Want to try again?")
                 continue
             break
 
@@ -69,14 +69,31 @@ class User:
         print()
         return username
 
-    # ========== Log in existing user ==========
+    # ========== Log in user - 3 attempts ==========
     def login_user(self):
         users = self.load_users()
-        password = getpass(f"{emoji_edit_task}, Password: ").strip()
+        print_success("\n WELCOME BACK!")
 
-        if username in users and users[username]["password"] == password:
-            print_success(f"{emoji_complete_task}, WELCOME BACK {username}. It's nice to see you again!")
-            self.logged_in_user = username
-            return username
-        else:
-            print_error(f"{emoji_priority_high}, OOPS! That username or password didn't check out. Please try again.")
+        attempts = 0
+        while attempts < 3:
+            username = input(f"\n{emoji_person} Username: ").strip()
+            if not username:
+                print_error(f"\n{emoji_not_found} Please enter your username!")
+                continue
+
+            password = getpass(f"\n{emoji_edit_task} Password: ").strip()
+
+            if username in users and users[username]["password"] == password:
+                print_success(f"\n{emoji_complete_task} WELCOME BACK {username}, it's nice to see you again!")
+                self.logged_in_user = username
+                return username
+            else:
+                attempts += 1
+                print_error(f"\n{emoji_priority_high} OOPS! That username or password didn't check out. Please try again.")
+    
+        print_error("WOOPSEY! Too many failed attempts. Let's go back to main menu.")
+        return None
+                
+    # ========== Get current logged in user ==========
+    def get_current_user(self):
+        return self.logged_in_user
