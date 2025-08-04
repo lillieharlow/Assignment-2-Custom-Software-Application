@@ -66,14 +66,21 @@ def show_app_title():
 
 # ========= Task Table =========
 def create_task_table(username):
-    """Create a beautifully styled task table"""
+    """Table for displaying tasks with proper styling"""
     table = Table(
-        title=f"[bold cyan]{username}'s Task Manager[/bold cyan]", 
-        show_header=True, 
-        header_style="bold magenta"
+        show_header=True,
+        header_style="bold on #000000"
     )
-    table.add_column("#", style="cyan", width=4, justify="center")
-    table.add_column("Status", style="magenta", width=8, justify="center")
-    table.add_column("Task", style="green", min_width=20)
+    table.add_column("[#ff9bcd]TASK NUMBER[/#ff9bcd]", width=15, justify="center")
+    table.add_column("[#94ffcb]TASK[/#94ffcb]", min_width=25, justify="center")
+    table.add_column("[#d6aeff]STATUS[/#d6aeff]", width=8, justify="center")
     
     return table
+
+
+# ========= Print Table =========
+def print_table(table):
+    """Print a table with proper spacing"""
+    print("\n")
+    console.print(table)
+    print("\n")

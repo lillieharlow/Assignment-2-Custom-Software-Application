@@ -91,7 +91,6 @@ class User:
             password = getpass(f"\n{emoji_edit_task} Password: ").strip()
 
             if username in users and users[username]["password"] == password:
-                print_success(f"\n{emoji_complete_task} WELCOME BACK {username}, it's nice to see you again!")
                 self.logged_in_user = username
                 return username
             else:
