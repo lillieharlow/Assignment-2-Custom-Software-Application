@@ -9,14 +9,17 @@ from styling import print_error, print_success
 
 # ========= User class =========
 class User:
+    """Handles all the user stuff - signing up, logging in, and keeping track of who's here!"""
 
     # ========== Create user object and set up file location ==========
     def __init__(self, users_file="data/users.json"):
+        """Setting up where we keep user accounts and who's logged in"""
         self.users_file = users_file
         self.logged_in_user = None
 
     # ========== Load user from json file ==========
     def load_users(self):
+        """Grab all existing users from the file"""
         if not os.path.exists(self.users_file):
             return {}
         try:
@@ -27,6 +30,7 @@ class User:
     
     # ========== Save user to json file ==========
     def save_users(self, users):
+        """Save all users so we don't lose anyone!"""
         os.makedirs(os.path.dirname(self.users_file), exist_ok=True)
         
         try:
@@ -38,6 +42,7 @@ class User:
 
     # ========== Sign up new user ==========
     def register_user(self):
+        """Create a new account with username and password"""
         users = self.load_users()
         print_success(f"\n{emoji_complete_task} WOOHOO! LET'S CREATE AN ACCOUNT!")
 
@@ -71,6 +76,7 @@ class User:
 
     # ========== Log in user - 3 attempts ==========
     def login_user(self):
+        """Log in existing user (3 tries max!)"""
         users = self.load_users()
         print_success("\n WELCOME BACK!")
 
@@ -92,9 +98,10 @@ class User:
                 if attempts < 3:
                     print_error(f"\n{emoji_priority_high} OOPS! That username or password didn't check out. Please try again.")
     
-        print_error("WOOPSEY! Too many failed attempts. Let's go back to main menu.")
+        print_error(f"\n{emoji_priority_high} WOOPSEY! Too many failed attempts. Let's go back to main menu.")
         return None
                 
     # ========== Get current logged in user ==========
     def get_current_user(self):
+        """Who's using the app right now?"""
         return self.logged_in_user
