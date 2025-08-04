@@ -4,7 +4,7 @@ import time
 from user import User
 from tasks import TaskList, Task
 from styling import print_error, print_success, print_info, print_welcome, show_app_title
-from emoji import emoji_add_task, emoji_list_task, emoji_complete_task, emoji_delete_task, emoji_quit, emoji_motivation, emoji_door, emoji_key, emoji_wink_face, emoji_person
+from emoji import emoji_list_task, emoji_complete_task, emoji_delete_task, emoji_quit, emoji_motivation, emoji_door, emoji_key, emoji_wink_face, emoji_person
 from rich.console import Console
 
 # ========== Global user objects =========
@@ -37,13 +37,13 @@ def get_task_input():
         return None
         
     if len(title) > 100:
-        print_error("Whoa! That's way too long. Keep it under 100 characters!")
+        print_error("WHOAH! That's a very long task. Let's keep it under 100 characters!")
         return None
         
     return title
 
+# ========== Task Number Input =========
 def get_task_number(task_list, action):
-    """Get task number from user with error checking"""
     if not task_list.get_tasks():
         print_error("You don't have any tasks yet! Add some first.")
         return None
@@ -61,18 +61,18 @@ def get_task_number(task_list, action):
         print_error("That's not a number! Try again with just numbers.")
         return None
 
+# ========== Show Motivational Quote =========
 def show_motivational_quote(task_list):
-    """Show motivational quote"""
     print_info(f"Getting you some motivation... {emoji_motivation}")
     task_list.get_motivational_quote()
 
+# ========== Task Menu =========
 def task_menu(task_list):
-    """Main task menu"""
     while True:
         print("\n" + "="*60)
         print(f"{emoji_list_task} {u.get_current_user()}'s Task Manager")
         print("="*60)
-        print(f"1. {emoji_add_task} Add a new task")
+        print(f"1. {emoji_complete_task} Add a new task")
         print(f"2. {emoji_list_task} See all my tasks")
         print(f"3. {emoji_complete_task} Mark a task as done")
         print(f"4. {emoji_delete_task} Delete a task")
@@ -83,7 +83,7 @@ def task_menu(task_list):
         choice = input("\nWhat would you like to do? (1-6): ")
 
         if choice == "1":
-            print_welcome(f"\n{emoji_add_task} Let's add a new task!")
+            print_welcome(f"\n{emoji_complete_task} Let's add a new task!")
             title = get_task_input()
             if title:
                 task = Task(title)
