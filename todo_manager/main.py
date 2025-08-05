@@ -3,7 +3,7 @@
 from user import User
 from tasks import *
 from styling import *
-from emoji_library import person, key, door, smile, add, list, complete, delete, quit
+from emoji_library import person, key, door, smile, add, list, complete, delete, quit, interesting
 
 # ========== Global user objects =========
 u = User()
@@ -48,7 +48,7 @@ def get_task_number(task_list, action):
             print_error(f"Pick a number between 1 and {max_num}!")
             return None
     except ValueError:
-        print_error("That's not a number! Try again with just numbers.")
+        print_error(f"{interesting} That's not a valid option!")
         return None
 
 # ========== Task Menu =========
@@ -97,11 +97,19 @@ def task_menu(task_list):
             else:
                 print_info(f"\nWhat task do you want to delete?")
                 task_list.display_tasks()
-                index = get_task_number(task_list, "delete")
-                if index is not None:
-                    task_list.remove_task(index)
-                    print_info("\nHere's what's left:")
-                    task_list.display_tasks()
+                while True:
+                    index = get_task_number(task_list, "delete")
+                    if index is not None:
+                        clear_screen()
+                        task_list.delete_task(index)
+                        print_info("\nHere's what's left:")
+                        task_list.display_tasks()
+                        break
+                    else:
+                        # Offer to try again or return to menu incase user doesn't want to delete
+                        again = input(f"Try again?\n(Press 'y' to retry or enter anything else to return to menu): ").strip().lower()
+                        if again != "y":
+                            break 
 
         elif choice == "5":
             clear_screen()

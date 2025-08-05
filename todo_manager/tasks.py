@@ -3,7 +3,7 @@
 
 import json
 import os
-from emoji_library import emoji_complete_task, emoji_incomplete_task
+from emoji_library import complete, incomplete, interesting
 from styling import *
 
 # ========= Task class =========
@@ -45,13 +45,14 @@ class TaskList:
         self.save_tasks()
         print_success(f"\nNice cache! {task.title} was added to your tasks!")
 
-    # ===== Remove task =====
-    def remove_task(self, index):
+    # ===== Delete task =====
+    def delete_task(self, index):
         """Remove a task by its number"""
         if self.is_valid_task_number(index):
             removed_task = self.tasks.pop(index)
             self.save_tasks()
             print_success(f"\nOrganisation is key! {removed_task.title} has been removed from your tasks!")
+        else:
             self.show_invalid_number_error()
     
     # ===== Complete task =====
@@ -79,7 +80,7 @@ class TaskList:
         table = create_task_table(self.username)
         
         for i, task in enumerate(self.tasks, 1):
-            status = emoji_complete_task if task.completed else emoji_incomplete_task
+            status = complete if task.completed else incomplete
             table.add_row(str(i), task.title, status)
         
         print_table(table)
@@ -99,7 +100,7 @@ class TaskList:
             with open(self.filename, 'w') as file:
                 json.dump(task_data, file, indent=2)
         except Exception as e:
-            print_error(f"\nThis is awkward... JaSON couldn't save tasks: {e}")
+            print_error(f"\nThis is awkward {interesting}. JaSON couldn't save tasks: {e}")
 
     # ===== Load tasks from file =====
     def load_tasks(self):
@@ -128,5 +129,5 @@ class TaskList:
     
     # ===== Show error for invalid number =====
     def show_invalid_number_error(self):
-        """Show error message for invalid task numbers"""
+        """Show error message when user does not input valid number"""
         print_error(f"\nCheeky! That's not a valid number. Please pick a number from the list!")

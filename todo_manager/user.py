@@ -96,7 +96,7 @@ class User:
     def login_user(self):
         """Log in existing user (3 tries max!)"""
         users = self.load_users()
-        print_success(f"\n {smile} Welcome back, please enter your login details.")
+        print_success(f"\n {smile} Please enter your login details:")
 
         attempts = 0
         while attempts < 3:
