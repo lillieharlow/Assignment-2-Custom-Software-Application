@@ -72,10 +72,10 @@ def get_task_number(task_list, action):
         return None
 
 # ========== Task Menu =========
-def task_menu(task_list):
+def task_menu(task_list, username):
     while True:
         print("\n" + "="*60)
-        print(f"{smile} {u.get_current_user()}'s TO DO.")
+        print(f"{smile} {username}'s TO DO.")
         print("="*60)
         print(f"1. {add} Add a new task")
         print(f"2. {list} See all my tasks")
@@ -150,7 +150,7 @@ def handle_signup():
     if username:
         task_list = TaskList(username)
         welcome_user(username)
-        task_menu(task_list)
+        task_menu(task_list, username)
 
 # ========== User Login =========
 
@@ -159,7 +159,7 @@ def handle_login():
     if username:
         task_list = TaskList(username)
         welcome_user(username, is_returning=True)
-        task_menu(task_list)
+        task_menu(task_list, username)
         
 # ========== Main Menu - login, signup or exit =========
 
