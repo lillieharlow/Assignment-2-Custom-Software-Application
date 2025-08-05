@@ -3,7 +3,7 @@
 from user import User
 from tasks import *
 from styling import *
-from emoji_library import emoji_wink_face, emoji_smile, emoji_edit_task, emoji_list_task, emoji_complete_task, emoji_delete_task, emoji_quit, emoji_door, emoji_key, emoji_person
+from emoji_library import person, key, door, smile, add, list, complete, delete, quit
 
 # ========== Global user objects =========
 u = User()
@@ -14,7 +14,7 @@ def welcome_user(username, is_returning=False):
     if is_returning:
         message = f"\nHey {username}, welcome back!"
     else:
-        message = f"\nHey {username}, welcome to TO DO. {emoji_wink_face} Let's get started!"
+        message = f"\nHey {username}, welcome to TO DO. {smile} Let's get started!"
     print_success(message)
 
 # ========== Task Input =========
@@ -57,9 +57,9 @@ def task_menu(task_list):
         print("\n" + "="*60)
         print(f"{smile} {u.get_current_user()}'s TO DO.")
         print("="*60)
-        print(f"1. {edit} Add a new task")
+        print(f"1. {add} Add a new task")
         print(f"2. {list} See all my tasks")
-        print(f"3. {task} Mark a task as done")
+        print(f"3. {complete} Mark a task as done")
         print(f"4. {delete} Delete a task")
         print(f"5. {quit} Exit TO DO. app")
         print("="*60)
