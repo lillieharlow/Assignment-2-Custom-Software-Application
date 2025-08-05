@@ -3,7 +3,7 @@
 from user import User
 from tasks import *
 from styling import *
-from emoji_library import person, key, door, smile, add, list, complete, delete, cross, quit, interesting
+from emoji_library import person, key, door, smile, add, list, complete, delete, quit, interesting, high, medium, low
 
 # ========== Global user objects =========
 u = User()
@@ -30,14 +30,30 @@ def get_task_input():
         return None
         
     while True:  # Loop until user enters 'y' or 'n' for priority task input
-        is_priority = input("Is this a priority task? (y/n): ").strip().lower()
+        is_priority = input("Is this task important? (y/n): ").strip().lower()
         if is_priority == "y":
-            priority = input("Is this a 'High', 'Medium', or 'Low' priority? ").strip().capitalize()
+            while True:
+                print("\nHow important?")
+                print(f"1. {high} High")
+                print(f"2. {medium} Medium")
+                print(f"3. {low} Low")
+                priority_choice = input("Enter a number (1-3): ").strip()
+                if priority_choice == "1":
+                    priority = "High"
+                    break
+                elif priority_choice == "2":
+                    priority = "Medium"
+                    break
+                elif priority_choice == "3":
+                    priority = "Low"
+                    break
+                else:
+                    print_error("Please enter 1, 2, or 3.")
             return PriorityTask(title, priority)
         elif is_priority == "n":
             return Task(title)
         else:
-            print_error(f"{cross} Please enter 'y' or 'n'.")
+            print_error("Please enter 'y' or 'n'.")
 
 # ========== Task Number Input =========
 def get_task_number(task_list, action):
@@ -73,10 +89,9 @@ def task_menu(task_list):
         if choice == "1":
             clear_screen()
             print_info(f"\nYay! Let's add a new task!")
-            title = get_task_input()
-            if title:
-                task = Task(title)
-                task_list.add_task(task)
+            task = get_task_input() 
+            if task:
+                task_list.add_task(task) # add task object directly
             
         elif choice == "2":
             clear_screen()
