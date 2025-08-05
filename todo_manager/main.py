@@ -80,9 +80,12 @@ def task_menu(task_list):
             
         elif choice == "2":
             clear_screen()
-            print_info(f"\nHere are all your tasks:")
-            task_list.display_tasks()
-            
+            if task_list.get_tasks():
+                print_info(f"\n{u.get_current_user()}'s tasks:")
+                task_list.display_tasks()
+            else:
+                print_info(f"\nYou haven't added any tasks yet, let's get started!")
+
         elif choice == "3":
             clear_screen()
             print_info(f"\nLet's mark a task as done!")
