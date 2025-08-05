@@ -82,9 +82,28 @@ def create_task_table(username):
     table = Table(
         show_header=True,
     )
-    table.add_column("[#ff9bcd]Task Number[/#ff9bcd]", width=15, justify="center")
-    table.add_column("[#94ffcb]Task[/#94ffcb]", min_width=25, justify="center")
-    table.add_column("[#d6aeff]Done[/#d6aeff]", width=6, justify="center")
+    
+    # Each column gets a different color style
+    table.add_column(
+        "Task Number", 
+        width=15, 
+        justify="center",
+        style="on #EFB4FF"  # light purple
+    )
+    
+    table.add_column(
+        "Task", 
+        min_width=30, 
+        justify="center",
+        style="on #B4F2FF" # light blue
+    )
+    
+    table.add_column(
+        "Done", 
+        width=6, 
+        justify="center",
+        style="on #ffffa3"  # light yellow
+    )
     
     return table
 
