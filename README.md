@@ -34,7 +34,6 @@ Check List:
 [] 2+ input and output
     [] retrieving user input and displaying output
     [] reading from files and writing to files
-    [] req data from an API and displaying output
 
 
 
