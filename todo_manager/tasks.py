@@ -3,7 +3,7 @@
 
 import json
 import os
-from emoji_library import complete, incomplete, interesting
+from emoji_library import complete, incomplete, interesting, high, medium, low
 from styling import *
 
 # ========= Task class =========
@@ -25,6 +25,28 @@ class Task:
     def mark_incomplete(self):
         """Mark this task as not done"""
         self.completed = False
+
+    def __str__(self):
+        return self.title
+
+# ===== Task priority =====
+class PriorityTask(Task):
+    """Inherits from Task and adds priority level"""
+    def __init__(self, title, priority):
+        super().__init__(title)
+        self.priority = priority  # "High", "Medium", "Low" 
+
+    def __str__(self):
+        # Map priority to emoji
+        if self.priority == "High":
+            prio_emoji = high
+        elif self.priority == "Medium":
+            prio_emoji = medium
+        elif self.priority == "Low":
+            prio_emoji = low
+        else:
+            prio_emoji = ""
+        return f"{self.title} {prio_emoji}"
 
 # ========= TaskList class =========
 class TaskList:
@@ -89,13 +111,16 @@ class TaskList:
     def save_tasks(self):
         """Save all tasks to the user's file"""
         os.makedirs(os.path.dirname(self.filename), exist_ok=True)
-        
-        # Create list of task data
         task_data = []
         for task in self.tasks:
-            task_info = {"title": task.title, "completed": task.completed}
+            task_info = {
+                "title": task.title,
+                "completed": task.completed,
+                "type": task.__class__.__name__
+            }
+            if isinstance(task, PriorityTask):
+                task_info["priority"] = task.priority
             task_data.append(task_info)
-        
         try:
             with open(self.filename, 'w') as file:
                 json.dump(task_data, file, indent=2)
@@ -108,13 +133,14 @@ class TaskList:
         try:
             with open(self.filename, 'r') as file:
                 task_data = json.load(file)
-            
             self.tasks = []
             for data in task_data:
-                task = Task(data["title"])
+                if data.get("type") == "PriorityTask":
+                    task = PriorityTask(data["title"], data.get("priority", "Medium"))
+                else:
+                    task = Task(data["title"])
                 task.completed = data["completed"]
                 self.tasks.append(task)
-                
         except FileNotFoundError:
             pass  # No file yet
         except Exception:

@@ -22,26 +22,28 @@ def welcome_user(username, is_returning=False):
 def get_task_input():
     """Get task input from user"""
     title = input("\nWhat task do you want to add? ").strip()
-    
     if not title:
         print_error("\nCome on, you gotta tell me what the task is!")
         return None
-        
     if len(title) > 100:
         print_error("\nWhoah! That's a very long task. Let's keep it under 100 characters!")
         return None
         
-    return title
+    # Is this a priority task?
+    is_priority = input("Is this a priority task? (y/n): ").strip().lower()
+    if is_priority == "y":
+        priority = input("Enter priority (High/Medium/Low): ").strip().capitalize()
+        return PriorityTask(title, priority)
+    else:
+        return Task(title)
 
 # ========== Task Number Input =========
 def get_task_number(task_list, action):
     if not task_list.get_tasks():
         return None
-    
     max_num = len(task_list.get_tasks())
     try:
         index = int(input(f"\nWhich task do you want to {action}? (1-{max_num}): ")) - 1
-        
         if 0 <= index < max_num:
             return index
         else:

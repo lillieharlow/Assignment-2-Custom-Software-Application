@@ -22,3 +22,8 @@ cross = emoji.emojize(':cross_mark:')           # ❌
 arm = emoji.emojize(':flexed_biceps:')          # 💪
 interesting = emoji.emojize(':face_with_monocle:')  # 🧐
 lock = emoji.emojize(':locked:')                # 🔒
+
+# Task Priority Emojis
+high = emoji.emojize(':red_circle:')      # 🔴
+medium = emoji.emojize(':orange_circle:')  # 🟠
+low = emoji.emojize(':yellow_circle:')     # 🟡
