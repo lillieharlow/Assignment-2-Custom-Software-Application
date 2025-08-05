@@ -5,22 +5,18 @@ import json
 import os
 import requests
 import random
-from emoji import emoji_complete_task, emoji_incomplete_task, emoji_motivation, emoji_delete_task, emoji_not_found
-from styling import print_error, print_success, print_info, create_task_table, print_table
-from dateutil import parser
-from datetime import datetime, timedelta
+from emoji import *
+from styling import *
 
 # ========= Task class =========
 class Task:
     """A single task with title and completion status"""
     
     # ===== Create new task =====
-    def __init__(self, title, due_date=None):
+    def __init__(self, title):
         """Set up a new task with a title"""
         self.title = title
         self.completed = False
-        self.due_date = parser.parse(due_date) if due_date else None
-        self.created_at = datetime.now()
     
     # ===== Mark task complete =====
     def mark_complete(self):
@@ -49,7 +45,7 @@ class TaskList:
         """Add a new task to the list"""
         self.tasks.append(task)
         self.save_tasks()
-        print_success(f"\nNICE CATCH! '{task.title}' was added to your tasks!")
+        print_success(f"\nNice cache! {task.title} was added to your tasks!")
 
     # ===== Remove task =====
     def remove_task(self, index):
@@ -57,8 +53,7 @@ class TaskList:
         if self.is_valid_task_number(index):
             removed_task = self.tasks.pop(index)
             self.save_tasks()
-            print_success(f"\n{emoji_delete_task} A clean space is an organised space! '{removed_task.title}' has been removed from your tasks!")
-        else:
+            print_success(f"\nOrganisation is key! {removed_task.title} has been removed from your tasks!")
             self.show_invalid_number_error()
     
     # ===== Complete task =====
@@ -67,7 +62,7 @@ class TaskList:
         if self.is_valid_task_number(index):
             self.tasks[index].mark_complete()
             self.save_tasks()
-            print_success(f"\nGREAT JOB! '{self.tasks[index].title}' is now complete! {emoji_complete_task}")
+            print_success(f"\nGreat job! {self.tasks[index].title} is now complete!")
         else:
             self.show_invalid_number_error()
 
@@ -80,7 +75,7 @@ class TaskList:
     def display_tasks(self):
         """Show all tasks in a nice table"""
         if not self.tasks:
-            print_info(f"\nYou haven't added any tasks yet - let's get started! {emoji_motivation}")
+            print_info(f"\nYou haven't added any tasks yet, let's get started!")
             return
         
         table = create_task_table(self.username)
@@ -106,8 +101,8 @@ class TaskList:
             with open(self.filename, 'w') as file:
                 json.dump(task_data, file, indent=2)
         except Exception as e:
-            print_error(f"\nCould not save tasks: {e}")
-    
+            print_error(f"\nThis is awkward... JaSON couldn't save tasks: {e}")
+
     # ===== Load tasks from file =====
     def load_tasks(self):
         """Load tasks from the user's file"""
@@ -122,32 +117,27 @@ class TaskList:
                 self.tasks.append(task)
                 
         except FileNotFoundError:
-            pass  # No file yet - that's okay
+            pass  # No file yet
         except Exception:
-            print_error("\nError loading tasks. Starting with empty list.")
-    
+            print_error("\nOh no! JaSON says... Let's start again!")
+
     # ===== Get motivational quote =====
     def get_motivational_quote(self):
-        """Get an inspiring quote to motivate the user"""
-        print_info(f"\nGetting you some inspiration... {emoji_motivation}")
-        
+        """Get inspiration from an API or show backup quote"""
         try:
-            response = requests.get("https://api.quotable.io/random?tags=motivational", timeout=5)
+            response = requests.get("https://api.quotable.io/random?tags=motivational")
             
             if response.status_code == 200:
                 data = response.json()
                 quote = data.get('content', '')
-                author = data.get('author', 'Unknown')
-                self.display_quote(quote, author, "Daily Motivation")
+                self.show_quote(quote)
                 return
                 
         except:
-            # Silently fall back to offline quotes
             pass
-        
-        # Show backup motivation (user doesn't know it's offline)
-        self.show_backup_motivation()
-    
+
+        self.show_backup_motivation()  # Show backup motivation (user doesn't know it's offline)
+
     # ========== Helper methods =========
     
     # ===== Check valid task number =====
@@ -158,28 +148,22 @@ class TaskList:
     # ===== Show error for invalid number =====
     def show_invalid_number_error(self):
         """Show error message for invalid task numbers"""
-        print_error(f"\nNaughty! {emoji_not_found} That's not a valid number. Please pick a number from the list!")
+        print_error(f"\nCheeky! That's not a valid number. Please pick a number from the list!")
     
-    # ===== Display quote with formatting =====
-    def display_quote(self, quote, author, title):
+    # ===== Show quote =====
+    def show_quote(self, quote):
         """Display a quote with consistent formatting"""
-        print_info(f"\n{emoji_motivation} {title} {emoji_motivation}")
-        print_info(f"\n'{quote}'")
-        print_info(f"\n— {author}")
-    
+        print_quote(f"\n{quote}")
+
     # ===== Show backup motivation =====
     def show_backup_motivation(self):
-        """Show backup motivational message"""
+        """Show backup motivational message when offline"""
         quotes = [
-            "You're doing amazing!",
-            "Keep pushing forward!",
-            "Every step counts!",
-            "You've got this!",
-            "Progress over perfection!",
-            "Believe in yourself!",
-            "Stay focused and keep going!",
-            "You're unstoppable!"
+            "You're doing amazing! Keep kicking goals!",
+            "Every step counts! You've got this!",
+            "Progress over perfection! Believe in yourself!",
+            "Stay focused and keep going! You're unstoppable!"
         ]
         
         quote = random.choice(quotes)
-        self.display_quote(quote, "Your Task Manager", "Inspiration")
+        self.display_quote(quote)

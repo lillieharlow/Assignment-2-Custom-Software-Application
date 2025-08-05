@@ -26,7 +26,13 @@ class User:
             return {}
         try:
             with open(self.users_file, "r") as f:
-                return json.load(f)
+                data = json.load(f)
+                # Convert bytes back to proper format for bcrypt
+                for username, user_data in data.items():
+                    if isinstance(user_data["password"], str):
+                        # Convert string back to bytes for bcrypt
+                        user_data["password"] = user_data["password"].encode('latin-1')
+                return data
         except:
             return {}
     
@@ -36,25 +42,32 @@ class User:
         os.makedirs(os.path.dirname(self.users_file), exist_ok=True)
         
         try:
+            # Convert bytes to string for JSON storage
+            users_for_json = {}
+            for username, user_data in users.items():
+                users_for_json[username] = {
+                    "password": user_data["password"].decode('latin-1')
+                }
+            
             with open(self.users_file, "w") as f:
-                json.dump(users, f, indent=2)
-            print_success(f"\nNICE CACHE! {emoji_wink_face} your account has been saved successfully.")
+                json.dump(users_for_json, f, indent=2)
+            print_success(f"\nNice cache! Your account has been saved.")
         except:
-            print_error(f"\n{emoji_not_found} UGH, THIS IS WEIRD... your account couldn't be saved. Please try again.")
+            print_error(f"\nUgh, JaSON didn't like that one... your account couldn't be saved. Please try again.")
 
     # ========== Sign up new user ==========
     def register_user(self):
         """Create a new account with username and password"""
         users = self.load_users()
-        print_success(f"\n{emoji_complete_task} WOOHOO! LET'S CREATE AN ACCOUNT!")
+        print_success(f"\nYay! Let's create your TO DO. account!")
 
         while True:
             username = input(f"\n{emoji_edit_task} Choose your username: ").strip()
             if not username:
-                print_error(f"\n{emoji_not_found} Please enter a valid username!")
+                print_error(f"\nPlease enter a valid username!")
                 continue
             if username in users:
-                print_error(f"\n{emoji_not_found} That username's already taken. Please try again!")
+                print_error(f"\nThat username's already taken. Please try again!")
                 continue
             break
 
@@ -63,14 +76,17 @@ class User:
             password_confirm = getpass(f"\n{emoji_edit_task} Second time's a charm! Please re-enter your password: ").strip()
 
             if len(password) < 5:
-                print_error(f"\n{emoji_not_found} That password's too short. Give me a stronger one!")
+                print_error(f"\nThat password's too short. Give me a longer one!")
                 continue
             if password != password_confirm:
-                print_error(f"\n{emoji_not_found} Hmm, your passwords don't match. Want to try again?")
+                print_error(f"\nHmm, your passwords don't match. Want to try again?")
                 continue
             break
 
-        users[username] = {"password": password}
+        # ✅ FIXED: Use secure password hashing
+        hashed_password = self.hash_password(password)
+        users[username] = {"password": hashed_password}
+        
         self.save_users(users)
         self.logged_in_user = username
         print()
@@ -80,7 +96,7 @@ class User:
     def login_user(self):
         """Log in existing user (3 tries max!)"""
         users = self.load_users()
-        print_success("\n WELCOME BACK!")
+        print_success("\n Welcome back, please enter your login details.")
 
         attempts = 0
         while attempts < 3:
@@ -91,15 +107,16 @@ class User:
 
             password = getpass(f"\n{emoji_edit_task} Password: ").strip()
 
-            if username in users and users[username]["password"] == password:
+            # ✅ FIXED: Use secure password verification
+            if username in users and self.check_password(password, users[username]["password"]):
                 self.logged_in_user = username
                 return username
             else:
                 attempts += 1
                 if attempts < 3:
-                    print_error(f"\n{emoji_priority_high} OOPS! That username or password didn't check out. Please try again.")
-    
-        print_error(f"\n{emoji_priority_high} WOOPSEY! Too many failed attempts. Let's go back to main menu.")
+                    print_error(f"\nOops! That username or password didn't match. Please try again!")
+
+        print_error(f"\nUmm, this is awkward... Did you forget your details?\nLet's go back to the main menu.")
         return None
                 
     # ========== Get current logged in user ==========
@@ -111,8 +128,8 @@ class User:
     def hash_password(self, password):
         """Securely hash a password using bcrypt"""
         salt = bcrypt.gensalt()
-        return bcrypt.hashpw(password.encode(), salt)
+        return bcrypt.hashpw(password.encode('utf-8'), salt)
 
     def check_password(self, password, hashed):
         """Verify password against hash"""
-        return bcrypt.checkpw(password.encode(), hashed)
+        return bcrypt.checkpw(password.encode('utf-8'), hashed)

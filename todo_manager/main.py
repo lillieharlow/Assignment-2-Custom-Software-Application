@@ -1,9 +1,9 @@
 # Main file for "TO DO." task manager app
 
 from user import User
-from tasks import TaskList, Task
-from styling import print_error, print_success, print_info, print_welcome, show_app_title
-from emoji import emoji_list_task, emoji_complete_task, emoji_delete_task, emoji_quit, emoji_motivation, emoji_door, emoji_key, emoji_wink_face, emoji_person, emoji_not_found
+from tasks import *
+from styling import *
+from emoji import *
 
 # ========== Global user objects =========
 u = User()
@@ -12,9 +12,9 @@ u = User()
 
 def welcome_user(username, is_returning=False):
     if is_returning:
-        message = f"\nHEY {username}, WELCOME BACK!"
+        message = f"\nHey {username}, welcome back!"
     else:
-        message = f"\nHEY {username}, WELCOME TO TO DO! LET'S GET STARTED! {emoji_wink_face}"
+        message = f"\nHey {username}, welcome to TO DO. {emoji_wink_face} Let's get started!"
     print_success(message)
 
 # ========== Task Input =========
@@ -28,7 +28,7 @@ def get_task_input():
         return None
         
     if len(title) > 100:
-        print_error("\nWHOAH! That's a very long task. Let's keep it under 100 characters!")
+        print_error("\nWhoah! That's a very long task. Let's keep it under 100 characters!")
         return None
         
     return title
@@ -54,62 +54,63 @@ def get_task_number(task_list, action):
 
 # ========== Show Motivational Quote =========
 def show_motivational_quote(task_list):
-    print_info(f"Getting you some motivation... {emoji_motivation}")
+    print_info(f"{emoji_motivation} Motivation incoming...")
     task_list.get_motivational_quote()
 
 # ========== Task Menu =========
 def task_menu(task_list):
     while True:
         print("\n" + "="*60)
-        print(f"{emoji_list_task} {u.get_current_user()}'s Task Manager")
+        print(f"{emoji_welcome} {u.get_current_user()}'s TO DO.")
         print("="*60)
-        print(f"1. {emoji_complete_task} Add a new task")
+        print(f"1. {emoji_edit_task} Add a new task")
         print(f"2. {emoji_list_task} See all my tasks")
         print(f"3. {emoji_complete_task} Mark a task as done")
         print(f"4. {emoji_delete_task} Delete a task")
         print(f"5. {emoji_motivation} Get some motivation")
-        print(f"6. {emoji_quit} Exit the app")
+        print(f"6. {emoji_quit} Exit TO DO. app")
         print("="*60)
 
         choice = input("\nWhat would you like to do? (1-6): ")
 
         if choice == "1":
-            print_welcome(f"\n{emoji_complete_task} YAY! LET'S ADD A NEW TASK!")
+            print_info(f"\nYay! Let's add a new task!")
             title = get_task_input()
             if title:
                 task = Task(title)
                 task_list.add_task(task)
             
         elif choice == "2":
-            print_info(f"\n{emoji_list_task} HERE ARE ALL YOUR TASKS:")
+            print_info(f"\nHere are all your tasks:")
             task_list.display_tasks()
             
         elif choice == "3":
-            print_info(f"\n{emoji_complete_task} LET'S MARK A TASK AS DONE!")
+            print_info(f"\nLet's mark a task as done!")
             task_list.display_tasks()
             index = get_task_number(task_list, "mark complete")
             if index is not None:
                 task_list.mark_complete(index)
-                print_info("\nHERE'S YOUR UPDATED LIST:")
+                print_info("\nHere's your updated list:")
                 task_list.display_tasks()
             
         elif choice == "4":
-            print_info(f"\n{emoji_delete_task} WHAT TASK DO YOU WANT TO DELETE?")
+            print_info(f"\nWhat task do you want to delete? ")
             task_list.display_tasks()
             index = get_task_number(task_list, "delete")
             if index is not None:
                 task_list.remove_task(index)
-                print_info("\nHERE'S WHAT'S LEFT:")
+                print_info("\nHere's what's left:")
+                task_list.display_tasks()
             
         elif choice == "5":
             show_motivational_quote(task_list)
 
         elif choice == "6":
-            print_info(f"\nSEE YOU LATER {u.get_current_user()}! {emoji_quit}")
+            print_info(f"\nSee you later {u.get_current_user()}!")
             break
             
         else:
-            print_error("\nPlease pick a number between 1 and 6!")
+            print_error("\nNaughty, that's not a valid number.\nPlease, pick a number between 1 and 6.")
 
 # ========== User Signup =========
 
@@ -135,7 +136,7 @@ def main_menu():
     while True:
         print("\n" + "="*50)
         print(f"\n1. {emoji_person} Create new account")
-        print(f"2. {emoji_key} Log into existing account") 
+        print(f"2. {emoji_key} Log into existing account")
         print(f"3. {emoji_door} Exit")
         print("\n" + "="*50)
 
@@ -146,12 +147,15 @@ def main_menu():
         elif choice == "2":
             handle_login()
         elif choice == "3":
-            print_info(f"\nTHANKS FOR STOPPING BY! {emoji_quit}\n")
+            print_rainbow_text("TA TA!")
+            print_info(f"\nThanks for stopping by!\n")
             break
         else:
-            print_error(f"\nNAUGHTY! {emoji_not_found} PLEASE PICK A NUMBER!")
+            print_error(f"\nNaughty! Please pick a number!")
 
-# ========= Safety Switch =========
+# ========= App Start =========
 if __name__ == "__main__":
+    terminal_black()
+    clear_screen()
     show_app_title()
     main_menu()
