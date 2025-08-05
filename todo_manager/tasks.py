@@ -3,8 +3,6 @@
 
 import json
 import os
-import requests
-import random
 from emoji import *
 from styling import *
 
@@ -121,23 +119,6 @@ class TaskList:
         except Exception:
             print_error("\nOh no! JaSON says... Let's start again!")
 
-    # ===== Get motivational quote =====
-    def get_motivational_quote(self):
-        """Get inspiration from an API or show backup quote"""
-        try:
-            response = requests.get("https://api.quotable.io/random?tags=motivational")
-            
-            if response.status_code == 200:
-                data = response.json()
-                quote = data.get('content', '')
-                self.show_quote(quote)
-                return
-                
-        except:
-            pass
-
-        self.show_backup_motivation()  # Show backup motivation (user doesn't know it's offline)
-
     # ========== Helper methods =========
     
     # ===== Check valid task number =====
@@ -149,21 +130,3 @@ class TaskList:
     def show_invalid_number_error(self):
         """Show error message for invalid task numbers"""
         print_error(f"\nCheeky! That's not a valid number. Please pick a number from the list!")
-    
-    # ===== Show quote =====
-    def show_quote(self, quote):
-        """Display a quote with consistent formatting"""
-        print_quote(f"\n{quote}")
-
-    # ===== Show backup motivation =====
-    def show_backup_motivation(self):
-        """Show backup motivational message when offline"""
-        quotes = [
-            "You're doing amazing! Keep kicking goals!",
-            "Every step counts! You've got this!",
-            "Progress over perfection! Believe in yourself!",
-            "Stay focused and keep going! You're unstoppable!"
-        ]
-        
-        quote = random.choice(quotes)
-        self.display_quote(quote)

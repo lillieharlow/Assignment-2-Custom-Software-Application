@@ -52,11 +52,6 @@ def get_task_number(task_list, action):
         print_error("That's not a number! Try again with just numbers.")
         return None
 
-# ========== Show Motivational Quote =========
-def show_motivational_quote(task_list):
-    print_info(f"{emoji_motivation} Motivation incoming...")
-    task_list.get_motivational_quote()
-
 # ========== Task Menu =========
 def task_menu(task_list):
     while True:
@@ -67,8 +62,7 @@ def task_menu(task_list):
         print(f"2. {emoji_list_task} See all my tasks")
         print(f"3. {emoji_complete_task} Mark a task as done")
         print(f"4. {emoji_delete_task} Delete a task")
-        print(f"5. {emoji_motivation} Get some motivation")
-        print(f"6. {emoji_quit} Exit TO DO. app")
+        print(f"5. {emoji_quit} Exit TO DO. app")
         print("="*60)
 
         choice = input("\nWhat would you like to do? (1-6): ")
@@ -101,11 +95,8 @@ def task_menu(task_list):
                 task_list.remove_task(index)
                 print_info("\nHere's what's left:")
                 task_list.display_tasks()
-            
-        elif choice == "5":
-            show_motivational_quote(task_list)
 
-        elif choice == "6":
+        elif choice == "5":
             print_info(f"\nSee you later {u.get_current_user()}!")
             break
             

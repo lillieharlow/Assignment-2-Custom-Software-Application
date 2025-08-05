@@ -1,8 +1,8 @@
 # Styling for the CLI app using Rich
 
 import os
-from rich.console import Console
 import pyfiglet
+from rich.console import Console
 from rich.table import Table
 
 console = Console(style="bold")
