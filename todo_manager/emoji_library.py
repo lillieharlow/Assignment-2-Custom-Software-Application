@@ -3,21 +3,21 @@
 
 import emoji
 
-# Task related emojis
-emoji_list_task = emoji.emojize(':clipboard:')
-emoji_complete_task = emoji.emojize(':check_mark:')
-emoji_incomplete_task = emoji.emojize(':white_large_square:')
-emoji_delete_task = emoji.emojize(':wastebasket:')
-emoji_edit_task = emoji.emojize(':memo:')
+# Main Menu Emojis
+person = emoji.emojize(':bust_in_silhouette:')
+key = emoji.emojize(':key:')
+door = emoji.emojize(':door:')
 
-# General emojis
-emoji_quit = emoji.emojize(':waving_hand:')
-emoji_wink_face = emoji.emojize(':winking_face:')
-emoji_not_found = emoji.emojize(':cross_mark:')
-emoji_motivation = emoji.emojize(':flexed_biceps:')
+# Task Menu Emojis
+emoji_smile = emoji.emojize(':grinning_face:')
+add = emoji.emojize(':pencil:')
+list = emoji.emojize(':clipboard:')
+complete = emoji.emojize(':check_mark_button:')
+incomplete = emoji.emojize(':white_large_square:')
+delete = emoji.emojize(':wastebasket:')
 
-# Menu emojis
-emoji_door = emoji.emojize(':door:')
-emoji_key = emoji.emojize(':key:')
-emoji_person = emoji.emojize(':bust_in_silhouette:')
-emoji_smile = emoji.emojize(':smiling_face_with_smiling_eyes:')
+# General Emojis
+quit = emoji.emojize(':waving_hand:')
+wink = emoji.emojize(':winking_face:')
+cross = emoji.emojize(':cross_mark:')
+arm = emoji.emojize(':flexed_biceps:')

@@ -55,16 +55,16 @@ def get_task_number(task_list, action):
 def task_menu(task_list):
     while True:
         print("\n" + "="*60)
-        print(f"{emoji_smile} {u.get_current_user()}'s TO DO.")
+        print(f"{smile} {u.get_current_user()}'s TO DO.")
         print("="*60)
-        print(f"1. {emoji_edit_task} Add a new task")
-        print(f"2. {emoji_list_task} See all my tasks")
-        print(f"3. {emoji_complete_task} Mark a task as done")
-        print(f"4. {emoji_delete_task} Delete a task")
-        print(f"5. {emoji_quit} Exit TO DO. app")
+        print(f"1. {edit} Add a new task")
+        print(f"2. {list} See all my tasks")
+        print(f"3. {task} Mark a task as done")
+        print(f"4. {delete} Delete a task")
+        print(f"5. {quit} Exit TO DO. app")
         print("="*60)
 
-        choice = input("\nWhat would you like to do? (1-6): ")
+        choice = input("\nWhat would you like to do? (1-5): ")
 
         if choice == "1":
             clear_screen()
@@ -110,7 +110,8 @@ def task_menu(task_list):
             break
             
         else:
-            print_error("\nNaughty, that's not a valid number.\nPlease, pick a number between 1 and 6.")
+            clear_screen()
+            print_error("\nCheeky, that's not a valid number!")
 
 # ========== User Signup =========
 
@@ -135,9 +136,9 @@ def handle_login():
 def main_menu():
     while True:
         print("\n" + "="*50)
-        print(f"\n1. {emoji_person} Create new account")
-        print(f"2. {emoji_key} Log into existing account")
-        print(f"3. {emoji_door} Exit")
+        print(f"\n1. {person} Create new account")
+        print(f"2. {key} Log into existing account")
+        print(f"3. {door} Exit")
         print("\n" + "="*50)
 
         choice = input("\nWhat would you like to do? (Enter a number 1-3): ")
@@ -156,5 +157,5 @@ def main_menu():
 # ========= App Start =========
 if __name__ == "__main__":
     clear_screen()
-    show_app_title()
+    print_info("A TASK MANAGEMENT APP THAT HELPS YOU STAY ON TRACK")
     main_menu()

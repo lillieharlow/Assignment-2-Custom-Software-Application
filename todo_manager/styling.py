@@ -17,12 +17,6 @@ def print_success(message):
 
 def print_info(message):
     console.print(message, style="on #fff200")
-    
-# ========= Clear screen styling =========
-    
-def clear_screen():
-    """Clear screen for better visibility"""
-    os.system('clear')  # Clear terminal
 
 # ========= ASCII Art Title =========
 
@@ -63,7 +57,6 @@ def show_app_title():
     console.print("="*50)
     print_rainbow_text("TO DO.", font='ANSI_Shadow')
     console.print("="*50 + "\n")
-    print_info("A TASK MANAGEMENT APP THAT HELPS YOU STAY ON TRACK")
 
 # ========= Task Table =========
 def create_task_table(username):
@@ -100,3 +93,10 @@ def create_task_table(username):
 def print_table(table):
     """Print a table with proper spacing"""
     console.print(table)
+    
+# ========= Clear screen styling =========
+    
+def clear_screen():
+    """Clear screen for better visibility"""
+    os.system('clear')  # Clear terminal
+    show_app_title()
