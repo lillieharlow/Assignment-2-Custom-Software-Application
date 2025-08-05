@@ -3,7 +3,7 @@
 from user import User
 from tasks import *
 from styling import *
-from emoji_library import person, key, door, smile, add, list, complete, delete, quit, interesting
+from emoji_library import person, key, door, smile, add, list, complete, delete, cross, quit, interesting
 
 # ========== Global user objects =========
 u = User()
@@ -29,13 +29,15 @@ def get_task_input():
         print_error("\nWhoah! That's a very long task. Let's keep it under 100 characters!")
         return None
         
-    # Is this a priority task?
-    is_priority = input("Is this a priority task? (y/n): ").strip().lower()
-    if is_priority == "y":
-        priority = input("Enter priority (High/Medium/Low): ").strip().capitalize()
-        return PriorityTask(title, priority)
-    else:
-        return Task(title)
+    while True:  # Loop until user enters 'y' or 'n' for priority task input
+        is_priority = input("Is this a priority task? (y/n): ").strip().lower()
+        if is_priority == "y":
+            priority = input("Is this a 'High', 'Medium', or 'Low' priority? ").strip().capitalize()
+            return PriorityTask(title, priority)
+        elif is_priority == "n":
+            return Task(title)
+        else:
+            print_error(f"{cross} Please enter 'y' or 'n'.")
 
 # ========== Task Number Input =========
 def get_task_number(task_list, action):

@@ -103,7 +103,7 @@ class TaskList:
         
         for i, task in enumerate(self.tasks, 1):
             status = complete if task.completed else incomplete
-            table.add_row(str(i), task.title, status)
+            table.add_row(str(i), str(task), status)
         
         print_table(table)
     
