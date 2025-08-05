@@ -3,7 +3,7 @@
 
 import json
 import os
-from emoji import *
+from emoji import emoji_complete_task, emoji_incomplete_task, emoji_delete_task
 from styling import *
 
 # ========= Task class =========

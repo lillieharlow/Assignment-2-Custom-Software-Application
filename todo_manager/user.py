@@ -5,7 +5,7 @@
 import json
 import os
 from getpass import getpass
-from emoji import emoji_edit_task, emoji_wink_face, emoji_not_found, emoji_complete_task, emoji_person, emoji_priority_high
+from emoji import emoji_person, emoji_not_found, emoji_edit_task
 from styling import print_error, print_success
 import bcrypt
 
@@ -107,7 +107,7 @@ class User:
 
             password = getpass(f"\n{emoji_edit_task} Password: ").strip()
 
-            # ✅ FIXED: Use secure password verification
+            # Secure password verification
             if username in users and self.check_password(password, users[username]["password"]):
                 self.logged_in_user = username
                 return username
@@ -121,7 +121,7 @@ class User:
                 
     # ========== Get current logged in user ==========
     def get_current_user(self):
-        """Who's using the app right now?"""
+        """Who's using the app right now"""
         return self.logged_in_user
 
     # ========== Secure password hashing ==========

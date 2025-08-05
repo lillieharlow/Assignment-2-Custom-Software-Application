@@ -3,7 +3,7 @@
 from user import User
 from tasks import *
 from styling import *
-from emoji import *
+from emoji import emoji_wink_face, emoji_welcome, emoji_edit_task, emoji_list_task, emoji_complete_task, emoji_delete_task, emoji_quit, emoji_door, emoji_key, emoji_person
 
 # ========== Global user objects =========
 u = User()
