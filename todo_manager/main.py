@@ -81,7 +81,7 @@ def task_menu(task_list):
         elif choice == "2":
             clear_screen()
             if task_list.get_tasks():
-                print_info(f"\n{u.get_current_user()}'s tasks:")
+                print_info(f"\n{username}'s tasks:")
                 task_list.display_tasks()
             else:
                 print_info(f"\nYou haven't added any tasks yet, let's get started!")
