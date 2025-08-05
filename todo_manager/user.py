@@ -5,8 +5,8 @@
 import json
 import os
 from getpass import getpass
-from emoji import emoji_person, emoji_not_found, emoji_edit_task
-from styling import print_error, print_success
+from emoji_library import emoji_person, emoji_edit_task, emoji_not_found
+from styling import print_error, print_success, clear_screen
 import bcrypt
 
 # ========= User class =========
@@ -51,6 +51,7 @@ class User:
             
             with open(self.users_file, "w") as f:
                 json.dump(users_for_json, f, indent=2)
+            clear_screen()
             print_success(f"\nNice cache! Your account has been saved.")
         except:
             print_error(f"\nUgh, JaSON didn't like that one... your account couldn't be saved. Please try again.")
@@ -83,7 +84,7 @@ class User:
                 continue
             break
 
-        # ✅ FIXED: Use secure password hashing
+        # Secure password hashing
         hashed_password = self.hash_password(password)
         users[username] = {"password": hashed_password}
         

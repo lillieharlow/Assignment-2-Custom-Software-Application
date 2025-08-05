@@ -1,5 +1,5 @@
-# =========== emoji.py ===========
-# This file contains all the emoji imports from emoji library
+# =========== emoji_library.py ===========
+# This file contains all the emoji definitions using the third-party emoji library
 
 import emoji
 
@@ -8,6 +8,7 @@ emoji_list_task = emoji.emojize(':clipboard:')
 emoji_complete_task = emoji.emojize(':check_mark:')
 emoji_incomplete_task = emoji.emojize(':white_large_square:')
 emoji_delete_task = emoji.emojize(':wastebasket:')
+emoji_edit_task = emoji.emojize(':memo:')
 
 # General emojis
 emoji_quit = emoji.emojize(':waving_hand:')
@@ -19,3 +20,4 @@ emoji_motivation = emoji.emojize(':flexed_biceps:')
 emoji_door = emoji.emojize(':door:')
 emoji_key = emoji.emojize(':key:')
 emoji_person = emoji.emojize(':bust_in_silhouette:')
+emoji_smile = emoji.emojize(':smiling_face_with_smiling_eyes:')

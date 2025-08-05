@@ -3,7 +3,7 @@
 from user import User
 from tasks import *
 from styling import *
-from emoji import emoji_wink_face, emoji_welcome, emoji_edit_task, emoji_list_task, emoji_complete_task, emoji_delete_task, emoji_quit, emoji_door, emoji_key, emoji_person
+from emoji_library import emoji_wink_face, emoji_smile, emoji_edit_task, emoji_list_task, emoji_complete_task, emoji_delete_task, emoji_quit, emoji_door, emoji_key, emoji_person
 
 # ========== Global user objects =========
 u = User()
@@ -36,7 +36,6 @@ def get_task_input():
 # ========== Task Number Input =========
 def get_task_number(task_list, action):
     if not task_list.get_tasks():
-        print_error("You don't have any tasks yet! Add some first.")
         return None
     
     max_num = len(task_list.get_tasks())
@@ -56,7 +55,7 @@ def get_task_number(task_list, action):
 def task_menu(task_list):
     while True:
         print("\n" + "="*60)
-        print(f"{emoji_welcome} {u.get_current_user()}'s TO DO.")
+        print(f"{emoji_smile} {u.get_current_user()}'s TO DO.")
         print("="*60)
         print(f"1. {emoji_edit_task} Add a new task")
         print(f"2. {emoji_list_task} See all my tasks")
@@ -68,6 +67,7 @@ def task_menu(task_list):
         choice = input("\nWhat would you like to do? (1-6): ")
 
         if choice == "1":
+            clear_screen()
             print_info(f"\nYay! Let's add a new task!")
             title = get_task_input()
             if title:
@@ -75,29 +75,38 @@ def task_menu(task_list):
                 task_list.add_task(task)
             
         elif choice == "2":
+            clear_screen()
             print_info(f"\nHere are all your tasks:")
             task_list.display_tasks()
             
         elif choice == "3":
+            clear_screen()
             print_info(f"\nLet's mark a task as done!")
             task_list.display_tasks()
             index = get_task_number(task_list, "mark complete")
             if index is not None:
                 task_list.mark_complete(index)
+                clear_screen()
                 print_info("\nHere's your updated list:")
                 task_list.display_tasks()
             
         elif choice == "4":
-            print_info(f"\nWhat task do you want to delete? ")
-            task_list.display_tasks()
-            index = get_task_number(task_list, "delete")
-            if index is not None:
-                task_list.remove_task(index)
-                print_info("\nHere's what's left:")
+            clear_screen()
+            if not task_list.get_tasks():
                 task_list.display_tasks()
+            else:
+                print_info(f"\nWhat task do you want to delete?")
+                task_list.display_tasks()
+                index = get_task_number(task_list, "delete")
+                if index is not None:
+                    task_list.remove_task(index)
+                    print_info("\nHere's what's left:")
+                    task_list.display_tasks()
 
         elif choice == "5":
-            print_info(f"\nSee you later {u.get_current_user()}!")
+            clear_screen()
+            print_rainbow_text("SEE YOU SOON!")
+            print_info(f"\nThanks for stopping by {u.get_current_user()}!")
             break
             
         else:
@@ -138,7 +147,7 @@ def main_menu():
         elif choice == "2":
             handle_login()
         elif choice == "3":
-            print_rainbow_text("TA TA!")
+            print_rainbow_text("GOODBYE!")
             print_info(f"\nThanks for stopping by!\n")
             break
         else:
@@ -146,7 +155,6 @@ def main_menu():
 
 # ========= App Start =========
 if __name__ == "__main__":
-    terminal_black()
     clear_screen()
     show_app_title()
     main_menu()

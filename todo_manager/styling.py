@@ -18,22 +18,11 @@ def print_success(message):
 def print_info(message):
     console.print(message, style="on #fff200")
     
-def print_quote(message):
-    console.print(message, style="italic #d6aeff")
-    
-# ========= Terminal Styling =========
-
-def terminal_black():
-    """Force terminal to black background with white text"""
-    print('\033[40m', end='')  # Set background to black
-    print('\033[37m', end='')  # Set text to white
-    print('\033[2J', end='')   # Clear screen
-    print('\033[H', end='')    # Move cursor to top-left
+# ========= Clear screen styling =========
     
 def clear_screen():
-    """Clear screen with black background"""
+    """Clear screen for better visibility"""
     os.system('clear')  # Clear terminal
-    terminal_black() 
 
 # ========= ASCII Art Title =========
 
