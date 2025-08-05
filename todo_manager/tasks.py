@@ -141,10 +141,11 @@ class TaskList:
                     task = Task(data["title"])
                 task.completed = data["completed"]
                 self.tasks.append(task)
-        except FileNotFoundError:
-            pass  # No file yet
+        except (FileNotFoundError, json.JSONDecodeError):
+            self.tasks = []  # No tasks file yet or file is empty/corrupted - start new list
         except Exception:
             print_error("\nOh no! JaSON says... Let's start again!")
+            self.tasks = []
 
     # ========== Helper methods =========
     
