@@ -30,22 +30,25 @@ def get_task_input():
         return None
         
     while True:  # Loop until user enters 'y' or 'n' for priority task input
-        is_priority = input("Is this task important? (y/n): ").strip().lower()
+        is_priority = input("\nIs this task important? (y/n): ").strip().lower()
         if is_priority == "y":
             while True:
                 print("\nHow important?")
-                print(f"1. {high} High")
+                print(f"\n1. {high} High")
                 print(f"2. {medium} Medium")
                 print(f"3. {low} Low")
-                priority_choice = input("Enter a number (1-3): ").strip()
+                priority_choice = input("\nPlease enter a number (1-3): ").strip()
                 if priority_choice == "1":
                     priority = "High"
+                    clear_screen()
                     break
                 elif priority_choice == "2":
                     priority = "Medium"
+                    clear_screen()
                     break
                 elif priority_choice == "3":
                     priority = "Low"
+                    clear_screen()
                     break
                 else:
                     print_error("Please enter 1, 2, or 3.")
@@ -53,7 +56,7 @@ def get_task_input():
         elif is_priority == "n":
             return Task(title)
         else:
-            print_error("Please enter 'y' or 'n'.")
+            print_error("\nPlease enter 'y' or 'n'.")
 
 # ========== Task Number Input =========
 def get_task_number(task_list, action):
@@ -103,14 +106,17 @@ def task_menu(task_list, username):
 
         elif choice == "3":
             clear_screen()
-            print_info(f"\nLet's mark a task as done!")
-            task_list.display_tasks()
-            index = get_task_number(task_list, "mark complete")
-            if index is not None:
-                task_list.mark_complete(index)
-                clear_screen()
-                print_info("\nHere's your updated list:")
+            if task_list.get_tasks():
+                print_info(f"\nLet's mark a task as done!")
                 task_list.display_tasks()
+                index = get_task_number(task_list, "mark complete")
+                if index is not None:
+                    task_list.mark_complete(index)
+                    clear_screen()
+                    print_info("\nHere's your updated list:")
+                    task_list.display_tasks()
+            else:
+                print_info("\nYou haven't added any tasks yet, let's get started!")
             
         elif choice == "4":
             clear_screen()
@@ -124,14 +130,17 @@ def task_menu(task_list, username):
                     if index is not None:
                         clear_screen()
                         task_list.delete_task(index)
-                        print_info("\nHere's what's left:")
-                        task_list.display_tasks()
+                        # Only print "Here's what's left:" if there are tasks remaining
+                        if task_list.get_tasks():
+                            print_info("\nHere's what's left:")
+                            task_list.display_tasks()
+                        else:
+                            print_info("\nYou haven't added any tasks yet, let's get started!")
                         break
                     else:
-                        # Offer to try again or return to menu incase user doesn't want to delete
                         again = input(f"Try again?\n(Press 'y' to retry or enter anything else to return to menu): ").strip().lower()
                         if again != "y":
-                            break 
+                            break
 
         elif choice == "5":
             clear_screen()
