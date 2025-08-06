@@ -1,12 +1,28 @@
-# TO DO. App
+# TO DO. CLI Application
+#### Assignment 2 - Custom Software Application - Coder Academy
 
-A vibrant, secure, and easy-to-use command-line task manager designed to help you stay productive every day. Whether you prefer colorful interfaces, emoji-enhanced fun, or secure personalized task tracking, this app has you covered.
+TO DO. is a fun, secure, and easy to use task management app. Used in the terminal command-line interface (CLI). This app is perfect for organising your day and keeping on top of tasks. Your info is stored securely, allowing you to come back to your task list when it suits you. Guest mode is also available if your wanting to try the app before signing up (please note: tasks will not be saved in guest mode when you exit the app).
 
+Any feedback or issues you encounter with using the app, please let me know. I hope you enjoy using TO DO. as much as I enjoyed making it!
 <hr>
 
-## ✅ Help & Setup Documentation
+## Table of Contents
 
-### Installation & Setup
+1. [Setup & Installation](#setup--installation)
+   - [System Requirements](#system-requirements)
+   - [Install Dependencies](#install-dependencies)
+   - [Run the App](#run-the-app)
+2. [Hardware Requirements](#hardware-requirements)
+3. [App Features](#features-of-the-app)
+4. [Dependencies](#dependencies-required-by-the-app)
+5. [List of Required Files (Including Third-Party)](#list-of-required-files-including-third-party)
+   - [Legal & Ethical Impacts](#legal--ethical-impacts)
+   - [Security Impact](#security-impact)
+   - [Purpose](#purpose-of-each-dependency)
+   - [Conflicts](#conflicts)
+6. [Reference List](#reference-list)
+
+## Setup & Installation
 
 1. **System Requirements:**  
    - Python 3.8 or newer  
@@ -56,7 +72,7 @@ A vibrant, secure, and easy-to-use command-line task manager designed to help yo
 
 ---
 
-## ✨ Features of the App
+## ✨ App Features
 
 - Secure user sign-up and login with passwords hashed by bcrypt (no plain-text storage)  
 - Guest mode with temporary task lists (tasks lost on exit)  
@@ -68,7 +84,7 @@ A vibrant, secure, and easy-to-use command-line task manager designed to help yo
 
 ---
 
-## 📦 Dependencies Required by the App
+## 📦 Dependencies
 
 | Library           | Version  | License      | Security Impact        | Purpose                                 | Conflict Risk  |
 |-------------------|----------|--------------|-----------------------|-----------------------------------------|---------------|
