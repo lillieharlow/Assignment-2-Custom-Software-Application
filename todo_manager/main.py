@@ -1,12 +1,13 @@
 # Main file for "TO DO." task manager app
 
-from user import User
+from user import User, GuestUser
 from tasks import *
 from styling import *
 from emoji_library import person, key, door, smile, add, list, complete, delete, quit, interesting, high, medium, low
 
 # ========== Global user objects =========
 u = User()
+guest = GuestUser()
 
 # ========== User Welcome =========
 
@@ -177,16 +178,19 @@ def main_menu():
         print("\n" + "="*50)
         print(f"\n1. {person} Create new account")
         print(f"2. {key} Log into existing account")
-        print(f"3. {door} Exit")
+        print(f"3. Guest user (pick me! If you want to try out the app (p.s. tasks won't be saved))")
+        print(f"4. {door} Exit")
         print("\n" + "="*50)
 
-        choice = input("\nWhat would you like to do? (Enter a number 1-3): ")
+        choice = input("\nWhat would you like to do? (Enter a number 1-4): ")
 
         if choice == "1":
             handle_signup()
         elif choice == "2":
             handle_login()
         elif choice == "3":
+            handle_guest()  # Guest user
+        elif choice == "4":
             print_rainbow_text("GOODBYE!")
             print_info(f"\nThanks for stopping by!\n")
             break

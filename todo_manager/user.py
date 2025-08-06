@@ -133,3 +133,9 @@ class User:
     def check_password(self, password, hashed):
         """Verify password against hash"""
         return bcrypt.checkpw(password.encode('utf-8'), hashed)
+
+# ========== Guest User ==========
+class GuestUser(User): # Inherits from User class
+    def __init__(self):
+        super().__init__()
+        self.is_guest = True
