@@ -1,9 +1,26 @@
-# tasks.py
-# Task and TaskList classes for managing task items
+# ========== todo_manager/tasks.py =========
+""" Task management for the TO DO app.
+Features:
+Task class: Represents a single task.
+__init__: Sets title, completed status.
+mark_complete(): Marks as complete.
+mark_incomplete(): Marks as incomplete.
+PriorityTask class: Inherits Task, adds priority.
+TaskList class: Manages a user's tasks.
+__init__: Sets up task list, loads tasks.
+add_task(): Adds and saves task.
+remove_task(): Deletes and saves task.
+mark_complete(): Marks task as done.
+get_tasks(): Returns task list.
+display_tasks(): Shows tasks in table.
+save_tasks(): Saves tasks to file.
+load_tasks(): Loads tasks from file.
+Motivation: Fetches or shows motivational quotes.
+Helpers: Validates task numbers, shows errors, displays quotes."""
 
 import json
 import os
-from emoji_library import complete, incomplete, interesting
+from emoji_library import complete, incomplete, interesting, high, medium, low
 from styling import *
 
 # ========= Task class =========
@@ -26,9 +43,30 @@ class Task:
         """Mark this task as not done"""
         self.completed = False
 
+    def __str__(self):
+        return self.title
+
+# ===== Task priority =====
+class PriorityTask(Task):
+    """Inherits from Task and adds priority level to user tasks if they choose"""
+    def __init__(self, title, priority):
+        super().__init__(title) # Call parent constructor
+        self.priority = priority  # "High", "Medium", "Low" 
+
+    def __str__(self):  # Map priority to an emoji
+        if self.priority == "High":
+            prio_emoji = high
+        elif self.priority == "Medium":
+            prio_emoji = medium
+        elif self.priority == "Low":
+            prio_emoji = low
+        else:
+            prio_emoji = ""
+        return f"{prio_emoji} {self.title}" # Adds priority emoji to task title
+
 # ========= TaskList class =========
 class TaskList:
-    """Manages a list of tasks for a specific user"""
+    """Manages a user's tasks: add, delete, complete, display, and save/load tasks."""
 
     # ===== Setup task list =====
     def __init__(self, username):
@@ -57,7 +95,7 @@ class TaskList:
     
     # ===== Complete task =====
     def mark_complete(self, index):
-        """Mark a task as done by its number"""
+        """Mark a task as done by its index number/task number"""
         if self.is_valid_task_number(index):
             self.tasks[index].mark_complete()
             self.save_tasks()
@@ -72,7 +110,7 @@ class TaskList:
     
     # ===== Display tasks =====
     def display_tasks(self):
-        """Show all tasks in a nice table"""
+        """Show all tasks, task number and completion status in a nice table"""
         if not self.tasks:
             print_info(f"\nYou haven't added any tasks yet, let's get started!")
             return
@@ -81,7 +119,7 @@ class TaskList:
         
         for i, task in enumerate(self.tasks, 1):
             status = complete if task.completed else incomplete
-            table.add_row(str(i), task.title, status)
+            table.add_row(str(i), str(task), status)
         
         print_table(table)
     
@@ -89,13 +127,16 @@ class TaskList:
     def save_tasks(self):
         """Save all tasks to the user's file"""
         os.makedirs(os.path.dirname(self.filename), exist_ok=True)
-        
-        # Create list of task data
         task_data = []
         for task in self.tasks:
-            task_info = {"title": task.title, "completed": task.completed}
+            task_info = {
+                "title": task.title,
+                "completed": task.completed,
+                "type": task.__class__.__name__
+            }
+            if isinstance(task, PriorityTask):
+                task_info["priority"] = task.priority
             task_data.append(task_info)
-        
         try:
             with open(self.filename, 'w') as file:
                 json.dump(task_data, file, indent=2)
@@ -108,17 +149,19 @@ class TaskList:
         try:
             with open(self.filename, 'r') as file:
                 task_data = json.load(file)
-            
             self.tasks = []
             for data in task_data:
-                task = Task(data["title"])
+                if data.get("type") == "PriorityTask":
+                    task = PriorityTask(data["title"], data.get("priority", "Medium"))
+                else:
+                    task = Task(data["title"])
                 task.completed = data["completed"]
                 self.tasks.append(task)
-                
-        except FileNotFoundError:
-            pass  # No file yet
+        except (FileNotFoundError, json.JSONDecodeError):
+            self.tasks = []  # No tasks file yet or file is empty/corrupted - start new list
         except Exception:
             print_error("\nOh no! JaSON says... Let's start again!")
+            self.tasks = []
 
     # ========== Helper methods =========
     
@@ -129,5 +172,5 @@ class TaskList:
     
     # ===== Show error for invalid number =====
     def show_invalid_number_error(self):
-        """Show error message when user does not input valid number"""
+        """Show message when user does not input valid number"""
         print_error(f"\nCheeky! That's not a valid number. Please pick a number from the list!")

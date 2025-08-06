@@ -1,47 +1,91 @@
-# Main file for "TO DO." task manager app
+# ========== todo_manager/main.py =========
+""" Main application file for the TO DO app.
+Features:
+Global objects: u for user management.
+welcome_user(): Prints welcome message (new/returning).
+print_no_tasks(): Shows "no tasks" message.
+get_task_input(): Gets/validates task input, returns Task/PriorityTask.
+get_task_number(): Gets/validates task number input.
+task_menu(): Main task menu (add, view, complete, delete, motivation, exit).
+handle_signup(): Signup flow.
+handle_login(): Login flow.
+handle_guest(): Guest user flow (tasks not saved).
+main_menu(): Main menu (signup, login, guest, exit).
+App start: Shows title, runs main menu."""
 
-from user import User
+from user import User, GuestUser
 from tasks import *
 from styling import *
-from emoji_library import person, key, door, smile, add, list, complete, delete, quit, interesting
+from emoji_library import person, key, door, smile, add, list, complete, delete, quit, interesting, high, medium, low
 
 # ========== Global user objects =========
 u = User()
 
 # ========== User Welcome =========
-
 def welcome_user(username, is_returning=False):
+    """Welcome message for user/guest"""
+    if username == "Guest":
+        return  # Don't print the welcome message for guest
     if is_returning:
         message = f"\nHey {username}, welcome back!"
     else:
         message = f"\nHey {username}, welcome to TO DO. {smile} Let's get started!"
     print_success(message)
+    
+# ========== Helper function - print_no_tasks() =========
+def print_no_tasks():
+    """Message shown to user when there are no tasks listed"""
+    print_info("\nYou haven't added any tasks yet, let's get started!")
 
 # ========== Task Input =========
-
 def get_task_input():
     """Get task input from user"""
     title = input("\nWhat task do you want to add? ").strip()
-    
     if not title:
         print_error("\nCome on, you gotta tell me what the task is!")
         return None
-        
     if len(title) > 100:
         print_error("\nWhoah! That's a very long task. Let's keep it under 100 characters!")
         return None
         
-    return title
+    while True:  # Loop until user enters 'y' or 'n' for priority task input
+        is_priority = input("\nIs this task important? (y/n): ").strip().lower()
+        if is_priority == "y":
+            while True:
+                print("\nHow important?")
+                print(f"\n1. {high} High")
+                print(f"2. {medium} Medium")
+                print(f"3. {low} Low")
+                priority_choice = input("\nPlease enter a number (1-3): ").strip()
+                if priority_choice == "1":
+                    priority = "High"
+                    clear_screen()
+                    break
+                elif priority_choice == "2":
+                    priority = "Medium"
+                    clear_screen()
+                    break
+                elif priority_choice == "3":
+                    priority = "Low"
+                    clear_screen()
+                    break
+                else:
+                    print_error("Please enter 1, 2, or 3.")
+            return PriorityTask(title, priority)
+        elif is_priority == "n":
+            return Task(title)
+        else:
+            print_error("\nPlease enter 'y' or 'n'.")
 
 # ========== Task Number Input =========
 def get_task_number(task_list, action):
+    """Get task number from user for completing/deleting a task"""
     if not task_list.get_tasks():
         return None
-    
     max_num = len(task_list.get_tasks())
+    
     try:
         index = int(input(f"\nWhich task do you want to {action}? (1-{max_num}): ")) - 1
-        
         if 0 <= index < max_num:
             return index
         else:
@@ -50,12 +94,26 @@ def get_task_number(task_list, action):
     except ValueError:
         print_error(f"{interesting} That's not a valid option!")
         return None
+    
+# ========== Guest user handling =========
+def handle_guest():
+    """Guest user flow (does not save tasks)"""
+    guest = GuestUser()
+    username = "Guest"
+    clear_screen()
+    print_info("\nWelcome to TODO. Please note: your tasks will NOT be saved after you exit.")
+    task_list = TaskList(username)
+    task_list.save_tasks = lambda: None # Disable saving
+    task_list.load_tasks = lambda: None # Disable loading
+    welcome_user(username)
+    task_menu(task_list, username)
 
 # ========== Task Menu =========
-def task_menu(task_list):
+def task_menu(task_list, username):
+    """Main task menu for adding, seeing, completing, deleting tasks"""
     while True:
         print("\n" + "="*60)
-        print(f"{smile} {u.get_current_user()}'s TO DO.")
+        print(f"{smile} {username}'s TO DO.")
         print("="*60)
         print(f"1. {add} Add a new task")
         print(f"2. {list} See all my tasks")
@@ -66,31 +124,36 @@ def task_menu(task_list):
 
         choice = input("\nWhat would you like to do? (1-5): ")
 
-        if choice == "1":
+        if choice == "1": # Add a new task
             clear_screen()
             print_info(f"\nYay! Let's add a new task!")
-            title = get_task_input()
-            if title:
-                task = Task(title)
-                task_list.add_task(task)
+            task = get_task_input() 
+            if task:
+                task_list.add_task(task) # add task object directly
             
-        elif choice == "2":
+        elif choice == "2": # See all tasks
             clear_screen()
-            print_info(f"\nHere are all your tasks:")
-            task_list.display_tasks()
-            
-        elif choice == "3":
-            clear_screen()
-            print_info(f"\nLet's mark a task as done!")
-            task_list.display_tasks()
-            index = get_task_number(task_list, "mark complete")
-            if index is not None:
-                task_list.mark_complete(index)
-                clear_screen()
-                print_info("\nHere's your updated list:")
+            if task_list.get_tasks():
+                print_info(f"\n{username}'s tasks:")
                 task_list.display_tasks()
+            else:
+                print_no_tasks()
+
+        elif choice == "3": # Mark a task as done/complete
+            clear_screen()
+            if task_list.get_tasks():
+                print_info(f"\nLet's mark a task as done!")
+                task_list.display_tasks()
+                index = get_task_number(task_list, "mark complete")
+                if index is not None:
+                    task_list.mark_complete(index)
+                    clear_screen()
+                    print_info("\nHere's your updated list:")
+                    task_list.display_tasks()
+            else:
+                print_no_tasks()
             
-        elif choice == "4":
+        elif choice == "4": # Delete a task
             clear_screen()
             if not task_list.get_tasks():
                 task_list.display_tasks()
@@ -102,16 +165,19 @@ def task_menu(task_list):
                     if index is not None:
                         clear_screen()
                         task_list.delete_task(index)
-                        print_info("\nHere's what's left:")
-                        task_list.display_tasks()
+                        # Only print "Here's what's left:" if there are tasks remaining
+                        if task_list.get_tasks():
+                            print_info("\nHere's what's left:")
+                            task_list.display_tasks()
+                        else:
+                            print_no_tasks()
                         break
                     else:
-                        # Offer to try again or return to menu incase user doesn't want to delete
                         again = input(f"Try again?\n(Press 'y' to retry or enter anything else to return to menu): ").strip().lower()
                         if again != "y":
-                            break 
+                            break
 
-        elif choice == "5":
+        elif choice == "5": # Exit the app
             clear_screen()
             print_rainbow_text("SEE YOU SOON!")
             print_info(f"\nThanks for stopping by {u.get_current_user()}!")
@@ -122,40 +188,43 @@ def task_menu(task_list):
             print_error("\nCheeky, that's not a valid number!")
 
 # ========== User Signup =========
-
 def handle_signup():
+    """User signup flow"""
     username = u.register_user()
     if username:
         task_list = TaskList(username)
         welcome_user(username)
-        task_menu(task_list)
+        task_menu(task_list, username)
 
 # ========== User Login =========
-
 def handle_login():
+    """User login flow"""
     username = u.login_user()
     if username:
         task_list = TaskList(username)
         welcome_user(username, is_returning=True)
-        task_menu(task_list)
+        task_menu(task_list, username)
         
 # ========== Main Menu - login, signup or exit =========
-
 def main_menu():
+    """Main menu for user to create account, login, guest or exit"""
     while True:
         print("\n" + "="*50)
         print(f"\n1. {person} Create new account")
         print(f"2. {key} Log into existing account")
-        print(f"3. {door} Exit")
+        print(f"3. {smile} Guest user")
+        print(f"4. {door} Exit")
         print("\n" + "="*50)
 
-        choice = input("\nWhat would you like to do? (Enter a number 1-3): ")
+        choice = input("\nWhat would you like to do? (Enter a number 1-4): ")
 
-        if choice == "1":
+        if choice == "1": # Create new account
             handle_signup()
-        elif choice == "2":
+        elif choice == "2": # Log into existing account
             handle_login()
-        elif choice == "3":
+        elif choice == "3": # Guest user
+            handle_guest()
+        elif choice == "4": # Exit the app
             print_rainbow_text("GOODBYE!")
             print_info(f"\nThanks for stopping by!\n")
             break
@@ -164,6 +233,7 @@ def main_menu():
 
 # ========= App Start =========
 if __name__ == "__main__":
+    """App start: Shows title, runs main menu."""
     clear_screen()
     print_info("A TASK MANAGEMENT APP THAT HELPS YOU STAY ON TRACK")
     main_menu()

@@ -1,6 +1,14 @@
-# ============= user.py ============
-# This class handles user login, signup and user management.
-# Security system to make sure only the right user can access their task list.
+# ============= todo_manageruser.py ============
+"""Handles user login, signup and user management securely.
+Features:
+User class: Handles signup, login, tracks current user.
+__init__: Sets up user file, logged-in user.
+load_users(): Loads users from file.
+save_users(): Saves users to file.
+register_user(): Signup logic.
+login_user(): Login logic.
+get_current_user(): Returns current user.
+GuestUser class: Inherits from User, marks as guest."""
 
 import json
 import os
@@ -11,11 +19,11 @@ import bcrypt
 
 # ========= User class =========
 class User:
-    """Handles all the user stuff - signing up, logging in, and keeping track of who's here!"""
+    """User signup, logging in, and keeping track of who's logged in."""
 
     # ========== Create user object and set up file location ==========
     def __init__(self, users_file="data/users.json"):
-        """Setting up where we keep user accounts and who's logged in"""
+        """Setting up where to keep user accounts and who's logged in"""
         self.users_file = users_file
         self.logged_in_user = None
 
@@ -26,11 +34,9 @@ class User:
             return {}
         try:
             with open(self.users_file, "r") as f:
-                data = json.load(f)
-                # Convert bytes back to proper format for bcrypt
+                data = json.load(f) # Convert bytes back to proper format for bcrypt
                 for username, user_data in data.items():
-                    if isinstance(user_data["password"], str):
-                        # Convert string back to bytes for bcrypt
+                    if isinstance(user_data["password"], str): # Convert string back to bytes for bcrypt
                         user_data["password"] = user_data["password"].encode('latin-1')
                 return data
         except:
@@ -38,23 +44,21 @@ class User:
     
     # ========== Save user to json file ==========
     def save_users(self, users):
-        """Save all users so we don't lose anyone!"""
+        """Save all users so we don't lose anyone"""
         os.makedirs(os.path.dirname(self.users_file), exist_ok=True)
         
         try:
-            # Convert bytes to string for JSON storage
-            users_for_json = {}
+            users_for_json = {} # Convert bytes to string for JSON storage
             for username, user_data in users.items():
                 users_for_json[username] = {
                     "password": user_data["password"].decode('latin-1')
                 }
-            
             with open(self.users_file, "w") as f:
                 json.dump(users_for_json, f, indent=2)
             clear_screen()
             print_success(f"\nNice cache! Your account has been saved.")
         except:
-            print_error(f"\nUgh, JaSON didn't like that one {interesting}. Your account couldn't be saved. Please try again.")
+            print_error(f"\nUgh, JaSON didn't like that one {interesting}. Please try again.")
 
     # ========== Sign up new user ==========
     def register_user(self):
@@ -83,10 +87,8 @@ class User:
                 continue
             break
 
-        # Secure password hashing
-        hashed_password = self.hash_password(password)
+        hashed_password = self.hash_password(password)  # Secure password hashing
         users[username] = {"password": hashed_password}
-        
         self.save_users(users)
         self.logged_in_user = username
         print()
@@ -104,22 +106,19 @@ class User:
             if not username:
                 print_error(f"\n{cross} Please enter a valid username.")
                 continue
-
             password = getpass(f"\n{lock} Password: ").strip()
-
-            # Secure password verification
-            if username in users and self.check_password(password, users[username]["password"]):
+            if username in users and self.check_password(password, users[username]["password"]): # Secure password verification
                 self.logged_in_user = username
                 return username
             else:
                 attempts += 1
                 if attempts < 3:
                     print_error(f"\nOops! That username or password didn't match {interesting}. Please try again!")
-
+        
         print_error(f"\nUmm, this is awkward {interesting} Did you forget your details?\nLet's go back to the main menu.")
         return None
                 
-    # ========== Get current logged in user ==========
+    # ========== Get current user ==========
     def get_current_user(self):
         """Who's using the app right now"""
         return self.logged_in_user
@@ -133,3 +132,10 @@ class User:
     def check_password(self, password, hashed):
         """Verify password against hash"""
         return bcrypt.checkpw(password.encode('utf-8'), hashed)
+
+# ========== Guest User ==========
+class GuestUser(User): # Inherits from User class
+    """Guest user class inherits from User. Doesn't save tasks or login details."""
+    def __init__(self):
+        super().__init__()
+        self.is_guest = True
