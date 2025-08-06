@@ -33,7 +33,7 @@ Any feedback or issues you encounter with using the app, please let me know. I h
 
    ```bash
    pip install rich pyfiglet bcrypt emoji
-   ```
+   ``` 
 
   Your `requirements.txt` should contain these pinned packages:  
   bcrypt==4.3.0
