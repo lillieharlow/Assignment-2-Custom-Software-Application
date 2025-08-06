@@ -83,6 +83,7 @@ def get_task_number(task_list, action):
     if not task_list.get_tasks():
         return None
     max_num = len(task_list.get_tasks())
+    
     try:
         index = int(input(f"\nWhich task do you want to {action}? (1-{max_num}): ")) - 1
         if 0 <= index < max_num:
