@@ -18,6 +18,11 @@ def welcome_user(username, is_returning=False):
     else:
         message = f"\nHey {username}, welcome to TO DO. {smile} Let's get started!"
     print_success(message)
+    
+# ========== Helper function - print_no_tasks() =========
+def print_no_tasks():
+    """Message shown to user when there are no tasks listed"""
+    print_info("\nYou haven't added any tasks yet, let's get started!")
 
 # ========== Task Input =========
 
@@ -116,7 +121,7 @@ def task_menu(task_list, username):
                 print_info(f"\n{username}'s tasks:")
                 task_list.display_tasks()
             else:
-                print_info(f"\nYou haven't added any tasks yet, let's get started!")
+                print_no_tasks()
 
         elif choice == "3":
             clear_screen()
@@ -130,7 +135,7 @@ def task_menu(task_list, username):
                     print_info("\nHere's your updated list:")
                     task_list.display_tasks()
             else:
-                print_info("\nYou haven't added any tasks yet, let's get started!")
+                print_no_tasks()
             
         elif choice == "4":
             clear_screen()
@@ -149,7 +154,7 @@ def task_menu(task_list, username):
                             print_info("\nHere's what's left:")
                             task_list.display_tasks()
                         else:
-                            print_info("\nYou haven't added any tasks yet, let's get started!")
+                            print_no_tasks()
                         break
                     else:
                         again = input(f"Try again?\n(Press 'y' to retry or enter anything else to return to menu): ").strip().lower()

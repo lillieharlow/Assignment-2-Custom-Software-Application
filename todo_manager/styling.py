@@ -10,13 +10,13 @@ console = Console(style="bold")
 # ========= Basic Print Functions =========
     
 def print_error(message):
-    console.print(message, style="on #ffc182")
+    console.print(message, style="on #ffc182") # light orange
 
 def print_success(message):
-    console.print(message, style="on #94ffcb")
+    console.print(message, style="on #94ffcb") # light green
 
 def print_info(message):
-    console.print(message, style="on #fff200")
+    console.print(message, style="on #fff200") # light yellow
 
 # ========= ASCII Art Title =========
 
