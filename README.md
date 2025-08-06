@@ -123,3 +123,46 @@ A vibrant, secure, and easy-to-use command-line task manager designed to help yo
 **Enjoy organizing your tasks with flair and security!**
 
 If you want help adding usage examples, screenshots, or tips on customizing your app, just ask!
+
+
+## Reference List:
+
+WebFX (no date) Emoji Cheat Sheet. Available at: https://www.webfx.com/tools/emoji-cheat-sheet/ (Accessed: 6 August 2025).
+
+NeuralNine (2021) 'Colored Console Output in Python', YouTube video, 9 May. Available at: https://www.youtube.com/watch?v=kf8kbUKeM5g (Accessed: 6 August 2025).
+
+Jones, C. et al. (2007-2023) pyfiglet. Available at: https://pypi.org/project/pyfiglet/ (Accessed: 6 August 2025).
+
+GeeksforGeeks (no date) Python ASCII Art Using Pyfiglet Module. Available at: https://www.geeksforgeeks.org/python/python-ascii-art-using-pyfiglet-module/ (Accessed: 6 August 2025).
+
+Tech With Tim (2020) 'Python To-Do List Tutorial', YouTube video, 20 March. Available at: https://www.youtube.com/watch?v=J0w87IpcdYA (Accessed: 6 August 2025).
+
+Stack Overflow (2019) 'I want to use JSON in Python to save users and password', Stack Overflow. Available at: https://stackoverflow.com/questions/54267646/i-want-to-use-json-in-python-to-save-users-and-password (Accessed: 6 August 2025).
+
+Telusko (2018) 'Python GUI To-Do App | Tkinter', YouTube video, 10 January. Available at: https://www.youtube.com/watch?v=pY6RB4_EoSM (Accessed: 6 August 2025).
+
+CodeWithHarry (2019) 'Python Project To-Do Application', YouTube video, 20 October. Available at: https://www.youtube.com/watch?v=uwaHwP3wfjY (Accessed: 6 August 2025).
+
+Telusko (2017) 'Python Tkinter Tutorial', YouTube video, 18 September. Available at: https://www.youtube.com/watch?v=eIYKsSYKNPw (Accessed: 6 August 2025).
+
+Clever Programmer (2020) 'Python Projects - To-Do List App Tutorial', YouTube video, 10 December. Available at: https://www.youtube.com/watch?v=aEIHZDv_23U (Accessed: 6 August 2025).
+
+Halverson, S. (no date) PythonToDo, GitHub repository. Available at: https://github.com/ShaunHalverson/PythonToDo (Accessed: 6 August 2025).
+
+emoji (no date) emoji: Emoji for Python. Available at: https://pypi.org/project/emoji/ (Accessed: 6 August 2025).
+
+AIMind (2021) Creating a Simple To-Do List in Python. Available at: https://pub.aimind.so/creating-a-simple-to-do-list-in-python-c0f52ab15814 (Accessed: 6 August 2025).
+
+Joseph, D. (no date) Creating a Simple To-Do List Application in Python: A Guide. LinkedIn. Available at: https://www.linkedin.com/pulse/creating-simple-to-do-list-application-python-guide-daniel-joseph-/ (Accessed: 6 August 2025).
+
+GeeksforGeeks (2022) Installing and Using Rich Package in Python. Available at: https://www.geeksforgeeks.org/python/installing-and-using-rich-package-in-python/ (Accessed: 6 August 2025).
+
+Corey Schafer (2020) 'Python Colorama Tutorial - Colored Console Output', YouTube video, 10 May. Available at: https://www.youtube.com/watch?v=4zbehnz-8QU (Accessed: 6 August 2025).
+
+Patorjk (no date) Text to ASCII Art Generator (TAAG). Available at: https://www.patorjk.com/software/taag/#p=display&f=ANSI%20Shadow&t=Bash%0ABedlam%0A (Accessed: 6 August 2025).
+
+ParcelMaiyo (2019) Text Styling in Python Using PyFiglet. Medium. Available at: https://medium.com/@parcelmaiyo/text-styling-in-python-using-pyfiglet-824c498dfff5 (Accessed: 6 August 2025).
+
+freeCodeCamp.org (2018) 'Python Tutorial - Full Course for Beginners', YouTube video, 17 April. Available at: https://www.youtube.com/watch?v=9N6a-VLBa2I (Accessed: 6 August 2025).
+
+ProgrammingKnowledge (2017) 'Python Tutorial for Beginners', YouTube video, 18 May. Available at: https://www.youtube.com/watch?v=2H4cYt_3DsE (Accessed: 6 August 2025).

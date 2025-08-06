@@ -1,90 +1,84 @@
-Assignment Check List:
+# Assignment Check List:
 
-[] README.md file
-    [] help or set up documentation - explain how to install any files & start the app
-    [] hardware requirements
-    [] features of the app
-    [] dependencies required by the app
-    [] list required files (third party)
-        [] explaining the legal and ethical impacts of their license (+/-)
-        [] security impact
-        [] purpose
-        [] not conflict with each other
-[] uses 4+ third party libraries/packages
-[] handle all errors - catch erros with error handling teechniques
-[] use DRY principles across whole app
-[] functions
-    [] imported from third party libraries (extensive use)
-    [] 6+ functions written by myself
-[] 3+ classes
-    [] uses inheritance and composition in at least two
-[] variable scope & access delarations
-[] loops and condiitonal statements
-    [] for multiple paths
-    [] nested structures that handle multiple contingencies
-[] 2+ input and output
-    [] retrieving user input and displaying output
-    [] reading from files and writing to files
+- [ ] README.md file
+    - [ ] help or set up documentation - explain how to install any files & start the app
+    - [ ] hardware requirements
+    - [ ] features of the app
+    - [ ] dependencies required by the app
+    - [ ] list required files (third party)
+        - [ ] explaining the legal and ethical impacts of their license (+/-)
+        - [ ] security impact
+        - [ ] purpose
+        - [ ] not conflict with each other
+- [ ] uses 4+ third party libraries/packages
+- [ ] handle all errors - catch errors with error handling techniques
+- [ ] use DRY principles across whole app
+- [ ] functions
+    - [ ] imported from third party libraries (extensive use)
+    - [ ] 6+ functions written by myself
+- [ ] 3+ classes
+    - [ ] uses inheritance and composition in at least two
+- [ ] variable scope & access declarations
+- [ ] loops and conditional statements
+    - [ ] for multiple paths
+    - [ ] nested structures that handle multiple contingencies
+- [ ] 2+ input and output
+    - [ ] retrieving user input and displaying output
+    - [ ] reading from files and writing to files
 
-# main.py
+# Personal notes for creating each files:
 
-1. App starts → Show title
-2. Main menu → Choose signup/login/exit
-3. If signup/login successful → Task menu
-4. Task menu → Add/view/complete/delete tasks or get motivation
-5. When done → Back to main menu or exit
+## main.py
+
+Flow:
+1. App starts -> Show title
+2. Main menu -> Choose signup/login/guest/exit
+3. If signup/login successful -> Task menu
+4. Task menu -> Add/view/complete/delete task
+5. Finished -> Exit app
 
 ### Global setup
 - u handles all login/signup
-- console creates a console for pretty text
-- both used throughout the app that's why they are global objects
 
 ### Functions
-
-- welcome_user()
-    - welcome message (different for new vs returning)
-- get_task_input()
-    - asks you to type a task
-    - checks it's not blank/empty
+- Welcome message (different for new vs returning)
+- If user is new, def to show "no tasks yet" message
+- Task - input from user, ask what task they want to add
+    - asks user to type a task
+    - checks input isn't blank/empty
     - checks length
     - returns task or None if invalid
-- get_task_number()
-    - asks which task number you want/what you want to do
+- Task stored with number/index to easily reference in code
+    - asks user what task number/index
     - converts answer to number
     - checks validity
     - returns task index or none if invalid
 
 ### Task Menu Function
-
-- task_menu()
-    - Choice 1: Add a new task to your list
-    - Choice 2: Show all your current tasks
-    - Choice 3: Mark a task as completed
-    - Choice 4: Delete a task from your list
-    - Choice 5: Get a motivational quote
-    - Choice 6: Exit back to main menu
+- One of two main menus - Task Menu
+    - Choice 1: Add
+    - Choice 2: Show
+    - Choice 3: Complete
+    - Choice 4: Delete
+    - Choice 5: Exit app
 
 ### User Management Functions
-
-- handle_signup()
-    - create new user account
-
-- handle_login()
-    - login existing user account
+- sign up new user, login existing user, guest can use app but don't save data if they exit.
 
 ### Main Menu Function
-
-- the first thing user sees, asks input to signup, login, exit app
+- Main menu, first thing user sees on app
+    - 1. Signup
+    - 2. Login
+    - 3. Guest
+    - 4. Exit app
 
 ### App startup
-
-- shows TO DO. title in rainbow
-- starts main_menu()
+- shows TO DO. app banner/title art (large, rainbow text)
+- starts Main menu
 
 <hr>
 
 # user.py
-
 Blueprint for handling all user accounts - class User
 Manages sign up, log in and who is using the app
 
@@ -144,48 +138,32 @@ Creates an amazing first impression with rainbow title
 - Makes the command line app feel modern and polished
 
 ### Setup
-- Creates a console object using Rich library for fancy terminal colors
+- console object using Rich library for fancy terminal colors
 - Imports pyfiglet for creating big ASCII art text
 - Console is used by all the color functions to display styled messages
 
 ### Basic Color Functions
-
-- print_error()
+- Error message
     - red
     - impossible to miss - grabs attention immediately
     - used for validation errors, failed logins, etc.
 
-- print_success()
+- Success message
     - green
     - makes users feel good about completing actions
     - used for successful logins, saved tasks, confirmations
 
-- print_info()
-    - pink
+- Normal info message
+    - yellow
     - eye-catching but friendly - not scary like errors
     - used for instructions, general messages, app descriptions
 
-- print_warning()
-    - yellow
-    - gets noticed but not as alarming as errors
-    - used for important notices that aren't quite errors
-
-- print_welcome()
-    - blue
-    - calm and inviting feeling
-    - used for greeting messages and friendly notifications
-
 ### ASCII Art Magic
-
-- print_rainbow_text()
-    - takes any text and turns it into HUGE rainbow-colored ASCII art
-    - uses 6 carefully chosen colors that look amazing together
+- Rainbow banner
     - cycles through colors character by character for rainbow effect
     - adds proper padding above and below for clean presentation
     - calculates exact spacing to eliminate ugly white gaps
     - creates professional-looking title that makes app stand out
-
-- show_app_title()
     - displays the complete app startup screen
     - combines rainbow ASCII art with borders and tagline
     - shows "TO DO." in massive rainbow letters
@@ -197,67 +175,51 @@ Creates an amazing first impression with rainbow title
 - Colors help users scan tasks quickly  
 - Shows completed (✅) vs incomplete (⬜) clearly
 - Clean, readable format that's easy to understand
+- three columns: #, status, task (different colors)
 
-- create_task_table()
-    - creates styled table for tasks
-    - sets user's name in cyan as title
-    - three columns: #, status, task (different colors)
-    - returns empty table ready for data
-
-- print_table()
-    - displays table with proper spacing
-    - uses Rich formatting for clean output
-    - keeps all tables looking consistent
+### Clear terminal
+- os import clears terminal screen, neat and tidy display not lines and lines of input, output
 
 <hr>
 
-
 # tasks.py
-
 Manages all task-related operations - creating, storing, displaying tasks
 Two main classes: Task (individual task) and TaskList (collection of tasks)
 
 ### Task Class
+- creates a new task with title
+- task starts out as incomplete but changes to complete when done
 
-- __init__()
-    - creates a new task with title
-    - sets completed status to False by default
-
-- mark_complete()
-    - changes task status to completed (True)
-
-- mark_incomplete()
-    - changes task status back to not completed (False)
+### Priority Class
+- inherits from Task class and shows tasks as high, medium, low priority or none
 
 ### TaskList Class Setup
-
-- __init__()
-    - creates new task list for specific user
-    - sets up filename for saving user's tasks
-    - automatically loads existing tasks from file
+- creates new task list for specific user
+- sets up filename for saving user's tasks
+- automatically loads existing tasks from file
 
 ### Task Management Functions
 
-- add_task()
+- Add task
     - adds new task to the list
     - saves updated list to file
     - shows success message
 
-- remove_task()
+- Delete task
     - deletes task by number if valid
     - saves updated list
     - shows confirmation message or error
 
-- mark_complete()
+- Complete task
     - marks specific task as done by number
     - saves changes to file
     - celebrates completion with success message
 
-- get_tasks()
+- Get task
     - returns the current list of tasks
     - used by other functions to access tasks
 
-- display_tasks()
+- Display task
     - shows all tasks in colorful table format
     - displays message if no tasks exist yet
     - uses create_task_table() for styling
@@ -274,29 +236,13 @@ Two main classes: Task (individual task) and TaskList (collection of tasks)
     - creates Task objects from saved data
     - handles missing files (new users)
 
-### Motivation System
-
-- get_motivational_quote()
-    - tries to fetch inspiring quote from internet API
-    - displays quote with author attribution
-    - falls back to offline quotes if no internet
-
-- show_backup_motivation()
-    - provides offline motivational quotes
-    - randomly selects from built-in collection
-    - user doesn't know it's offline mode
-
 ### Helper Functions
+So there isn't duplicate code - call helper function instead
 
-- is_valid_task_number()
+- Valid task number/index
     - checks if user entered valid task number
     - prevents crashes from invalid input
 
-- show_invalid_number_error()
+- If input is invalid/not in the number range or outside of 'y/n'
     - displays friendly error for wrong numbers
     - guides user to pick valid option
-
-- display_quote()
-    - formats and displays quotes consistently
-    - adds emoji decorations and proper spacing
-    - used for both online and offline quotes
