@@ -1,5 +1,22 @@
-# tasks.py
-# Task and TaskList classes for managing task items
+# ========== todo_manager/tasks.py =========
+""" Task management for the TO DO app.
+Features:
+Task class: Represents a single task.
+__init__: Sets title, completed status.
+mark_complete(): Marks as complete.
+mark_incomplete(): Marks as incomplete.
+PriorityTask class: Inherits Task, adds priority.
+TaskList class: Manages a user's tasks.
+__init__: Sets up task list, loads tasks.
+add_task(): Adds and saves task.
+remove_task(): Deletes and saves task.
+mark_complete(): Marks task as done.
+get_tasks(): Returns task list.
+display_tasks(): Shows tasks in table.
+save_tasks(): Saves tasks to file.
+load_tasks(): Loads tasks from file.
+Motivation: Fetches or shows motivational quotes.
+Helpers: Validates task numbers, shows errors, displays quotes."""
 
 import json
 import os
@@ -31,13 +48,12 @@ class Task:
 
 # ===== Task priority =====
 class PriorityTask(Task):
-    """Inherits from Task and adds priority level"""
+    """Inherits from Task and adds priority level to user tasks if they choose"""
     def __init__(self, title, priority):
-        super().__init__(title)
+        super().__init__(title) # Call parent constructor
         self.priority = priority  # "High", "Medium", "Low" 
 
-    def __str__(self):
-        # Map priority to emoji
+    def __str__(self):  # Map priority to an emoji
         if self.priority == "High":
             prio_emoji = high
         elif self.priority == "Medium":
@@ -46,11 +62,11 @@ class PriorityTask(Task):
             prio_emoji = low
         else:
             prio_emoji = ""
-        return f"{self.title} {prio_emoji}"
+        return f"{prio_emoji} {self.title}" # Adds priority emoji to task title
 
 # ========= TaskList class =========
 class TaskList:
-    """Manages a list of tasks for a specific user"""
+    """Manages a user's tasks: add, delete, complete, display, and save/load tasks."""
 
     # ===== Setup task list =====
     def __init__(self, username):
@@ -79,7 +95,7 @@ class TaskList:
     
     # ===== Complete task =====
     def mark_complete(self, index):
-        """Mark a task as done by its number"""
+        """Mark a task as done by its index number/task number"""
         if self.is_valid_task_number(index):
             self.tasks[index].mark_complete()
             self.save_tasks()
@@ -94,7 +110,7 @@ class TaskList:
     
     # ===== Display tasks =====
     def display_tasks(self):
-        """Show all tasks in a nice table"""
+        """Show all tasks, task number and completion status in a nice table"""
         if not self.tasks:
             print_info(f"\nYou haven't added any tasks yet, let's get started!")
             return
@@ -156,5 +172,5 @@ class TaskList:
     
     # ===== Show error for invalid number =====
     def show_invalid_number_error(self):
-        """Show error message when user does not input valid number"""
+        """Show message when user does not input valid number"""
         print_error(f"\nCheeky! That's not a valid number. Please pick a number from the list!")

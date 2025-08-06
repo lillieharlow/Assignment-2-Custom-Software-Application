@@ -1,5 +1,5 @@
-# =========== emoji_library.py ===========
-# This file contains all the emoji definitions using the third-party emoji library
+# =========== todo_manager/emoji_library.py ===========
+# Emoji variables using the third-party emoji library
 
 import emoji
 
