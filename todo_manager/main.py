@@ -7,11 +7,12 @@ from emoji_library import person, key, door, smile, add, list, complete, delete,
 
 # ========== Global user objects =========
 u = User()
-guest = GuestUser()
 
 # ========== User Welcome =========
 
 def welcome_user(username, is_returning=False):
+    if username == "Guest":
+        return  # Don't print the welcome message for guest
     if is_returning:
         message = f"\nHey {username}, welcome back!"
     else:
@@ -74,6 +75,18 @@ def get_task_number(task_list, action):
     except ValueError:
         print_error(f"{interesting} That's not a valid option!")
         return None
+    
+# ========== Guest user handling =========
+def handle_guest():
+    guest = GuestUser()
+    username = "Guest"
+    clear_screen()
+    print_info("\nWelcome to TODO. Please note: your tasks will NOT be saved after you exit.")
+    task_list = TaskList(username)
+    task_list.save_tasks = lambda: None # Disable saving/loading for guest
+    task_list.load_tasks = lambda: None
+    welcome_user(username)
+    task_menu(task_list, username)
 
 # ========== Task Menu =========
 def task_menu(task_list, username):
@@ -178,7 +191,7 @@ def main_menu():
         print("\n" + "="*50)
         print(f"\n1. {person} Create new account")
         print(f"2. {key} Log into existing account")
-        print(f"3. Guest user (pick me! If you want to try out the app (p.s. tasks won't be saved))")
+        print(f"3. {smile} Guest user")
         print(f"4. {door} Exit")
         print("\n" + "="*50)
 
