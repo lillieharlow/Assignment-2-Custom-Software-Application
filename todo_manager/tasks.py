@@ -9,14 +9,14 @@ PriorityTask class: Inherits Task, adds priority.
 TaskList class: Manages a user's tasks.
 __init__: Sets up task list, loads tasks.
 add_task(): Adds and saves task.
-remove_task(): Deletes and saves task.
+delete_task(): Deletes and saves task.
 mark_complete(): Marks task as done.
 get_tasks(): Returns task list.
 display_tasks(): Shows tasks in table.
 save_tasks(): Saves tasks to file.
 load_tasks(): Loads tasks from file.
-Motivation: Fetches or shows motivational quotes.
-Helpers: Validates task numbers, shows errors, displays quotes."""
+Helpers: Validates task numbers, shows errors, displays quotes.
+->: type hinting for better code clarity."""
 
 import json
 import os
@@ -28,32 +28,32 @@ class Task:
     """A single task with title and completion status"""
     
     # ===== Create new task =====
-    def __init__(self, title):
+    def __init__(self, title: str) -> None:
         """Set up a new task with a title"""
         self.title = title
         self.completed = False
     
-    # ===== Mark task complete =====
-    def mark_complete(self):
+    # ===== Task complete =====
+    def mark_complete(self) -> None:
         """Mark this task as done"""
         self.completed = True
     
-    # ===== Mark task incomplete =====
-    def mark_incomplete(self):
+    # ===== Task incomplete =====
+    def mark_incomplete(self) -> None:
         """Mark this task as not done"""
         self.completed = False
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.title
 
 # ===== Task priority =====
 class PriorityTask(Task):
     """Inherits from Task and adds priority level to user tasks if they choose"""
-    def __init__(self, title, priority):
+    def __init__(self, title: str, priority: str) -> None:
         super().__init__(title) # Call parent constructor
-        self.priority = priority  # "High", "Medium", "Low" 
+        self.priority: str = priority  # "High", "Medium", "Low" 
 
-    def __str__(self):  # Map priority to an emoji
+    def __str__(self) -> str:  # Map priority to an emoji
         if self.priority == "High":
             prio_emoji = high
         elif self.priority == "Medium":
@@ -69,23 +69,23 @@ class TaskList:
     """Manages a user's tasks: add, delete, complete, display, and save/load tasks."""
 
     # ===== Setup task list =====
-    def __init__(self, username):
+    def __init__(self, username: str) -> None:
         """Set up a new task list for this user"""
-        self.username = username
-        self.tasks = []
-        self.filename = f"data/{username}_tasks.json"
+        self.username: str = username
+        self.tasks: list[Task] = []
+        self.filename: str = f"data/{username}_tasks.json"
         self.load_tasks()
     
     # ===== Add new task =====
-    def add_task(self, task):
+    def add_task(self, task: Task) -> None:
         """Add a new task to the list"""
         self.tasks.append(task)
         self.save_tasks()
         print_success(f"\nNice cache! {task.title} was added to your tasks!")
 
     # ===== Delete task =====
-    def delete_task(self, index):
-        """Remove a task by its number"""
+    def delete_task(self, index: int) -> None:
+        """Delete a task by its number"""
         if self.is_valid_task_number(index):
             removed_task = self.tasks.pop(index)
             self.save_tasks()
@@ -94,7 +94,7 @@ class TaskList:
             self.show_invalid_number_error()
     
     # ===== Complete task =====
-    def mark_complete(self, index):
+    def mark_complete(self, index: int) -> None:
         """Mark a task as done by its index number/task number"""
         if self.is_valid_task_number(index):
             self.tasks[index].mark_complete()
@@ -104,15 +104,15 @@ class TaskList:
             self.show_invalid_number_error()
 
     # ===== Get task list =====
-    def get_tasks(self):
+    def get_tasks(self) -> list[Task]:
         """Return the list of tasks"""
         return self.tasks
     
     # ===== Display tasks =====
-    def display_tasks(self):
+    def display_tasks(self) -> None:
         """Show all tasks, task number and completion status in a nice table"""
         if not self.tasks:
-            print_info(f"\nYou haven't added any tasks yet, let's get started!")
+            print_no_tasks()
             return
         
         table = create_task_table(self.username)
@@ -124,7 +124,7 @@ class TaskList:
         print_table(table)
     
     # ===== Save tasks to file =====
-    def save_tasks(self):
+    def save_tasks(self) -> None:
         """Save all tasks to the user's file"""
         os.makedirs(os.path.dirname(self.filename), exist_ok=True)
         task_data = []
@@ -144,7 +144,7 @@ class TaskList:
             print_error(f"\nThis is awkward {interesting}. JaSON couldn't save tasks: {e}")
 
     # ===== Load tasks from file =====
-    def load_tasks(self):
+    def load_tasks(self) -> None:
         """Load tasks from the user's file"""
         try:
             with open(self.filename, 'r') as file:
@@ -166,11 +166,11 @@ class TaskList:
     # ========== Helper methods =========
     
     # ===== Check valid task number =====
-    def is_valid_task_number(self, index):
+    def is_valid_task_number(self, index: int) -> bool:
         """Check if task number is valid"""
         return 0 <= index < len(self.tasks)
     
     # ===== Show error for invalid number =====
-    def show_invalid_number_error(self):
+    def show_invalid_number_error(self) -> None:
         """Show message when user does not input valid number"""
         print_error(f"\nCheeky! That's not a valid number. Please pick a number from the list!")

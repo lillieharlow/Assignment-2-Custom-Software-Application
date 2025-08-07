@@ -1,3 +1,5 @@
+# What files and folders to ignore in the project repo.
+
 # Python
 __pycache__/
 *.pyc

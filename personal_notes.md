@@ -125,56 +125,47 @@ after three tries is reached, new message says too many attempts and takes user 
 <hr>
 
 # styling.py
-Makes everything look pretty! Handles all the colors, fancy text.
-Creates an amazing first impression with rainbow title
-- Keeps users engaged with colorful, friendly interface
-- Shows attention to detail and professional presentation
-- Makes the command line app feel modern and polished
 
-### Setup
-- console object using Rich library for fancy terminal colors
-- Imports pyfiglet for creating big ASCII art text
-- Console is used by all the color functions to display styled messages
 
-### Basic Color Functions
-- Error message
-    - red
-    - impossible to miss - grabs attention immediately
-    - used for validation errors, failed logins, etc.
+### styling.py
+- Handles all colors and fancy text
+- Rainbow title creates strong first impression
+- Keeps interface colorful and friendly
+- Professional, modern CLI look
+- Shows attention to detail
 
-- Success message
-    - green
-    - makes users feel good about completing actions
-    - used for successful logins, saved tasks, confirmations
+---
 
-- Normal info message
-    - yellow
-    - eye-catching but friendly - not scary like errors
-    - used for instructions, general messages, app descriptions
+**Setup:**
+- Uses Rich for terminal colors
+- Uses pyfiglet for ASCII art
+- Console object for all styled messages
 
-### ASCII Art Magic
-- Rainbow banner
-    - cycles through colors character by character for rainbow effect
-    - adds proper padding above and below for clean presentation
-    - calculates exact spacing to eliminate ugly white gaps
-    - creates professional-looking title that makes app stand out
-    - displays the complete app startup screen
-    - combines rainbow ASCII art with borders and tagline
-    - shows "TO DO." in massive rainbow letters
-    - adds description line explaining what the app does
-    - first thing users see - sets the tone for whole experience
+**Basic Color Functions:**
+- Error: red, grabs attention, for errors/validation
+- Success: green, positive feedback, for confirmations
+- Info: yellow, friendly, for instructions/messages
 
-### Table styling
-- Makes task lists look professional vs boring text
-- Colors help users scan tasks quickly  
-- Shows completed (✅) vs incomplete (⬜) clearly
-- Clean, readable format that's easy to understand
-- three columns: #, status, task (different colors)
+**ASCII Art Magic:**
+- Rainbow banner cycles colors per character
+- Adds padding for clean look
+- No white gaps; precise spacing
+- "TO DO." in large rainbow ASCII art
+- Shows app description/tagline
+- Sets tone at startup
 
-### Clear terminal
-- os import clears terminal screen, neat and tidy display not lines and lines of input, output
+**Table Styling:**
+- Task lists in colorful table
+- Easy to scan with color/status
+- ✅ for complete, ⬜ for incomplete
+- Three columns: #, status, task
+- Clean, readable format
 
-<hr>
+**Clear Terminal:**
+- Uses os to clear screen
+- Keeps display tidy
+
+---
 
 # tasks.py
 Manages all task-related operations - creating, storing, displaying tasks

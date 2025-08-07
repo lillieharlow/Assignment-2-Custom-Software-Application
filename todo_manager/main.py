@@ -1,4 +1,3 @@
-# ========== todo_manager/main.py =========
 """ Main application file for the TO DO app.
 Features:
 Global objects: u for user management.
@@ -11,7 +10,8 @@ handle_signup(): Signup flow.
 handle_login(): Login flow.
 handle_guest(): Guest user flow (tasks not saved).
 main_menu(): Main menu (signup, login, guest, exit).
-App start: Shows title, runs main menu."""
+App start: Shows title, runs main menu.
+->: type hinting for better code clarity."""
 
 from user import User, GuestUser
 from tasks import *
@@ -22,7 +22,7 @@ from emoji_library import person, key, door, smile, add, list, complete, delete,
 u = User()
 
 # ========== User Welcome =========
-def welcome_user(username, is_returning=False):
+def welcome_user(username: str, is_returning: bool = False) -> None:
     """Welcome message for user/guest"""
     if username == "Guest":
         return  # Don't print the welcome message for guest
@@ -35,6 +35,7 @@ def welcome_user(username, is_returning=False):
 # ========== Helper function - print_no_tasks() =========
 def print_no_tasks():
     """Message shown to user when there are no tasks listed"""
+def print_no_tasks() -> None:
     print_info(f"{interesting} You don't have any tasks listed, let's add some!")
 
 # ========== Task Input =========
@@ -98,6 +99,7 @@ def get_task_number(task_list, action):
 # ========== Guest user handling =========
 def handle_guest():
     """Guest user flow (does not save tasks)"""
+def handle_guest() -> None:
     guest = GuestUser()
     username = "Guest"
     clear_screen()
@@ -111,6 +113,7 @@ def handle_guest():
 # ========== Task Menu =========
 def task_menu(task_list, username):
     """Main task menu for adding, seeing, completing, deleting tasks"""
+def task_menu(task_list: TaskList, username: str) -> None:
     while True:
         print("\n" + "="*50)
         print(f"{smile} {username}'s TO DO.")
@@ -179,7 +182,7 @@ def task_menu(task_list, username):
         elif choice == "5": # Exit the app
             clear_screen()
             print_rainbow_text("GOODBYE!")
-            print_info(f"\nTHANKS FOR USING TO DO. - SEE YOU NEXT TIME! {u.get_current_user()}!")
+            print_info(f"\nTHANKS FOR USING TO DO. - See you next time {u.get_current_user()}!")
             break
             
         else:
@@ -207,6 +210,7 @@ def handle_login():
 # ========== Main Menu - login, signup or exit =========
 def main_menu():
     """Main menu for user to create account, login, guest or exit"""
+def main_menu() -> None:
     while True:
         print("\n" + "="*50)
         print(f"\n1. {person} Create new account")
@@ -225,14 +229,14 @@ def main_menu():
             handle_guest()
         elif choice == "4": # Exit the app
             print_rainbow_text("GOODBYE!")
-            print_info(f"\nThanks for stopping by!\n")
+            print_info(f"\nTHANKS FOR USING TO DO.\n")
             break
         else:
             print_error(f"\n{cross} Naughty! Please pick a number!")
 
 # ========= App Start =========
 if __name__ == "__main__":
-    """App start: Shows title, runs main menu."""
+    # App start: Shows title, runs main menu.
     clear_screen()
     print_info("A TASK MANAGEMENT APP THAT HELPS YOU STAY ON TRACK")
     main_menu()

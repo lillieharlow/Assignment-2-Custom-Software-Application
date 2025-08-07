@@ -1,4 +1,4 @@
-# ============= todo_manageruser.py ============
+# ============= todo_manager/user.py ============
 """Handles user login, signup and user management securely.
 Features:
 User class: Handles signup, login, tracks current user.
@@ -8,7 +8,9 @@ save_users(): Saves users to file.
 register_user(): Signup logic.
 login_user(): Login logic.
 get_current_user(): Returns current user.
-GuestUser class: Inherits from User, marks as guest."""
+GuestUser class: Inherits from User, marks as guest.
+except Exception as e: handle errors gracefully.
+->: type hinting for better code clarity."""
 
 import json
 import os
@@ -22,13 +24,13 @@ class User:
     """User signup, logging in, and keeping track of who's logged in."""
 
     # ========== Create user object and set up file location ==========
-    def __init__(self, users_file="data/users.json"):
+    def __init__(self, users_file: str = "data/users.json"):
         """Setting up where to keep user accounts and who's logged in"""
         self.users_file = users_file
         self.logged_in_user = None
 
     # ========== Load user from json file ==========
-    def load_users(self):
+    def load_users(self) -> dict:
         """Grab all existing users from the file"""
         if not os.path.exists(self.users_file):
             return {}
@@ -39,11 +41,12 @@ class User:
                     if isinstance(user_data["password"], str): # Convert string back to bytes for bcrypt
                         user_data["password"] = user_data["password"].encode('latin-1')
                 return data
-        except:
+        except Exception as e:
+            print_error(f"\nError loading users: {e}")
             return {}
     
     # ========== Save user to json file ==========
-    def save_users(self, users):
+    def save_users(self, users: dict) -> None:
         """Save all users so we don't lose anyone"""
         os.makedirs(os.path.dirname(self.users_file), exist_ok=True)
         
@@ -57,11 +60,11 @@ class User:
                 json.dump(users_for_json, f, indent=2)
             clear_screen()
             print_success(f"\nNice cache! Your account has been saved.")
-        except:
-            print_error(f"\nUgh, JaSON didn't like that one {interesting}. Please try again.")
+        except Exception as e:
+            print_error(f"\nUgh, JaSON didn't like that one {interesting}. Error: {e}\nPlease try again.")
 
     # ========== Sign up new user ==========
-    def register_user(self):
+    def register_user(self) -> str:
         """Create a new account with username and password"""
         users = self.load_users()
         print_success(f"\nYay! {smile} Let's create your TO DO. account!")
@@ -95,7 +98,7 @@ class User:
         return username
 
     # ========== Log in user - 3 attempts ==========
-    def login_user(self):
+    def login_user(self) -> str:
         """Log in existing user (3 tries max!)"""
         users = self.load_users()
         print_success(f"\n {smile} Please enter your login details:")
@@ -119,23 +122,23 @@ class User:
         return None
                 
     # ========== Get current user ==========
-    def get_current_user(self):
+    def get_current_user(self) -> str:
         """Who's using the app right now"""
         return self.logged_in_user
 
     # ========== Secure password hashing ==========
-    def hash_password(self, password):
+    def hash_password(self, password: str) -> bytes:
         """Securely hash a password using bcrypt"""
         salt = bcrypt.gensalt()
         return bcrypt.hashpw(password.encode('utf-8'), salt)
 
-    def check_password(self, password, hashed):
+    def check_password(self, password: str, hashed: bytes) -> bool:
         """Verify password against hash"""
         return bcrypt.checkpw(password.encode('utf-8'), hashed)
 
 # ========== Guest User ==========
 class GuestUser(User): # Inherits from User class
     """Guest user class inherits from User. Doesn't save tasks or login details."""
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
         self.is_guest = True

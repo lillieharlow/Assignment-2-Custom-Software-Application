@@ -5,8 +5,6 @@ Console setup: Rich and pyfiglet for colors and ASCII art.
 print_error(): Red error messages.
 print_success(): Green success messages.
 print_info(): Pink info messages.
-print_warning(): Yellow warnings.
-print_welcome(): Blue welcome messages.
 print_rainbow_text(): Rainbow ASCII art.
 show_app_title(): Displays app title.
 create_task_table(): Creates styled task table.

@@ -8,24 +8,24 @@ Any feedback or issues you encounter with using the app, please let me know. I h
 
 ## Table of Contents
 
-1. [Setup & Installation](#setup--installation)
+1. [Setup & Installation](#1-setup--installation)
    - [System Requirements](#system-requirements)
    - [Clone Repository](#clone-repository)
    - [Install Dependencies](#install-dependencies)
    - [Run the App](#run-the-app)
-2. [Hardware Requirements](#hardware-requirements)
-3. [App Features](#features-of-the-app)
-4. [Dependencies](#dependencies-required-by-the-app)
-5. [Required Files](#required-files)
+2. [Hardware Requirements](#2-hardware-requirements)
+3. [App Features](#3-app-features)
+4. [Dependencies](#4-dependencies)
+5. [Required Files](#5-required-files)
    - [Legal & Ethical Impacts](#legal--ethical-impacts)
    - [Security Impact](#security-impact)
-   - [Purpose](#purpose-of-each-dependency)
+   - [Purpose of Each Dependency](#purpose-of-each-dependency)
    - [Conflicts](#conflicts)
-6. [Reference List](#reference-list)
+6. [Reference List](#6-reference-list)
 
 ## 1. Setup & Installation
 TO DO. will run on all major operating systems, including Windows, macOS and Linux.
-For best colour and readability, use a terminal with dark mode enabled.
+For the best experience, use a dark theme in your code editor (e.g., "Visual Studio Dark" in VS Code).
 
 1. **System Requirements**  
    - **Python:** 3.8 or newer  
@@ -91,16 +91,16 @@ For best colour and readability, use a terminal with dark mode enabled.
 
 ## 4. Dependencies
 
-| Library           | Version  | Purpose                               |
-|-------------------|----------|---------------------------------------|
-| bcrypt            | 4.3.0    | Password hashing (security)           |
-| emoji             | 2.14.1   | Emoji rendering in CLI                |
-| rich              | 13.7.1   | CLI formatting, colors, tables        |
-| pyfiglet          | 1.0.2    | ASCII art banners                     |
-| markdown-it-py    | 3.0.0    | Markdown parsing (rich dependency)    |
-| mdurl             | 0.1.2    | Markdown URL handling                 |
-| Pygments          | 2.19.2   | Syntax highlighting (rich dependency) |
-| six               | 1.17.0   | Python 2/3 compatibility              |
+| Library           | Version  | Purpose                               | License      | License Info                         |
+|-------------------|----------|---------------------------------------|--------------|--------------------------------------|
+| bcrypt            | 4.3.0    | Password hashing (security)           | Apache 2.0   | [PyPI](https://pypi.org/project/bcrypt/) |
+| emoji             | 2.14.1   | Emoji rendering in CLI                | BSD          | [PyPI](https://pypi.org/project/emoji/)  |
+| rich              | 13.7.1   | CLI formatting, colors, tables        | MIT          | [PyPI](https://pypi.org/project/rich/)   |
+| pyfiglet          | 1.0.2    | ASCII art banners                     | MIT          | [PyPI](https://pypi.org/project/pyfiglet/) |
+| markdown-it-py    | 3.0.0    | Markdown parsing (rich dependency)    | MIT          | [PyPI](https://pypi.org/project/markdown-it-py/) |
+| mdurl             | 0.1.2    | Markdown URL handling                 | MIT          | [PyPI](https://pypi.org/project/mdurl/)  |
+| Pygments          | 2.19.2   | Syntax highlighting (rich dependency) | BSD          | [PyPI](https://pypi.org/project/Pygments/) |
+| six               | 1.17.0   | Python 2/3 compatibility              | MIT          | [PyPI](https://pypi.org/project/six/)    |
 
 All dependencies are open source and compatible with each other.
 <hr>
