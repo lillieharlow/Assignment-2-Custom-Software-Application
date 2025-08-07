@@ -10,175 +10,169 @@ Any feedback or issues you encounter with using the app, please let me know. I h
 
 1. [Setup & Installation](#setup--installation)
    - [System Requirements](#system-requirements)
+   - [Clone Repository](#clone-repository)
    - [Install Dependencies](#install-dependencies)
    - [Run the App](#run-the-app)
 2. [Hardware Requirements](#hardware-requirements)
 3. [App Features](#features-of-the-app)
 4. [Dependencies](#dependencies-required-by-the-app)
-5. [List of Required Files (Including Third-Party)](#list-of-required-files-including-third-party)
+5. [Required Files](#required-files)
    - [Legal & Ethical Impacts](#legal--ethical-impacts)
    - [Security Impact](#security-impact)
    - [Purpose](#purpose-of-each-dependency)
    - [Conflicts](#conflicts)
 6. [Reference List](#reference-list)
 
-## Setup & Installation
+## 1. Setup & Installation
+TO DO. will run on all major operating systems, including Windows, macOS and Linux.
 
-1. **System Requirements:**  
-   - Python 3.8 or newer  
-   - pip (Python package manager, usually installed with Python)
+1. **System Requirements**  
+   - **Python:** 3.8 or newer  
+   - **pip:** Python package manager (comes with Python)
 
-2. **Install dependencies:**  
-   Run this command in your terminal to install the required Python packages with pinned versions:
+   > **Tip:** Make sure `python` and `pip` commands work in your terminal. Windows users please ensure Python was added to your system PATH during installation. You can check this by running:
+   > ```bash
+   > python3 --version
+   > pip3 --version
+   > ```
+   > If you see version numbers then you are good to go.
+
+2. **Clone Repository**
+   ```bash
+   git clone https://github.com/lillieharlow/TO_DO._App.git
+   cd TO_DO._App
+   ```
+3. **Install Dependencies**
+   Install the required Python packages using pip:
 
    ```bash
    pip install rich pyfiglet bcrypt emoji
-   ``` 
-
-  Your `requirements.txt` should contain these pinned packages:  
-  bcrypt==4.3.0
-  emoji==2.14.1
-  markdown-it-py==3.0.0
-  mdurl==0.1.2
-  pyfiglet==1.0.2
-  Pygments==2.19.2
-  rich==13.7.1
-  six==1.17.0
-
-  **Note:** Subdependencies like `Pygments`, `markdown-it-py`, `mdurl`, and `six` are automatically installed by pip — you do not need to install them manually.
-
-3. **Run the app:**  
-  From your terminal, start the application:
-
-   ```bash
-   python todo_manager/main.py
    ```
-
-   Follow the on-screen prompts to sign up, log in, or use guest mode.
-
+   Or create `requirements.txt` and manually add the dependencies (recommended for consistency):
+   ```
+   bcrypt==4.3.0
+   emoji==2.14.1
+   markdown-it-py==3.0.0
+   mdurl==0.1.2
+   pyfiglet==1.0.2
+   Pygments==2.19.2
+   rich==13.7.1
+   six==1.17.0
+   ```
+   ```bash
+   pip install -r requirements.txt
+   ```
+   > **Note:** Sub-dependencies like `Pygments`, `markdown-it-py`, `mdurl`, and `six` are installed automatically.
 <hr>
 
-## 💻 Hardware Requirements
+4. **Run the App**
+   Start the app from the terminal:
 
-- **Minimum:**  
-- 512 MB RAM  
-- 50 MB free disk space  
-- CPU from last decade or newer
+   ```bash
+   python3 todo_manager/main.py
+   ```
+   Follow the on-screen prompts to sign up, log in, or try the app in guest mode.
+<hr>
 
-- **Recommended:**  
-- 1 GB RAM or more for smoother multitasking  
-- 100 MB disk space for larger task lists  
-- Terminal emulator supporting Unicode & colors (e.g., Windows Terminal, macOS Terminal, Linux shells)
+## 2. Hardware Requirements
+- **Minimum:** 512 MB RAM, 50 MB free disk space, basic CPU
+- **Recommended:** 1 GB RAM+, 100 MB free disk space, terminal supporting Unicode & colors
+<hr>
 
----
+## 3. App Features
 
-## ✨ App Features
+- Colourful CLI, enhanced with emoji and ASCII art banners for an engaging user experience. Not your average boring terminal app! 
+- User data is securely stored in JSON files. With passwords hashed by bcrypt (no plain-text storage).
+- Try before creating an account with 'Guest' mode. Create a temporary task lists and see how TO DO. can help you (tasks list not saved in guest mode).
+- Keep track of your tasks easily! Add, view, complete, or delete tasks with clear menu options.
+- Organise your tasks with priority levels: High, Medium, or Low.
+<hr>
 
-- Secure user sign-up and login with passwords hashed by bcrypt (no plain-text storage)  
-- Guest mode with temporary task lists (tasks lost on exit)  
-- Easy task management: add, view, complete, or delete tasks with simple commands  
-- Task priority levels: High, Medium, or Low for smart organization  
-- Colorful CLI enhanced with emoji and ASCII art banners for an engaging user experience  
-- User data stored safely in JSON files per account  
-- Intuitive menu-driven interface—no steep learning curve
+## 4. Dependencies
 
----
+| Library           | Version  | Purpose                               |
+|-------------------|----------|---------------------------------------|
+| bcrypt            | 4.3.0    | Password hashing (security)           |
+| emoji             | 2.14.1   | Emoji rendering in CLI                |
+| rich              | 13.7.1   | CLI formatting, colors, tables        |
+| pyfiglet          | 1.0.2    | ASCII art banners                     |
+| markdown-it-py    | 3.0.0    | Markdown parsing (rich dependency)    |
+| mdurl             | 0.1.2    | Markdown URL handling                 |
+| Pygments          | 2.19.2   | Syntax highlighting (rich dependency) |
+| six               | 1.17.0   | Python 2/3 compatibility              |
 
-## 📦 Dependencies
+All dependencies are open source and compatible with each other.
+<hr>
 
-| Library           | Version  | License      | Security Impact        | Purpose                                 | Conflict Risk  |
-|-------------------|----------|--------------|-----------------------|-----------------------------------------|---------------|
-| **bcrypt**        | 4.3.0    | Apache 2.0   | Low (local, offline)  | Secure password hashing                  | None          |
-| **emoji**         | 2.14.1   | MIT          | Low (UI only)         | Emoji rendering                         | None          |
-| **markdown-it-py**| 3.0.0    | MIT          | Low (UI only)         | Markdown parsing (used by `rich`)      | None          |
-| **mdurl**         | 0.1.2    | MIT          | Low                   | URL handling for markdown (`markdown-it-py` dependency) | None          |
-| **pyfiglet**      | 1.0.2    | MIT          | Low (UI only)         | ASCII art banners                       | None          |
-| **Pygments**      | 2.19.2   | BSD          | Low (UI only)         | Syntax highlighting (used by `rich`)   | None          |
-| **rich**          | 13.7.1   | MIT          | Low (UI only)         | Enhanced CLI formatting, colors, tables | None          |
-| **six**           | 1.17.0   | MIT          | Low                   | Python 2/3 compatibility (required by `bcrypt`) | None          |
+## 5. Required Files
 
-### Legal & Ethical Impacts
+- `main.py` — Main entry point
+- `user.py` — User account logic (signup, login, guest)
+- `tasks.py` — Task management classes
+- `styling.py` — CLI appearance and formatting helpers
+- `emoji_library.py` — Emoji codes for the UI
+- `data/users.json` — Stores user account info (auto-created)
+- `data/{username}_tasks.json` — Per-user task storage (auto-created)
 
-- All dependencies are under permissive open source licenses (MIT, Apache 2.0, BSD) allowing free use, modification, and distribution.  
-- No copyleft or restrictive licensing involved—safe to use and distribute in your projects without legal concerns.  
-- The app operates locally only with no external data sharing, respecting user privacy and ethical best practices.
+   1. **Legal & Ethical Impacts**  
+      - All files are created and managed by the app, no external dependencies or third-party code. User data stays local, stored securely, and never leaves your device.
+      - User data is stored securely in JSON format, respecting privacy and security best practices.
+      - All app code is original, and only reputable open source libraries are used (MIT, Apache 2.0, BSD licenses).
+      - No restrictive or copyleft licenses—safe for personal or project use and distribution.
+      - No external data sharing or tracking.
 
-### Security Impact
+   2. **Security Impact**  
+      - User passwords are hashed (never stored as plain text).
+      - All user data is stored locally and no personal data is shared externally.
+      - The app has no internet connectivity requirements, further ensuring data privacy.
 
-- Passwords are safely hashed with bcrypt, avoiding plaintext risks.  
-- All UI libraries affect display only, not security or user data.  
-- Data storage is local (JSON files) with no network transmissions.
+   3. **Purpose of Each Dependency**
+      - **bcrypt:** Provides secure password hashing to protect user data.  
+      - **emoji:** Display emojis in the CLI for a fun user experience.  
+      - **rich:** Enhances CLI with style, colours, task table and formatting for better readability.  
+      - **pyfiglet:** Creates ASCII art banners to make the app pop! Visually engaging and fun.
+      - **markdown-it-py, mdurl, Pygments:** Support rich text rendering and syntax highlighting used by `rich`.  
+      - **six:** Ensures compatibility between Python 2 and 3, used by `bcrypt`.
 
-### Purpose of Each Dependency
+   4. **Conflicts**
+      - These packages are known to be fully compatible with each other, with no conflicting versions or installation issues on the specified versions.
+      - Use a virtual environment to avoid conflicts with other Python projects. Pinning versions in `requirements.txt` preserves compatibility, preventing future issues with updates.
+<hr>
 
-- **bcrypt:** Handles the critical task of password hashing.  
-- **emoji:** Enables colorful emoji display inside your CLI.  
-- **rich:** The main powerhouse for CLI color, tables, and formatting.  
-- **pyfiglet:** Generates fun ASCII banners.  
-- **markdown-it-py, mdurl, Pygments:** Support markdown parsing and syntax highlighting needed by `rich`.  
-- **six:** Provides Python 2/3 compatibility needed by `bcrypt`.
+## 6. Reference List
 
-### Conflicts
+AIMind. (2023) *Creating a Simple To-Do List in Python*, https://pub.aimind.so/creating-a-simple-to-do-list-in-python-c0f52ab15814, accessed: 19 July 2025.
 
-- These packages are known to be fully compatible with each other, with no conflicting versions or installation issues on the specified versions.
+ComputerScience, Y. (2025) *Python To-Do List Project (For Beginners)🐍*, https://www.youtube.com/watch?v=uwaHwP3wfjY, accessed: 19 July 2025.
 
----
+DrPython. (2024) *Easy Python Project for Beginners: Build a To-Do List App 2024*, https://www.youtube.com/watch?v=pY6RB4_EoSM, accessed: 22 July 2025.
 
-## 📁 List of Required Files (Including Third-Party)
+GeeksforGeeks. (2018) *Python | ASCII Art Using Pyfiglet Module*, https://www.geeksforgeeks.org/python/python-ascii-art-using-pyfiglet-module/, accessed: 6 August 2025.
 
-- `main.py` — The application’s starting point, launching the CLI task manager  
-- `user.py` — Manages user signup, login, and guest access logic  
-- `tasks.py` — Defines tasks and task list management classes  
-- `styling.py` — Functions and helpers for CLI appearance, colors, and formatting  
-- `emoji_library.py` — Central source for emoji codes used in CLI UI  
-- `data/users.json` — JSON file storing user account info (created automatically)  
-- `data/{username}_tasks.json` — JSON files for each user’s saved tasks (auto-created)
+GeeksforGeeks. (2022) Hashing Passwords in Python with BCrypt, https://www.geeksforgeeks.org/python/hashing-passwords-in-python-with-bcrypt/, accessed: 1 August 2025.
 
----
+GeeksforGeeks. (2025) How To Hash Passwords In Python, https://www.geeksforgeeks.org/python/how-to-hash-passwords-in-python/, accessed: 1 August 2025.
 
-**Enjoy organizing your tasks with flair and security!**
+GeeksforGeeks. (2025) *Installing and Using Rich Package in Python*, https://www.geeksforgeeks.org/python/installing-and-using-rich-package-in-python/, accessed: 2 August 2025.
 
-If you want help adding usage examples, screenshots, or tips on customizing your app, just ask!
+Halverson, S. (2023) *PythonToDo*, https://github.com/ShaunHalverson/PythonToDo, accessed: 18 July 2025.
 
+Halverson, S. (2024) *How To Code A To Do List App In Python | Programming Tutorials For Beginners*, https://www.youtube.com/watch?v=aEIHZDv_23U, accessed: 19 July 2025.
 
-## Reference List:
+Joseph, D. (2023) *Creating a Simple To-Do List Application in Python: A Guide*, https://www.linkedin.com/pulse/creating-simple-to-do-list-application-python-guide-daniel-joseph-/, accessed: 18 July 2025.
 
-WebFX (no date) Emoji Cheat Sheet. Available at: https://www.webfx.com/tools/emoji-cheat-sheet/ (Accessed: 6 August 2025).
+NeuralNine. (2021) *Colored Console Output in Python*, https://www.youtube.com/watch?v=kf8kbUKeM5g, accessed: 27 July 2025.
 
-NeuralNine (2021) 'Colored Console Output in Python', YouTube video, 9 May. Available at: https://www.youtube.com/watch?v=kf8kbUKeM5g (Accessed: 6 August 2025).
+ParcelMaiyo. (2023) *Text Styling in Python Using PyFiglet*, https://medium.com/@parcelmaiyo/text-styling-in-python-using-pyfiglet-824c498dfff5, accessed: 27 July 2025.
 
-Jones, C. et al. (2007-2023) pyfiglet. Available at: https://pypi.org/project/pyfiglet/ (Accessed: 6 August 2025).
+Patorjk. (n.d.) *Text to ASCII Art Generator (TAAG)*, https://www.patorjk.com/software/taag/#p=display&f=ANSI%20Shadow&t=Bash%0ABedlam%0A, accessed: 27 July 2025.
 
-GeeksforGeeks (no date) Python ASCII Art Using Pyfiglet Module. Available at: https://www.geeksforgeeks.org/python/python-ascii-art-using-pyfiglet-module/ (Accessed: 6 August 2025).
+ProgrammingHorizons. (2025) *To Do List App in Python | Python Project for Beginners*, https://www.youtube.com/watch?v=2H4cYt_3DsE, accessed: 18 July 2025.
 
-Tech With Tim (2020) 'Python To-Do List Tutorial', YouTube video, 20 March. Available at: https://www.youtube.com/watch?v=J0w87IpcdYA (Accessed: 6 August 2025).
+PyPI. (2025) *emoji: Emoji for Python*, https://pypi.org/project/emoji/, accessed: 1 August 2025.
 
-Stack Overflow (2019) 'I want to use JSON in Python to save users and password', Stack Overflow. Available at: https://stackoverflow.com/questions/54267646/i-want-to-use-json-in-python-to-save-users-and-password (Accessed: 6 August 2025).
+Schafer, C. (2017) *Python Tutorial: Working with JSON Data using the json Module*, https://www.youtube.com/watch?v=9N6a-VLBa2I, accessed: 22 July 2025.
 
-Telusko (2018) 'Python GUI To-Do App | Tkinter', YouTube video, 10 January. Available at: https://www.youtube.com/watch?v=pY6RB4_EoSM (Accessed: 6 August 2025).
+W3Schools. (n.d.) *Python JSON*, https://www.w3schools.com/python/python_json.asp, accessed: 28 July 2025.
 
-CodeWithHarry (2019) 'Python Project To-Do Application', YouTube video, 20 October. Available at: https://www.youtube.com/watch?v=uwaHwP3wfjY (Accessed: 6 August 2025).
-
-Telusko (2017) 'Python Tkinter Tutorial', YouTube video, 18 September. Available at: https://www.youtube.com/watch?v=eIYKsSYKNPw (Accessed: 6 August 2025).
-
-Clever Programmer (2020) 'Python Projects - To-Do List App Tutorial', YouTube video, 10 December. Available at: https://www.youtube.com/watch?v=aEIHZDv_23U (Accessed: 6 August 2025).
-
-Halverson, S. (no date) PythonToDo, GitHub repository. Available at: https://github.com/ShaunHalverson/PythonToDo (Accessed: 6 August 2025).
-
-emoji (no date) emoji: Emoji for Python. Available at: https://pypi.org/project/emoji/ (Accessed: 6 August 2025).
-
-AIMind (2021) Creating a Simple To-Do List in Python. Available at: https://pub.aimind.so/creating-a-simple-to-do-list-in-python-c0f52ab15814 (Accessed: 6 August 2025).
-
-Joseph, D. (no date) Creating a Simple To-Do List Application in Python: A Guide. LinkedIn. Available at: https://www.linkedin.com/pulse/creating-simple-to-do-list-application-python-guide-daniel-joseph-/ (Accessed: 6 August 2025).
-
-GeeksforGeeks (2022) Installing and Using Rich Package in Python. Available at: https://www.geeksforgeeks.org/python/installing-and-using-rich-package-in-python/ (Accessed: 6 August 2025).
-
-Corey Schafer (2020) 'Python Colorama Tutorial - Colored Console Output', YouTube video, 10 May. Available at: https://www.youtube.com/watch?v=4zbehnz-8QU (Accessed: 6 August 2025).
-
-Patorjk (no date) Text to ASCII Art Generator (TAAG). Available at: https://www.patorjk.com/software/taag/#p=display&f=ANSI%20Shadow&t=Bash%0ABedlam%0A (Accessed: 6 August 2025).
-
-ParcelMaiyo (2019) Text Styling in Python Using PyFiglet. Medium. Available at: https://medium.com/@parcelmaiyo/text-styling-in-python-using-pyfiglet-824c498dfff5 (Accessed: 6 August 2025).
-
-freeCodeCamp.org (2018) 'Python Tutorial - Full Course for Beginners', YouTube video, 17 April. Available at: https://www.youtube.com/watch?v=9N6a-VLBa2I (Accessed: 6 August 2025).
-
-ProgrammingKnowledge (2017) 'Python Tutorial for Beginners', YouTube video, 18 May. Available at: https://www.youtube.com/watch?v=2H4cYt_3DsE (Accessed: 6 August 2025).
+WebFX. (n.d.) *Emoji Cheat Sheet*, https://www.webfx.com/tools/emoji-cheat-sheet/, accessed: 2 August 2025.
