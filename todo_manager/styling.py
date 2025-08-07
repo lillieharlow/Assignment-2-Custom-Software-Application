@@ -1,4 +1,3 @@
-# # ========== todo_manager/styling.py =========
 """Styling for the CLI app using Rich, pyfiglet, and custom print functions.
 Features:
 Console setup: Rich and pyfiglet for colors and ASCII art.

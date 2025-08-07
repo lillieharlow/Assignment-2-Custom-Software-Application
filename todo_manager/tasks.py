@@ -1,4 +1,3 @@
-# ========== todo_manager/tasks.py =========
 """ Task management for the TO DO app.
 Features:
 Task class: Represents a single task.

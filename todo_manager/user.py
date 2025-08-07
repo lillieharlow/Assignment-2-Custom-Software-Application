@@ -1,5 +1,4 @@
-# ============= todo_manager/user.py ============
-"""Handles user login, signup and user management securely.
+"""Handles user management (login, signup) securely.
 Features:
 User class: Handles signup, login, tracks current user.
 __init__: Sets up user file, logged-in user.
