@@ -25,6 +25,7 @@ Any feedback or issues you encounter with using the app, please let me know. I h
 
 ## 1. Setup & Installation
 TO DO. will run on all major operating systems, including Windows, macOS and Linux.
+For best colour and readability, use a terminal with dark mode enabled.
 
 1. **System Requirements**  
    - **Python:** 3.8 or newer  
@@ -107,12 +108,12 @@ All dependencies are open source and compatible with each other.
 ## 5. Required Files
 
 - `main.py` — Main entry point
-- `user.py` — User account logic (signup, login, guest)
+- `user.py` — User account classes and authentication
 - `tasks.py` — Task management classes
-- `styling.py` — CLI appearance and formatting helpers
-- `emoji_library.py` — Emoji codes for the UI
-- `data/users.json` — Stores user account info (auto-created)
-- `data/{username}_tasks.json` — Per-user task storage (auto-created)
+- `styling.py` — CLI styling
+- `emoji_library.py` — Emoji codes for UI
+- `data/users.json` — Stores user account info (automatically created)
+- `data/{username}_tasks.json` — Per-user task storage (automatically created)
 
    1. **Legal & Ethical Impacts**  
       - All files are created and managed by the app, no external dependencies or third-party code. User data stays local, stored securely, and never leaves your device.

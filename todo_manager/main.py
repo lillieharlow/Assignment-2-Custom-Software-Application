@@ -16,7 +16,7 @@ App start: Shows title, runs main menu."""
 from user import User, GuestUser
 from tasks import *
 from styling import *
-from emoji_library import person, key, door, smile, add, list, complete, delete, quit, interesting, high, medium, low
+from emoji_library import person, key, door, smile, add, list, complete, delete, quit, interesting, cross, high, medium, low
 
 # ========== Global user objects =========
 u = User()
@@ -35,7 +35,7 @@ def welcome_user(username, is_returning=False):
 # ========== Helper function - print_no_tasks() =========
 def print_no_tasks():
     """Message shown to user when there are no tasks listed"""
-    print_info("\nYou haven't added any tasks yet, let's get started!")
+    print_info(f"{interesting} You don't have any tasks listed, let's add some!")
 
 # ========== Task Input =========
 def get_task_input():
@@ -112,21 +112,21 @@ def handle_guest():
 def task_menu(task_list, username):
     """Main task menu for adding, seeing, completing, deleting tasks"""
     while True:
-        print("\n" + "="*60)
+        print("\n" + "="*50)
         print(f"{smile} {username}'s TO DO.")
-        print("="*60)
+        print("="*50)
         print(f"1. {add} Add a new task")
         print(f"2. {list} See all my tasks")
         print(f"3. {complete} Mark a task as done")
         print(f"4. {delete} Delete a task")
         print(f"5. {quit} Exit TO DO. app")
-        print("="*60)
+        print("="*50)
 
         choice = input("\nWhat would you like to do? (1-5): ")
 
         if choice == "1": # Add a new task
             clear_screen()
-            print_info(f"\nYay! Let's add a new task!")
+            print_info(f"\n{smile} Yay! Let's add a new task!")
             task = get_task_input() 
             if task:
                 task_list.add_task(task) # add task object directly
@@ -134,7 +134,6 @@ def task_menu(task_list, username):
         elif choice == "2": # See all tasks
             clear_screen()
             if task_list.get_tasks():
-                print_info(f"\n{username}'s tasks:")
                 task_list.display_tasks()
             else:
                 print_no_tasks()
@@ -142,7 +141,7 @@ def task_menu(task_list, username):
         elif choice == "3": # Mark a task as done/complete
             clear_screen()
             if task_list.get_tasks():
-                print_info(f"\nLet's mark a task as done!")
+                print_info(f"\n{complete} Let's mark a task as done!")
                 task_list.display_tasks()
                 index = get_task_number(task_list, "mark complete")
                 if index is not None:
@@ -158,7 +157,7 @@ def task_menu(task_list, username):
             if not task_list.get_tasks():
                 task_list.display_tasks()
             else:
-                print_info(f"\nWhat task do you want to delete?")
+                print_info(f"\n{delete} What task do you want to delete?")
                 task_list.display_tasks()
                 while True:
                     index = get_task_number(task_list, "delete")
@@ -173,19 +172,19 @@ def task_menu(task_list, username):
                             print_no_tasks()
                         break
                     else:
-                        again = input(f"Try again?\n(Press 'y' to retry or enter anything else to return to menu): ").strip().lower()
+                        again = input(f"Try again?\nPress 'y' to retry or enter anything else to return to menu: ").strip().lower()
                         if again != "y":
                             break
 
         elif choice == "5": # Exit the app
             clear_screen()
-            print_rainbow_text("SEE YOU SOON!")
-            print_info(f"\nThanks for stopping by {u.get_current_user()}!")
+            print_rainbow_text("GOODBYE!")
+            print_info(f"\nTHANKS FOR USING TO DO. - SEE YOU NEXT TIME! {u.get_current_user()}!")
             break
             
         else:
             clear_screen()
-            print_error("\nCheeky, that's not a valid number!")
+            print_error(f"\n{cross} Cheeky, that's not a valid number!")
 
 # ========== User Signup =========
 def handle_signup():
@@ -229,7 +228,7 @@ def main_menu():
             print_info(f"\nThanks for stopping by!\n")
             break
         else:
-            print_error(f"\nNaughty! Please pick a number!")
+            print_error(f"\n{cross} Naughty! Please pick a number!")
 
 # ========= App Start =========
 if __name__ == "__main__":

@@ -25,12 +25,10 @@
 - [ ] 2+ input and output
     - [ ] retrieving user input and displaying output
     - [ ] reading from files and writing to files
+<hr>
 
-# Personal notes for creating each files:
-
-## main.py
-
-Flow:
+# main.py
+### Flow:
 1. App starts -> Show title
 2. Main menu -> Choose signup/login/guest/exit
 3. If signup/login successful -> Task menu
@@ -38,21 +36,17 @@ Flow:
 5. Finished -> Exit app
 
 ### Global setup
-- u handles all login/signup
+- u = User() handles all login/signup
 
 ### Functions
 - Welcome message (different for new vs returning)
 - If user is new, def to show "no tasks yet" message
-- Task - input from user, ask what task they want to add
-    - asks user to type a task
-    - checks input isn't blank/empty
-    - checks length
-    - returns task or None if invalid
-- Task stored with number/index to easily reference in code
-    - asks user what task number/index
-    - converts answer to number
-    - checks validity
-    - returns task index or none if invalid
+- Task - input asks user what task they want to add
+    - check input isn't empty or too long
+- Store task as index/number to easily mark task as complete or delete
+    - User input selects index/task
+    - check valid input
+    - str to int conversion
 
 ### Task Menu Function
 - One of two main menus - Task Menu

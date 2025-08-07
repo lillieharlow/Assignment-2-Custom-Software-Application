@@ -21,45 +21,73 @@ console = Console(style="bold")
 
 # ========= Basic Print Functions =========
 def print_error(message):
-    """Highlights error messages in light red"""
-    console.print(message, style="on #ffb5b5")
+    """Error messages in red"""
+    console.print(message, style="#ff0000", markup=True)
 
 def print_success(message):
-    """Highlights success messages in light green"""
-    console.print(message, style="on #c9ffe5")
+    """Success messages in green"""
+    console.print(message, style="#00ff84", markup=True)
 
 def print_info(message):
-    """Highlights info messages in light yellow"""
-    console.print(message, style="on #fff27e")
+    """Info messages in yellow"""
+    console.print(message, style="#ffe600", markup=True)
 
 # ========= ASCII Art Title =========
 def print_rainbow_text(text, font='ANSI_Shadow'):
-    """Fun ASCII art with bright rainbow colors on black background"""
-    figlet_text = pyfiglet.figlet_format(text, font=font) # Generate ASCII art text
-    
-    rich_colors = ["#ff7a7a", "#fff27e", "#94ffcb", "#9eeaff", "#d6aeff", "#ff9bcd"]  # Colours for rainbow effect
+    """
+    Print text as rainbow-coloured ASCII art using pyfiglet and Rich.
+    Steps:
+    1. Convert the input text to ASCII art using pyfiglet.
+    2. Colour each character in the ASCII art with a cycling rainbow palette.
+    3. Add padding above, below, and on the sides for a neat look.
+    """
+    # Step 1: Generate ASCII art from the input text
+    figlet_text = pyfiglet.figlet_format(text, font=font)
 
-    lines = figlet_text.splitlines()  # Split the text into lines
-    max_line_length = max(len(line) for line in lines) if lines else 0  # Find the longest line to calculate proper padding
-    total_width = max_line_length + 8  # 4 spaces on each side
-    
-    for _ in range(2):  # 2 lines of top padding
-        console.print(" " * total_width, style="on black") # prints empty lines with black background
-    
-    for i, line in enumerate(lines): # Iterate through each line
-        colored_line = ""
-        for j, char in enumerate(line): # Iterate through each character in the line
-            color_index = (j + i) % len(rich_colors) # Cycle through colours(colors)
-            color = rich_colors[color_index] # Use Rich markup
-            colored_line += f"[bold {color}]{char}[/bold {color}]" # Add color to each character
+    # Step 2: Define a list of hex colour codes for the rainbow effect
+    rich_colors = [
+        "#ff7a7a",  # Red
+        "#fff27e",  # Yellow
+        "#94ffcb",  # Green
+        "#9eeaff",  # Blue
+        "#d382ff",  # Purple
+        "#fe85c2"   # Pink
+    ]
 
-        left_padding = "    "  # 4 spaces on left (proper padding to remove white space)
-        right_padding = " " * (total_width - len(line) - 4)  # Fill remaining space
-        padded_line = left_padding + colored_line + right_padding  # Add padding to the line
-        console.print(padded_line, style="on black") # Print the padded line with black background
-    
-    for _ in range(2):  # 2 lines bottom padding
-        console.print(" " * total_width, style="on black")
+    # Split the ASCII art into lines for processing
+    lines = figlet_text.splitlines()
+
+    # Find the length of the longest line to set the total width for padding
+    max_line_length = max(len(line) for line in lines) if lines else 0
+    total_width = max_line_length + 8  # 4 spaces of padding on each side
+
+    # Step 3: Print 2 empty lines at the top for vertical padding
+    for _ in range(2):
+        console.print(" " * total_width)
+
+    # Loop through each line of the ASCII art
+    for i, line in enumerate(lines):
+        colored_line = ""  # This will store the coloured version of the line
+        # Loop through each character in the line
+        for j, char in enumerate(line):
+            # Pick a colour from the rainbow palette, cycling through the list
+            color_index = (j + i) % len(rich_colors)
+            color = rich_colors[color_index]
+            # Add Rich markup to make the character bold and coloured
+            colored_line += f"[bold {color}]{char}[/bold {color}]"
+
+        # Add 4 spaces of padding to the left
+        left_padding = "    "
+        # Add enough spaces to the right to fill the total width
+        right_padding = " " * (total_width - len(line) - 4)
+        # Combine left padding, coloured line, and right padding
+        padded_line = left_padding + colored_line + right_padding
+        # Print the padded, coloured line
+        console.print(padded_line)
+
+    # Step 4: Print 2 empty lines at the bottom for vertical padding
+    for _ in range(2):
+        console.print(" " * total_width)
 
 # ========= App Title Display =========
 def show_app_title():
@@ -71,12 +99,12 @@ def show_app_title():
 # ========= Task Table =========
 def create_task_table(username):
     """Display tasks in a table format. Each column has different colour."""
-    table = Table(title=f"{username}'s Tasks", show_header=True)
-    
-    table.add_column("Task Number", width=15, justify="center", style="on #F8E1FF")  # light purple
-    table.add_column("Task", min_width=30, justify="center", style="on #D9F9FF")  # light blue
-    table.add_column("Done", width=6, justify="center", style="on #fff27e")  # light yellow
-    
+    table = Table(title=f"{username}'s Tasks", style="#00fbff", show_header=True)
+
+    table.add_column("TASK #", width=8, justify="center", header_style="#d382ff")
+    table.add_column("TASK", min_width=30, justify="center", header_style="#fe85c2")
+    table.add_column("DONE", width=8, justify="center", header_style="#ff7a7a")
+
     return table
 
 # ========= Print Table =========
