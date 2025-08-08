@@ -14,8 +14,9 @@ App start: Shows title, runs main menu.
 ->: type hinting for better code clarity."""
 
 from user import User, GuestUser
-from tasks import *
-from styling import *
+from tasks import Task, PriorityTask, TaskList
+from utils import print_no_tasks
+from styling import * # Import all styling functions
 from emoji_library import person, key, door, smile, add, list, complete, delete, quit, interesting, cross, high, medium, low
 
 # ========== Global user objects =========
@@ -31,12 +32,6 @@ def welcome_user(username: str, is_returning: bool = False) -> None:
     else:
         message = f"\nHey {username}, welcome to TO DO. {smile} Let's get started!"
     print_success(message)
-    
-# ========== Helper function - print_no_tasks() =========
-def print_no_tasks():
-    """Message shown to user when there are no tasks listed"""
-def print_no_tasks() -> None:
-    print_info(f"{interesting} You don't have any tasks listed, let's add some!")
 
 # ========== Task Input =========
 def get_task_input():
@@ -53,7 +48,7 @@ def get_task_input():
         is_priority = input("\nIs this task important? (y/n): ").strip().lower()
         if is_priority == "y":
             while True:
-                print("\nHow important?")
+                print(f"\nHow important?")
                 print(f"\n1. {high} High")
                 print(f"2. {medium} Medium")
                 print(f"3. {low} Low")
@@ -85,16 +80,19 @@ def get_task_number(task_list, action):
         return None
     max_num = len(task_list.get_tasks())
     
-    try:
-        index = int(input(f"\nWhich task do you want to {action}? (1-{max_num}): ")) - 1
-        if 0 <= index < max_num:
-            return index
-        else:
-            print_error(f"Pick a number between 1 and {max_num}!")
+    while True:
+        user_input = input(f"\nWhich task do you want to {action}? (1-{max_num}): ").strip()
+        try:
+            index = int(user_input) - 1
+            if 0 <= index < max_num:
+                return index
+            else:
+                print_error(f"Please type the task number (1 - {max_num}): ")
+        except ValueError:
+            print_error(f"{interesting} That's not a valid option!")
+        again = input("Try again? Press 'y' to retry or enter anything else to return to menu: ").strip().lower()
+        if again != "y":
             return None
-    except ValueError:
-        print_error(f"{interesting} That's not a valid option!")
-        return None
     
 # ========== Guest user handling =========
 def handle_guest():

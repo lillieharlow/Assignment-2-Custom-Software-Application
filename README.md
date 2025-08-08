@@ -1,7 +1,8 @@
-# TO DO. CLI Application
+# TO DO. CLI App
 #### Assignment 2 - Custom Software Application - Coder Academy
 
-TO DO. is a fun, secure, and easy to use task management app. Used in the terminal command-line interface (CLI). This app is perfect for organising your day and keeping on top of tasks. Your info is stored securely, allowing you to come back to your task list when it suits you. Guest mode is also available if your wanting to try the app before signing up (please note: tasks will not be saved in guest mode when you exit the app).
+
+TO DO. is a fun, secure, and easy to use task management app that runs in your terminal (CLI)! Perfect for organising your day and keeping on top of tasks. Your account is stored securely, allowing you to come back to your task list when it suits you. Guest mode is also available if you're wanting to try the app before signing up (please note: tasks will not be saved in guest mode when you exit the app).
 
 Any feedback or issues you encounter with using the app, please let me know. I hope you enjoy using TO DO. as much as I enjoyed making it!
 <hr>
@@ -16,11 +17,11 @@ Any feedback or issues you encounter with using the app, please let me know. I h
 2. [Hardware Requirements](#2-hardware-requirements)
 3. [App Features](#3-app-features)
 4. [Dependencies](#4-dependencies)
-5. [Required Files](#5-required-files)
+   - [Purpose of Each Dependency](#purpose-of-each-dependency)
    - [Legal & Ethical Impacts](#legal--ethical-impacts)
    - [Security Impact](#security-impact)
-   - [Purpose of Each Dependency](#purpose-of-each-dependency)
    - [Conflicts](#conflicts)
+5. [Required Files](#5-required-files)
 6. [Reference List](#6-reference-list)
 
 ## 1. Setup & Installation
@@ -44,8 +45,6 @@ For the best experience, use a dark theme in your code editor (e.g., "Visual Stu
    cd TO_DO._App
    ```
 3. **Install Dependencies**
-   Install the required Python packages using pip:
-
    ```bash
    pip install rich pyfiglet bcrypt emoji
    ```
@@ -105,6 +104,30 @@ For the best experience, use a dark theme in your code editor (e.g., "Visual Stu
 All dependencies are open source and compatible with each other.
 <hr>
 
+   ### **Purpose of Each Dependency**
+   - **bcrypt:** Provides secure password hashing to protect user data.
+   - **emoji:** Display emojis in the CLI for a fun user experience.
+   - **rich:** Enhances CLI with style, colours, task table and formatting for better readability.
+   - **pyfiglet:** Creates ASCII art banners to make the app pop! Visually engaging and fun.
+   - **markdown-it-py, mdurl, Pygments:** Support rich text rendering and syntax highlighting used by `rich`.
+   - **six:** Ensures compatibility between Python 2 and 3, used by `bcrypt`.
+
+   ### **Legal & Ethical Impacts**  
+      - All files are created and managed by the app, no external dependencies or third-party code.
+      - User data stays local and is stored securely in JSON format.
+      - Only reputable open source libraries are used (MIT, Apache 2.0, BSD licenses).
+      - No restrictive or copyleft licenses—safe for personal or project use and distribution.
+      - No external data sharing or tracking.
+
+   ### **Security Impact**  
+      - User passwords are hashed (never stored as plain text).
+      - All user data is stored locally and no personal data is shared externally.
+      - The app has no internet connectivity requirements, further ensuring data privacy.
+
+   ### **Conflicts**
+      - These packages are known to be fully compatible with each other, with no conflicting versions or installation issues on the specified versions.
+      - Use a virtual environment to avoid conflicts with other Python projects. Pinning versions in `requirements.txt` preserves compatibility, preventing future issues with updates.
+
 ## 5. Required Files
 
 - `main.py` — Main entry point
@@ -112,32 +135,9 @@ All dependencies are open source and compatible with each other.
 - `tasks.py` — Task management classes
 - `styling.py` — CLI styling
 - `emoji_library.py` — Emoji codes for UI
+- `utils.py` — Shared utility functions
 - `data/users.json` — Stores user account info (automatically created)
 - `data/{username}_tasks.json` — Per-user task storage (automatically created)
-
-   1. **Legal & Ethical Impacts**  
-      - All files are created and managed by the app, no external dependencies or third-party code. User data stays local, stored securely, and never leaves your device.
-      - User data is stored securely in JSON format, respecting privacy and security best practices.
-      - All app code is original, and only reputable open source libraries are used (MIT, Apache 2.0, BSD licenses).
-      - No restrictive or copyleft licenses—safe for personal or project use and distribution.
-      - No external data sharing or tracking.
-
-   2. **Security Impact**  
-      - User passwords are hashed (never stored as plain text).
-      - All user data is stored locally and no personal data is shared externally.
-      - The app has no internet connectivity requirements, further ensuring data privacy.
-
-   3. **Purpose of Each Dependency**
-      - **bcrypt:** Provides secure password hashing to protect user data.  
-      - **emoji:** Display emojis in the CLI for a fun user experience.  
-      - **rich:** Enhances CLI with style, colours, task table and formatting for better readability.  
-      - **pyfiglet:** Creates ASCII art banners to make the app pop! Visually engaging and fun.
-      - **markdown-it-py, mdurl, Pygments:** Support rich text rendering and syntax highlighting used by `rich`.  
-      - **six:** Ensures compatibility between Python 2 and 3, used by `bcrypt`.
-
-   4. **Conflicts**
-      - These packages are known to be fully compatible with each other, with no conflicting versions or installation issues on the specified versions.
-      - Use a virtual environment to avoid conflicts with other Python projects. Pinning versions in `requirements.txt` preserves compatibility, preventing future issues with updates.
 <hr>
 
 ## 6. Reference List
