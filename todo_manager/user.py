@@ -116,7 +116,7 @@ class User:
                 attempts += 1
                 if attempts < 3:
                     print_error(f"\nOops! That username or password didn't match {interesting}. Please try again!")
-        
+        clear_screen()
         print_error(f"\nUmm, this is awkward {interesting} Did you forget your details?\nLet's go back to the main menu.")
         return None
                 

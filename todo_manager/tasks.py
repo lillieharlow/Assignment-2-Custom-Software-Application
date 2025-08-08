@@ -81,7 +81,8 @@ class TaskList:
         """Add a new task to the list"""
         self.tasks.append(task)
         self.save_tasks()
-        print_success(f"\nNice cache! {task.title} was added to your tasks!")
+        clear_screen()
+        print_success(f"Nice cache! {task.title} was added to your tasks!")
 
     # ===== Delete task =====
     def delete_task(self, index: int) -> None:
@@ -89,7 +90,7 @@ class TaskList:
         if self.is_valid_task_number(index):
             removed_task = self.tasks.pop(index)
             self.save_tasks()
-            print_success(f"\nOrganisation is key! {removed_task.title} has been removed from your tasks!")
+            print_success(f"Organisation is key! {removed_task.title} has been removed from your tasks!")
         else:
             self.show_invalid_number_error()
     
@@ -99,7 +100,7 @@ class TaskList:
         if self.is_valid_task_number(index):
             self.tasks[index].mark_complete()
             self.save_tasks()
-            print_success(f"\nGreat job! {self.tasks[index].title} is now complete!")
+            print_success(f"Great job! {self.tasks[index].title} is now complete!")
         else:
             self.show_invalid_number_error()
 
@@ -141,7 +142,7 @@ class TaskList:
             with open(self.filename, 'w') as file:
                 json.dump(task_data, file, indent=2)
         except Exception as e:
-            print_error(f"\nThis is awkward {interesting}. JaSON couldn't save tasks: {e}")
+            print_error(f"\nThis is awkward {interesting}. JaSON couldn't save tasks because {e}")
 
     # ===== Load tasks from file =====
     def load_tasks(self) -> None:
@@ -160,7 +161,7 @@ class TaskList:
         except (FileNotFoundError, json.JSONDecodeError):
             self.tasks = []  # No tasks file yet or file is empty/corrupted - start new list
         except Exception:
-            print_error("\nOh no! JaSON says... Let's start again!")
+            print_error("\nOh no! JaSON says... I don't like that one, start again!")
             self.tasks = []
 
     # ========== Helper methods =========

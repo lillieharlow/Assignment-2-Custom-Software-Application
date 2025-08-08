@@ -28,9 +28,9 @@ def welcome_user(username: str, is_returning: bool = False) -> None:
     if username == "Guest":
         return  # Don't print the welcome message for guest
     if is_returning:
-        message = f"\nHey {username}, welcome back!"
+        message = f"Hey {username}, welcome back!"
     else:
-        message = f"\nHey {username}, welcome to TO DO. {smile} Let's get started!"
+        message = f"Hey {username}, welcome to TO DO. {smile} Let's get started!"
     print_success(message)
 
 # ========== Task Input =========
@@ -41,7 +41,7 @@ def get_task_input():
         print_error("\nCome on, you gotta tell me what the task is!")
         return None
     if len(title) > 100:
-        print_error("\nWhoah! That's a very long task. Let's keep it under 100 characters!")
+        print_error("\nWhoah! That's a very long task. Let's keep it short and snappy!\n(less than 100 characters please)")
         return None
         
     while True:  # Loop until user enters 'y' or 'n' for priority task input
@@ -66,12 +66,12 @@ def get_task_input():
                     clear_screen()
                     break
                 else:
-                    print_error("Please enter 1, 2, or 3.")
+                    print_error(f"\nPlease enter 1, 2, or 3.")
             return PriorityTask(title, priority)
         elif is_priority == "n":
             return Task(title)
         else:
-            print_error("\nPlease enter 'y' or 'n'.")
+            print_error(f"\n {interesting} Please type 'y' or 'n'.")
 
 # ========== Task Number Input =========
 def get_task_number(task_list, action):
@@ -87,27 +87,14 @@ def get_task_number(task_list, action):
             if 0 <= index < max_num:
                 return index
             else:
-                print_error(f"Please type the task number (1 - {max_num}): ")
+                print_error(f"\n{cross} Cheeky! That task number isn't there!")
         except ValueError:
-            print_error(f"{interesting} That's not a valid option!")
-        again = input("Try again? Press 'y' to retry or enter anything else to return to menu: ").strip().lower()
+            print_error(f"\n{interesting} That's not a number!")
+        again = input(f"\nTry again? Press 'y' to retry or anything else to return to menu: ").strip().lower()
         if again != "y":
+            clear_screen
             return None
     
-# ========== Guest user handling =========
-def handle_guest():
-    """Guest user flow (does not save tasks)"""
-def handle_guest() -> None:
-    guest = GuestUser()
-    username = "Guest"
-    clear_screen()
-    print_info("\nWelcome to TODO. Please note: your tasks will NOT be saved after you exit.")
-    task_list = TaskList(username)
-    task_list.save_tasks = lambda: None # Disable saving
-    task_list.load_tasks = lambda: None # Disable loading
-    welcome_user(username)
-    task_menu(task_list, username)
-
 # ========== Task Menu =========
 def task_menu(task_list, username):
     """Main task menu for adding, seeing, completing, deleting tasks"""
@@ -127,11 +114,13 @@ def task_menu(task_list: TaskList, username: str) -> None:
 
         if choice == "1": # Add a new task
             clear_screen()
-            print_info(f"\n{smile} Yay! Let's add a new task!")
-            task = get_task_input() 
-            if task:
-                task_list.add_task(task) # add task object directly
-            
+            print_info(f"{smile} Yay! Let's add a new task!")
+            while True:
+                task = get_task_input() 
+                if task:
+                    task_list.add_task(task) # add task object directly
+                    break  # Only break if a valid task was added
+
         elif choice == "2": # See all tasks
             clear_screen()
             if task_list.get_tasks():
@@ -142,7 +131,7 @@ def task_menu(task_list: TaskList, username: str) -> None:
         elif choice == "3": # Mark a task as done/complete
             clear_screen()
             if task_list.get_tasks():
-                print_info(f"\n{complete} Let's mark a task as done!")
+                print_info(f"{complete} Let's mark a task as done!\n")
                 task_list.display_tasks()
                 index = get_task_number(task_list, "mark complete")
                 if index is not None:
@@ -158,19 +147,18 @@ def task_menu(task_list: TaskList, username: str) -> None:
             if not task_list.get_tasks():
                 task_list.display_tasks()
             else:
-                print_info(f"\n{delete} What task do you want to delete?")
+                print_info(f"{delete} What task do you want to delete?\n")
                 task_list.display_tasks()
                 while True:
                     index = get_task_number(task_list, "delete")
                     if index is not None:
                         clear_screen()
                         task_list.delete_task(index)
-                        # Only print "Here's what's left:" if there are tasks remaining
                         if task_list.get_tasks():
                             print_info("\nHere's what's left:")
                             task_list.display_tasks()
                         else:
-                            print_no_tasks()
+                            print_no_tasks() # no tasks left
                         break
                     else:
                         again = input(f"Try again?\nPress 'y' to retry or enter anything else to return to menu: ").strip().lower()
@@ -178,32 +166,50 @@ def task_menu(task_list: TaskList, username: str) -> None:
                             break
 
         elif choice == "5": # Exit the app
-            clear_screen()
             print_rainbow_text("GOODBYE!")
-            print_info(f"\nTHANKS FOR USING TO DO. - See you next time {u.get_current_user()}!")
-            break
-            
+            print_info(f"\nTHANKS FOR USING TO DO. - SEE YOU NEXT TIME!")
+            return True  # Exit loop to end task and main menu
+        
         else:
             clear_screen()
-            print_error(f"\n{cross} Cheeky, that's not a valid number!")
+            print_error(f"{cross} Cheeky, that's not a valid number!")
 
 # ========== User Signup =========
 def handle_signup():
     """User signup flow"""
     username = u.register_user()
     if username:
+        clear_screen() # clear screen after signup
         task_list = TaskList(username)
         welcome_user(username)
-        task_menu(task_list, username)
+        return task_menu(task_list, username)
+    return False
 
 # ========== User Login =========
 def handle_login():
     """User login flow"""
     username = u.login_user()
     if username:
+        clear_screen() # clear screen after login
         task_list = TaskList(username)
         welcome_user(username, is_returning=True)
-        task_menu(task_list, username)
+        return task_menu(task_list, username)
+    return False
+
+# ========== Guest user handling =========
+def handle_guest():
+    """Guest user flow (does not save tasks)"""
+def handle_guest() -> None:
+    guest = GuestUser()
+    username = "Guest"
+    clear_screen()
+    print_info("Welcome to TODO. Please note: your tasks will NOT be saved after you exit.")
+    task_list = TaskList(username)
+    task_list.save_tasks = lambda: None # Disable saving
+    task_list.load_tasks = lambda: None # Disable loading
+    welcome_user(username)
+    return task_menu(task_list, username)
+
         
 # ========== Main Menu - login, signup or exit =========
 def main_menu():
@@ -220,17 +226,24 @@ def main_menu() -> None:
         choice = input("\nWhat would you like to do? (Enter a number 1-4): ")
 
         if choice == "1": # Create new account
-            handle_signup()
+            should_exit = handle_signup()
+            if should_exit:
+                break  # Exit main menu if user exited from task menu
         elif choice == "2": # Log into existing account
-            handle_login()
+            should_exit = handle_login()
+            if should_exit:
+                break  # Exit main menu if user exited from task menu
         elif choice == "3": # Guest user
-            handle_guest()
+            should_exit = handle_guest()
+            if should_exit:
+                break  # Exit main menu if user exited from task menu
         elif choice == "4": # Exit the app
             print_rainbow_text("GOODBYE!")
             print_info(f"\nTHANKS FOR USING TO DO.\n")
             break
         else:
-            print_error(f"\n{cross} Naughty! Please pick a number!")
+            clear_screen()
+            print_error(f"{cross} Naughty! Please pick a number!")
 
 # ========= App Start =========
 if __name__ == "__main__":

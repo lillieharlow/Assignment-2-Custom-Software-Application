@@ -19,7 +19,7 @@ console = Console(style="bold")
 # ========= Basic Print Functions =========
 def print_error(message):
     """Error messages in red"""
-    console.print(message, style="#ff0000", markup=True)
+    console.print(f"[bold #ff0000]{message}[bold /#ff0000]", markup=True) # force rich to style all text bold in red
 
 def print_success(message):
     """Success messages in green"""
@@ -113,5 +113,5 @@ def print_table(table):
     
 def clear_screen():
     """Clear screen for better visibility"""
-    os.system('clear')  # Clear terminal
+    os.system('clear')  # Clear screen for user
     show_app_title()
