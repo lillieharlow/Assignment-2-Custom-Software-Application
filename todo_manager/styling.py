@@ -62,8 +62,7 @@ def print_rainbow_text(text, font='ANSI_Shadow'):
         padded_line = left_padding + colored_line + right_padding # combine left and right
         console.print(padded_line) # Print padded line
 
-    for _ in range(2): # Print 2 empty lines for padding at bottom
-        console.print(" " * total_width)
+    console.print(" " * total_width) # Bottom padding
 
 # ========= App Title =========
 def show_app_title():
@@ -77,9 +76,9 @@ def create_task_table(username):
     """Display tasks in a table format. Each column has different colour."""
     table = Table(title=f"{username}'s Tasks", style="#00fbff", show_header=True)
 
-    table.add_column("TASK #", width=8, justify="center", header_style="#d382ff")
-    table.add_column("TASK", min_width=30, justify="center", header_style="#fe85c2")
-    table.add_column("DONE", width=8, justify="center", header_style="#ff7a7a")
+    table.add_column("TASK #", width=8, justify="center", header_style="#d382ff") # Purple
+    table.add_column("TASK", min_width=30, justify="center", header_style="#fe85c2") # Pink
+    table.add_column("DONE", width=8, justify="center", header_style="#ff7a7a") # Red
 
     return table
 
