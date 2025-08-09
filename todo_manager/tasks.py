@@ -1,21 +1,21 @@
-""" Task management for the TO DO app.
+""" Task management functions
 Features:
-Task class: Represents a single task.
-__init__: Sets title, completed status.
-mark_complete(): Marks as complete.
-mark_incomplete(): Marks as incomplete.
-PriorityTask class: Inherits Task, adds priority.
-TaskList class: Manages a user's tasks.
-__init__: Sets up task list, loads tasks.
-add_task(): Adds and saves task.
-delete_task(): Deletes and saves task.
-mark_complete(): Marks task as done.
-get_tasks(): Returns task list.
-display_tasks(): Shows tasks in table.
-save_tasks(): Saves tasks to file.
-load_tasks(): Loads tasks from file.
-Helpers: Validates task numbers, shows errors, displays quotes.
-->: type hinting for better code clarity."""
+Task class: Represents a single task
+__init__: Create new task, sets title and completed status
+mark_complete(): Marks task as complete
+mark_incomplete(): Marks task as incomplete
+PriorityTask class: Inherits Task, can add priority to task title
+TaskList class: Manages a user's tasks
+__init__: Sets up task list, load, save tasks
+add_task(): Adds and saves task
+delete_task(): Deletes and saves task
+mark_complete(): Marks task as done
+get_tasks(): Returns task list
+display_tasks(): Shows tasks in table
+save_tasks(): Saves tasks to file
+load_tasks(): Loads tasks from file
+Helpers: Validates task numbers, shows errors
+->: type hinting for better clarity"""
 
 import json
 import os
@@ -29,31 +29,28 @@ class Task:
     
     # ===== Create new task =====
     def __init__(self, title: str) -> None:
-        """Set up a new task with a title"""
         self.title = title
         self.completed = False
     
     # ===== Task complete =====
     def mark_complete(self) -> None:
-        """Mark this task as done"""
         self.completed = True
     
     # ===== Task incomplete =====
     def mark_incomplete(self) -> None:
-        """Mark this task as not done"""
         self.completed = False
 
     def __str__(self) -> str:
         return self.title
 
-# ===== Task priority =====
+# ========= Task priority =========
 class PriorityTask(Task):
-    """Inherits from Task and adds priority level to user tasks if they choose"""
+    """Inherits from Task and adds priority level to users tasks if they choose"""
     def __init__(self, title: str, priority: str) -> None:
-        super().__init__(title) # Call parent constructor
+        super().__init__(title) # Call parent Task constructor
         self.priority: str = priority  # "High", "Medium", "Low" 
 
-    def __str__(self) -> str:  # Map priority to an emoji
+    def __str__(self) -> str:  # Priority level mapped as emoji
         if self.priority == "High":
             prio_emoji = high
         elif self.priority == "Medium":
@@ -70,7 +67,7 @@ class TaskList:
 
     # ===== Setup task list =====
     def __init__(self, username: str) -> None:
-        """Set up a new task list for this user"""
+        """Create new task list for this user, load, save task list"""
         self.username: str = username
         self.tasks: list[Task] = []
         self.filename: str = f"data/{username}_tasks.json"
@@ -78,15 +75,13 @@ class TaskList:
     
     # ===== Add new task =====
     def add_task(self, task: Task) -> None:
-        """Add a new task to the list"""
         self.tasks.append(task)
         self.save_tasks()
         clear_screen()
         print_success(f"Nice cache! {task.title} was added to your tasks!")
 
-    # ===== Delete task =====
+    # ===== Delete task by index =====
     def delete_task(self, index: int) -> None:
-        """Delete a task by its number"""
         if self.is_valid_task_number(index):
             removed_task = self.tasks.pop(index)
             self.save_tasks()
@@ -94,9 +89,8 @@ class TaskList:
         else:
             self.show_invalid_number_error()
     
-    # ===== Complete task =====
+    # ===== Complete task by index =====
     def mark_complete(self, index: int) -> None:
-        """Mark a task as done by its index number/task number"""
         if self.is_valid_task_number(index):
             self.tasks[index].mark_complete()
             self.save_tasks()
@@ -104,14 +98,13 @@ class TaskList:
         else:
             self.show_invalid_number_error()
 
-    # ===== Get task list =====
+    # ===== Get/return task list to user =====
     def get_tasks(self) -> list[Task]:
-        """Return the list of tasks"""
         return self.tasks
     
     # ===== Display tasks =====
     def display_tasks(self) -> None:
-        """Show all tasks, task number and completion status in a nice table"""
+        """Show all tasks, task number and completion status in Rich table"""
         if not self.tasks:
             print_no_tasks()
             return
@@ -124,9 +117,8 @@ class TaskList:
         
         print_table(table)
     
-    # ===== Save tasks to file =====
+    # ===== Save tasks to users file =====
     def save_tasks(self) -> None:
-        """Save all tasks to the user's file"""
         os.makedirs(os.path.dirname(self.filename), exist_ok=True)
         task_data = []
         for task in self.tasks:
@@ -144,9 +136,8 @@ class TaskList:
         except Exception as e:
             print_error(f"\nThis is awkward {interesting}. JaSON couldn't save tasks because {e}")
 
-    # ===== Load tasks from file =====
+    # ===== Load tasks from users file =====
     def load_tasks(self) -> None:
-        """Load tasks from the user's file"""
         try:
             with open(self.filename, 'r') as file:
                 task_data = json.load(file)
@@ -166,12 +157,10 @@ class TaskList:
 
     # ========== Helper methods =========
     
-    # ===== Check valid task number =====
+    # ===== Check if task number is valid =====
     def is_valid_task_number(self, index: int) -> bool:
-        """Check if task number is valid"""
         return 0 <= index < len(self.tasks)
     
-    # ===== Show error for invalid number =====
+    # ===== Show message when user does not input valid number =====
     def show_invalid_number_error(self) -> None:
-        """Show message when user does not input valid number"""
         print_error(f"\nCheeky! That's not a valid number. Please pick a number from the list!")
