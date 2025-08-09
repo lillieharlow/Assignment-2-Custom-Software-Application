@@ -119,7 +119,7 @@ All dependencies are open source and compatible with each other.
    - No restrictive or copyleft licenses—safe for personal or project use and distribution.
    - No external data sharing or tracking.
 
-- **Security Impact**  
+- **Security Impact** 
    - User passwords are hashed (never stored as plain text).
    - All user data is stored locally and no personal data is shared externally.
    - The app has no internet connectivity requirements, further ensuring data privacy.
