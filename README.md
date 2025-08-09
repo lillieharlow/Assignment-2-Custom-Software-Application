@@ -104,7 +104,7 @@ For the best experience, use a dark theme in your code editor (e.g., "Visual Stu
 All dependencies are open source and compatible with each other.
 <hr>
 
-   ### **Purpose of Each Dependency**
+**Purpose of Each Dependency**
    - **bcrypt:** Provides secure password hashing to protect user data.
    - **emoji:** Display emojis in the CLI for a fun user experience.
    - **rich:** Enhances CLI with style, colours, task table and formatting for better readability.
@@ -112,21 +112,21 @@ All dependencies are open source and compatible with each other.
    - **markdown-it-py, mdurl, Pygments:** Support rich text rendering and syntax highlighting used by `rich`.
    - **six:** Ensures compatibility between Python 2 and 3, used by `bcrypt`.
 
-   ### **Legal & Ethical Impacts**  
-      - All files are created and managed by the app, no external dependencies or third-party code.
-      - User data stays local and is stored securely in JSON format.
-      - Only reputable open source libraries are used (MIT, Apache 2.0, BSD licenses).
-      - No restrictive or copyleft licenses—safe for personal or project use and distribution.
-      - No external data sharing or tracking.
+**Legal & Ethical Impacts**  
+   - All files are created and managed by the app, no external dependencies or third-party code.
+   - User data stays local and is stored securely in JSON format.
+   - Only reputable open source libraries are used (MIT, Apache 2.0, BSD licenses).
+   - No restrictive or copyleft licenses—safe for personal or project use and distribution.
+   - No external data sharing or tracking.
 
-   ### **Security Impact**  
-      - User passwords are hashed (never stored as plain text).
-      - All user data is stored locally and no personal data is shared externally.
-      - The app has no internet connectivity requirements, further ensuring data privacy.
+- **Security Impact**  
+   - User passwords are hashed (never stored as plain text).
+   - All user data is stored locally and no personal data is shared externally.
+   - The app has no internet connectivity requirements, further ensuring data privacy.
 
-   ### **Conflicts**
-      - These packages are known to be fully compatible with each other, with no conflicting versions or installation issues on the specified versions.
-      - Use a virtual environment to avoid conflicts with other Python projects. Pinning versions in `requirements.txt` preserves compatibility, preventing future issues with updates.
+- **Conflicts**
+   - These packages are known to be fully compatible with each other, with no conflicting versions or installation issues on the specified versions.
+   - Use a virtual environment to avoid conflicts with other Python projects. Pinning versions in `requirements.txt` preserves compatibility, preventing future issues with updates.
 
 ## 5. Required Files
 
