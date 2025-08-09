@@ -85,9 +85,9 @@ class TaskList:
         if self.is_valid_task_number(index):
             removed_task = self.tasks.pop(index)
             self.save_tasks()
-            print_success(f"Organisation is key! {removed_task.title} has been removed from your tasks!\n")
         else:
             self.show_invalid_number_error()
+            return None
     
     # ===== Complete task by index =====
     def mark_complete(self, index: int) -> None:

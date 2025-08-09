@@ -3,7 +3,6 @@ Features:
 Global objects: u for user management
 welcome_user(): Prints welcome message (new/returning)
 get_task_input(): Gets and validates task input, returns Task/PriorityTask
-get_task_number(): Gets and validates task number input
 task_menu(): Main task menu (add, view, complete, delete, exit app)
 handle_signup(): User signup flow
 handle_login(): User login flow
@@ -14,7 +13,7 @@ App start: Shows rainbow art, title and runs main_menu()
 
 from user import User, GuestUser
 from tasks import Task, PriorityTask, TaskList
-from utils import print_no_tasks
+from utils import print_no_tasks, retry_task
 from styling import * # Import all styling functions
 from emoji_library import person, key, door, smile, add, list, complete, delete, quit, interesting, cross, high, medium, low
 
@@ -71,28 +70,6 @@ def get_task_input():
             return Task(title)
         else:
             print_error(f"\n {interesting} Please type 'y' or 'n'.")
-
-# ========== Task Number Input =========
-def get_task_number(task_list, action):
-    """Get task number from user for completing/deleting a task"""
-    if not task_list.get_tasks():
-        return None
-    max_num = len(task_list.get_tasks())
-    
-    while True:
-        user_input = input(f"\nWhich task do you want to {action}? (1-{max_num}): ").strip()
-        try:
-            index = int(user_input) - 1
-            if 0 <= index < max_num:
-                return index
-            else:
-                print_error(f"\n{cross} Cheeky! That task number isn't there!")
-        except ValueError:
-            print_error(f"\n{interesting} That's not a number!")
-        again = input(f"\nTry again? Press 'y' to retry or anything else to return to menu: ").strip().lower()
-        if again != "y":
-            clear_screen()
-            return None
     
 # ========== Task Menu =========
 def task_menu(task_list: TaskList, username: str) -> None:
@@ -130,13 +107,13 @@ def task_menu(task_list: TaskList, username: str) -> None:
             clear_screen()
             if task_list.get_tasks():
                 print_info(f"{complete} Let's mark a task as done!\n")
-                task_list.display_tasks()
-                index = get_task_number(task_list, "mark complete")
-                if index is not None:
-                    task_list.mark_complete(index)
-                    clear_screen()
-                    print_info("\nHere's your updated list:")
-                    task_list.display_tasks()
+                retry_task(
+                    task_list,
+                    "mark complete",
+                    task_list.mark_complete,
+                    after_success_msg="\nHere's your updated list:\n",
+                    after_success_func=task_list.display_tasks
+                )
             else:
                 print_no_tasks()
             
@@ -146,22 +123,19 @@ def task_menu(task_list: TaskList, username: str) -> None:
                 task_list.display_tasks()
             else:
                 print_info(f"{delete} What task do you want to delete?\n")
-                task_list.display_tasks()
-                while True:
-                    index = get_task_number(task_list, "delete")
-                    if index is not None:
-                        clear_screen()
-                        task_list.delete_task(index)
-                        if task_list.get_tasks():
-                            print_info("\nHere's what's left:")
-                            task_list.display_tasks()
-                        else:
-                            print_no_tasks() # no tasks left
-                        break
+                def after_delete():
+                    if task_list.get_tasks():
+                        print_success(f"Organisation is key!\n")
+                        print_info(f"Here's what's left:\n")
+                        task_list.display_tasks()
                     else:
-                        again = input(f"Try again?\nPress 'y' to retry or enter anything else to return to menu: ").strip().lower()
-                        if again != "y":
-                            break
+                        print_no_tasks()
+                retry_task(
+                    task_list,
+                    "delete",
+                    task_list.delete_task,
+                    after_success_func=after_delete
+                )
 
         elif choice == "5": # Exit the app
             print_rainbow_text("GOODBYE!")
