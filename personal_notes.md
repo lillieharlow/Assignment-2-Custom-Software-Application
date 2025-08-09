@@ -25,7 +25,7 @@
 - [ ] 2+ input and output
     - [ ] retrieving user input and displaying output
     - [ ] reading from files and writing to files
-<hr>
+----------------------------------------------------------------------------
 
 # main.py
 ### Flow:
@@ -69,8 +69,7 @@
 ### App startup
 - shows TO DO. app banner/title art (large, rainbow text)
 - starts Main menu
-
-<hr>
+----------------------------------------------------------------------------
 
 # user.py
 Blueprint for handling all user accounts - class User
@@ -111,21 +110,14 @@ Manages sign up, log in and who is using the app
     - returns your username
 
 ### Logging into existing account
-
-Gives you three tires, stops an infite loop/unlimited for security reasons
-
-after three tries is reached, new message says too many attempts and takes user back to main menu
+Gives you three tries, stops an infinite loop/unlimited for security reasons after three tries is reached, new message says too many attempts and takes user back to main menu
 
 ### Extra functionality
 
 - get_current_user()
     - tells who is currently logged into the app
     - saying goodbye when someone exits
-
-<hr>
-
-# styling.py
-
+----------------------------------------------------------------------------
 
 ### styling.py
 - Handles all colors and fancy text
@@ -133,8 +125,6 @@ after three tries is reached, new message says too many attempts and takes user 
 - Keeps interface colorful and friendly
 - Professional, modern CLI look
 - Shows attention to detail
-
----
 
 **Setup:**
 - Uses Rich for terminal colors
@@ -164,8 +154,7 @@ after three tries is reached, new message says too many attempts and takes user 
 **Clear Terminal:**
 - Uses os to clear screen
 - Keeps display tidy
-
----
+----------------------------------------------------------------------------
 
 # tasks.py
 Manages all task-related operations - creating, storing, displaying tasks
@@ -231,3 +220,7 @@ So there isn't duplicate code - call helper function instead
 - If input is invalid/not in the number range or outside of 'y/n'
     - displays friendly error for wrong numbers
     - guides user to pick valid option
+----------------------------------------------------------------------------
+
+# utils.py
+Avoid circular imports and duplicate code - put functions that are used in multiple places here.
