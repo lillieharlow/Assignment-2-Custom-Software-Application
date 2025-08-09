@@ -91,7 +91,7 @@ def get_task_number(task_list, action):
             print_error(f"\n{interesting} That's not a number!")
         again = input(f"\nTry again? Press 'y' to retry or anything else to return to menu: ").strip().lower()
         if again != "y":
-            clear_screen
+            clear_screen()
             return None
     
 # ========== Task Menu =========
