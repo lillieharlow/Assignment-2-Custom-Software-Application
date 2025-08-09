@@ -1,17 +1,16 @@
-""" Main application file for the TO DO app.
+""" Main application file for the TO DO. app
 Features:
-Global objects: u for user management.
-welcome_user(): Prints welcome message (new/returning).
-print_no_tasks(): Shows "no tasks" message.
-get_task_input(): Gets/validates task input, returns Task/PriorityTask.
-get_task_number(): Gets/validates task number input.
-task_menu(): Main task menu (add, view, complete, delete, motivation, exit).
-handle_signup(): Signup flow.
-handle_login(): Login flow.
-handle_guest(): Guest user flow (tasks not saved).
-main_menu(): Main menu (signup, login, guest, exit).
-App start: Shows title, runs main menu.
-->: type hinting for better code clarity."""
+Global objects: u for user management
+welcome_user(): Prints welcome message (new/returning)
+get_task_input(): Gets and validates task input, returns Task/PriorityTask
+get_task_number(): Gets and validates task number input
+task_menu(): Main task menu (add, view, complete, delete, exit app)
+handle_signup(): User signup flow
+handle_login(): User login flow
+handle_guest(): Guest user flow (tasks not saved)
+main_menu(): Main menu (signup, login, guest, exit app)
+App start: Shows rainbow art, title and runs main_menu()
+->: type hinting for better clarity"""
 
 from user import User, GuestUser
 from tasks import Task, PriorityTask, TaskList
@@ -96,9 +95,8 @@ def get_task_number(task_list, action):
             return None
     
 # ========== Task Menu =========
-def task_menu(task_list, username):
-    """Main task menu for adding, seeing, completing, deleting tasks"""
 def task_menu(task_list: TaskList, username: str) -> None:
+    """Main task menu for adding, seeing, completing, deleting tasks"""
     while True:
         print("\n" + "="*50)
         print(f"{smile} {username}'s TO DO.")
@@ -176,7 +174,6 @@ def task_menu(task_list: TaskList, username: str) -> None:
 
 # ========== User Signup =========
 def handle_signup():
-    """User signup flow"""
     username = u.register_user()
     if username:
         clear_screen() # clear screen after signup
@@ -187,7 +184,6 @@ def handle_signup():
 
 # ========== User Login =========
 def handle_login():
-    """User login flow"""
     username = u.login_user()
     if username:
         clear_screen() # clear screen after login
@@ -196,9 +192,7 @@ def handle_login():
         return task_menu(task_list, username)
     return False
 
-# ========== Guest user handling =========
-def handle_guest():
-    """Guest user flow (does not save tasks)"""
+# ========== Guest user / doesn't save tasks =========
 def handle_guest() -> None:
     guest = GuestUser()
     username = "Guest"
@@ -211,10 +205,9 @@ def handle_guest() -> None:
     return task_menu(task_list, username)
 
         
-# ========== Main Menu - login, signup or exit =========
-def main_menu():
-    """Main menu for user to create account, login, guest or exit"""
+# ========== Main Menu =========
 def main_menu() -> None:
+    """Main menu for user to create account, login, guest or exit"""
     while True:
         print("\n" + "="*50)
         print(f"\n1. {person} Create new account")
@@ -228,15 +221,15 @@ def main_menu() -> None:
         if choice == "1": # Create new account
             should_exit = handle_signup()
             if should_exit:
-                break  # Exit main menu if user exited from task menu
+                break  # Breaks under the 'if' statements exit both main and task menus
         elif choice == "2": # Log into existing account
             should_exit = handle_login()
             if should_exit:
-                break  # Exit main menu if user exited from task menu
+                break
         elif choice == "3": # Guest user
             should_exit = handle_guest()
             if should_exit:
-                break  # Exit main menu if user exited from task menu
+                break
         elif choice == "4": # Exit the app
             print_rainbow_text("GOODBYE!")
             print_info(f"\nTHANKS FOR USING TO DO.\n")
@@ -245,9 +238,8 @@ def main_menu() -> None:
             clear_screen()
             print_error(f"{cross} Naughty! Please pick a number!")
 
-# ========= App Start =========
+# ========= App Starting point / Shows title, runs main menu. =========
 if __name__ == "__main__":
-    # App start: Shows title, runs main menu.
     clear_screen()
     print_info("A TASK MANAGEMENT APP THAT HELPS YOU STAY ON TRACK")
     main_menu()
