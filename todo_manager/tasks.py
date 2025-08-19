@@ -19,9 +19,9 @@ Helpers: Validates task numbers, shows errors
 
 import json
 import os
-from emoji_library import complete, incomplete, interesting, high, medium, low
-from styling import *
-from utils import print_no_tasks
+from .emoji_library import complete, incomplete, interesting, high, medium, low
+from .styling import *
+from .utils import print_no_tasks
 
 # ========= Task class =========
 class Task:
