@@ -5,8 +5,8 @@ get_task_number(): Gets and validates task number input
 retry_task(): Prompt user to 'retry' task action (mark complete/delete)
 """
 
-from styling import print_info, clear_screen, print_error
-from emoji_library import interesting, cross
+from .styling import print_info, clear_screen, print_error
+from .emoji_library import interesting, cross
 
 # ========== print_no_tasks() =========
 def print_no_tasks() -> None:

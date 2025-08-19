@@ -14,8 +14,8 @@ except Exception as e: handle errors gracefully
 import json
 import os
 from getpass import getpass
-from emoji_library import person, add, cross, lock, interesting, smile
-from styling import print_error, print_success, clear_screen
+from .emoji_library import person, add, cross, lock, interesting, smile
+from .styling import print_error, print_success, clear_screen
 import bcrypt
 
 # ========= User class =========

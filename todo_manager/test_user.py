@@ -1,0 +1,13 @@
+import unittest
+from todo_manager.user import User
+
+class TestUser(unittest.TestCase):
+    def test_create_user(self):
+        user = User()
+        self.assertIsNone(user.get_current_user())
+
+    def test_signup_and_login(self):
+        user = User()
+
+if __name__ == '__main__':
+    unittest.main()
