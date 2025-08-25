@@ -67,7 +67,7 @@ Frequently using `git add .`, `git commit -m "I am a message"`, and `git push` i
 ### Commits & Version History
 Committing frequently provided a safety net for my developing work, helping capture the evolution of my project with 112 commits. The beginning of this project saw two major shifts in project direction, which were reflected in my commit history. Originally wanting to create a Virtual Pet Application and then an application that was based around animal facts and quizzes. Completely seperate to the project created, in hindsight, I should have branched at these points to isolate these changes and switched the new branches to main branch.
 
-At times, my commit messages were vague or confusing, which made it hard for me to understand my project history when a revisit was needed. Improvements can definitely be made by adopting a more conventional commit message style in future projects e.g. `feat: New branch testing` or `Merge pull request #2 from lillieharlow/testing`, seen in the projects final commit messages. This will greatly increase clear communication, readability, and tracking of future projects.
+At times, my commit messages were vague or confusing, which made it hard for me to understand my project history when a revisit was needed. Improvements can definitely be made by adopting a more conventional commit message style in future projects e.g. `feat: New branch called TDD_testing. Implement standard TDD testing.` or `test: title_upper method added to class Task in tasks.py PASSED.`, seen in the projects final commit messages. This will greatly increase clear communication, readability, and tracking of future projects.
 
 Version history came in very handy when I accidentally deleted my `README.md` file. I was able to quickly restore it from a previous commit.
 
@@ -159,27 +159,6 @@ Test-Driven Development (TDD) is an approach where you start by writing a test b
 
 I didn’t use strict TDD for this project, as a beginner I focused on just getting code working through manual testing and dabbling in standard testing processes. Reflecting on my project, here is how I could have implemented TDD and developed my code with this approach:
 
-1. **Write the test first (it will fail):**
-```python
-def test_mark_complete(self):
-    task = Task("Buy milk")
-    task.mark_complete()
-    self.assertTrue(task.completed)
-```
-2. **Write the minimum code to pass the test:**
-```python
-class Task:
-    def __init__(self, title):
-        self.title = title
-        self.completed = False
-    def mark_complete(self):
-        self.completed = True
-```
-3. **Refactor if needed:**
-- In this case, the code is already simple and clear.
-
-TDD makes sure every feature is tested from the start and helps catch bugs early. I will try this approach in future projects to improve my workflow.
-
 A practical TDD example: adding a method to return the task title in uppercase.
 
 **User Story:**
@@ -208,16 +187,35 @@ class Task:
 
 This feature is useful for users who want to highlight or visually separate certain tasks. By using TDD, I made sure the method worked exactly as intended before adding it to the app, and the user story helped me focus on a real-world need.
 
-This code is a loop that asks the user if they want their new task title to be in UPPERCASE:
-
-It prompts:
-"Would you like this task written in UPPERCASE? (Click 'U' for UPPERCASE or any other key to keep as is 😊):"
-If the user enters "u", the title is converted to uppercase (title.upper()).
-If the user enters anything else (or just presses Enter), the title stays as the user typed it.
-The while True loop is used so the prompt can repeat if you want to add more input validation, but as written, it will only run once because both branches have a break.
-
 example 2 TDD
+Adding is_high_priority method to test_tasks.py
 
+def test_is_high_priority(self): # TDD test 2
+        from todo_manager.tasks import PriorityTask
+        high_task = PriorityTask("Pay gas bill", "High")
+        med_task = PriorityTask("Homework", "Medium")
+        low_task = PriorityTask("Clean fridge", "Low")
+        self.assertTrue(high_task.is_high_priority())
+        self.assertFalse(med_task.is_high_priority())
+        self.assertFalse(low_task.is_high_priority())
+
+failed 
+
+Added to tasks.py to make the pass
+ class Task
+  # ===== Check if task is high priority =====
+    def is_high_priority(self) -> bool:
+        return False
+
+  class PRiorityTask:
+  def is_high_priority(self) -> bool: # TDD 2 - Return True if this PriorityTask is High.
+        return self.priority == "High"
+
+
+
+Yes, it is still TDD if you follow the process: write a failing test, implement the method, and see the test pass. TDD is about driving development with tests, not necessarily about immediate integration into your app.
+
+However, for best practice and real value, you should eventually use the new methods in your application code. This ensures your tests reflect real user needs and your codebase stays clean and purposeful. For your assignment, demonstrating the TDD cycle (fail → implement → pass) is correct—even if the method isn’t yet used in the main app.
 
 
 ### Manual Testing and User Stories

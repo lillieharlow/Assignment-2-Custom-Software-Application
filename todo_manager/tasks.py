@@ -42,9 +42,13 @@ class Task:
     def __str__(self) -> str:
         return self.title
 
-    # ===== task UPPERCASE (TDD feature) =====
+    # ===== task UPPERCASE (TDD 1 feature) =====
     def title_upper(self) -> str:
         return self.title.upper()
+    
+    # ===== Check if task is high priority (TDD 2 feature) =====
+    def is_high_priority(self) -> bool:
+        return False
 
 # ========= Task priority =========
 class PriorityTask(Task):
@@ -63,6 +67,9 @@ class PriorityTask(Task):
         else:
             prio_emoji = ""
         return f"{prio_emoji} {self.title}" # Adds priority emoji to task title
+        
+    def is_high_priority(self) -> bool: # TDD 2 - Return True if this PriorityTask is High.
+        return self.priority == "High"
 
 # ========= TaskList class =========
 class TaskList:
