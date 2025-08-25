@@ -43,6 +43,9 @@ class Task:
     def __str__(self) -> str:
         return self.title
 
+    def title_upper(self) -> str:
+        return self.title.upper()
+
 # ========= Task priority =========
 class PriorityTask(Task):
     """Inherits from Task and adds priority level to users tasks if they choose"""

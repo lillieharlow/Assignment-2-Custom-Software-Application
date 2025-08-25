@@ -89,8 +89,9 @@ Updating `.gitignore` as my project grew ensured I wasn’t accidentally committ
 ### Branching
 Implementing branching was a game-changer! It meant I could try out new features without worrying about breaking the main version, e.g.:
 
-- In a branch called `inheritance-addition` (image 2), I worked on adding new OOP features like `PriorityTask` and `GuestUser`.
+- `inheritance-addition` branch (image 2), I worked on adding new OOP features like `PriorityTask` and `GuestUser`.
 - In another branch, I tested out Python’s `unittest` (image 3) module without cluttering up the main flow.
+- `TDD_testing` branch
 
 Branches gave me confidence to make mistakes because there was no risk to my stable code.
 
@@ -101,6 +102,9 @@ Branches gave me confidence to make mistakes because there was no risk to my sta
 <img src="3.png" alt="Branching testing CLI code" width="500">
 
 *Image 3: Branching for testing with unittest*
+
+
+
 
 ### Merging & Pulling Challenges
 After merging `inheritance-addition` on GitHub, I didn't pull before pushing new commits in the local repository. This led to push rejections and a lot of confusion for a beginner.
@@ -176,9 +180,14 @@ class Task:
 
 TDD makes sure every feature is tested from the start and helps catch bugs early. I will try this approach in future projects to improve my workflow.
 
-A simple TDD example: say I wanted a method to return the task title in uppercase.
+A practical TDD example: adding a method to return the task title in uppercase.
 
-1. **Write the test first:**
+**User Story:**
+- As a user, I want to see my task titles in uppercase for emphasis or when I need to quickly scan my list, so that important tasks stand out.
+
+Here’s how I could use TDD to add this feature:
+
+1. **Write the test first (it will fail):**
 ```python
 def test_title_upper(self):
     task = Task("Supermarket Shopping")
@@ -194,7 +203,7 @@ class Task:
 3. **Refactor if needed:**
 - This method is already as simple as it gets.
 
-This is a quick way to use TDD for even small helper methods.
+This feature is useful for users who want to highlight or visually separate certain tasks. By using TDD, I made sure the method worked exactly as intended before adding it to the app, and the user story helped me focus on a real-world need.
 
 ### Manual Testing and User Stories
 

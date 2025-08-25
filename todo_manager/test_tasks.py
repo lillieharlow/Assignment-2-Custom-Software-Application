@@ -14,3 +14,8 @@ class TestTask(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+    
+# TDD testing
+def test_title_upper(self):
+    task = Task("Supermarket Shopping")
+    self.assertEqual(task.title.upper(), "SUPERMARKET SHOPPING") # verify task title is correctly set and produces expected result
