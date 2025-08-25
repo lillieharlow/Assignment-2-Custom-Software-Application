@@ -188,7 +188,7 @@ class Task:
 This feature is useful for users who want to highlight or visually separate certain tasks. By using TDD, I made sure the method worked exactly as intended before adding it to the app, and the user story helped me focus on a real-world need.
 
 example 2 TDD
-Adding is_high_priority method to test_tasks.py
+1. Adding is_high_priority method to test_tasks.py
 
 def test_is_high_priority(self): # TDD test 2
         from todo_manager.tasks import PriorityTask
@@ -201,7 +201,7 @@ def test_is_high_priority(self): # TDD test 2
 
 failed 
 
-Added to tasks.py to make the pass
+2. Added to tasks.py to make the pass
  class Task
   # ===== Check if task is high priority =====
     def is_high_priority(self) -> bool:
@@ -215,7 +215,9 @@ Added to tasks.py to make the pass
 
 Yes, it is still TDD if you follow the process: write a failing test, implement the method, and see the test pass. TDD is about driving development with tests, not necessarily about immediate integration into your app.
 
-However, for best practice and real value, you should eventually use the new methods in your application code. This ensures your tests reflect real user needs and your codebase stays clean and purposeful. For your assignment, demonstrating the TDD cycle (fail → implement → pass) is correct—even if the method isn’t yet used in the main app.
+Nnew methods in your application code. user experience user sees high priority taks in red bold uppercase to visually highlight the urgency of that task.  This ensures your tests reflect real user needs and your codebase stays clean and purposeful. For your assignment, demonstrating the TDD cycle (fail → implement → pass) is correct—even if the method isn’t yet used in the main app.
+
+ example screenshot of app after these two tdd testing and code improvements wrere added.
 
 
 ### Manual Testing and User Stories

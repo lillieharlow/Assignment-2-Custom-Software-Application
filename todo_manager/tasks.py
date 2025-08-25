@@ -19,9 +19,9 @@ Helpers: Validates task numbers, shows errors
 
 import json
 import os
-from .emoji_library import complete, incomplete, interesting, high, medium, low
-from .styling import *
-from .utils import print_no_tasks
+from emoji_library import complete, incomplete, interesting, high, medium, low
+from styling import *
+from utils import print_no_tasks
 
 # ========= Task class =========
 class Task:
@@ -114,17 +114,28 @@ class TaskList:
     
     # ===== Display tasks =====
     def display_tasks(self) -> None:
-        """Show all tasks, task number and completion status in Rich table"""
+        """Show all tasks, task number, completion status, uppercase title, and high priority flag in Rich table"""
         if not self.tasks:
             print_no_tasks()
             return
-        
+
         table = create_task_table(self.username)
-        
+
+        # TDD testing implementation code - makes high priority tasks bold, red and uppercase
         for i, task in enumerate(self.tasks, 1):
             status = complete if task.completed else incomplete
-            table.add_row(str(i), str(task), status)
-        
+            # High priority PriorityTask: uppercase and red, keep original emoji
+            if isinstance(task, PriorityTask) and task.is_high_priority():
+                base = task.__str__()
+                prio_emoji = base.replace(task.title, '').strip()
+                display_title = f"{prio_emoji} {task.title_upper()}"
+                display_title = red_text(display_title)
+            elif isinstance(task, PriorityTask):
+                display_title = task.__str__()
+            else:
+                display_title = str(task)
+            table.add_row(str(i), display_title, status)
+
         print_table(table)
     
     # ===== Save tasks to users file =====
