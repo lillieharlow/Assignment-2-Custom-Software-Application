@@ -185,7 +185,9 @@ A practical TDD example: adding a method to return the task title in uppercase.
 **User Story:**
 - As a user, I want to see my task titles in uppercase for emphasis or when I need to quickly scan my list, so that important tasks stand out. the user is asked if they would like thier task in UPPERCASE or lowercase. Personally, when words are written in uppercase it highlights importance and urgency helping the user to easily identify tasks ata glance from others, along side the priority task.
 
-Here’s how I could use TDD to add this feature:
+Here’s how I could use TDD to add this feature: You wrote a test for a feature (title_upper) that does not exist yet, and the test fails with an AttributeError. This is the "red" phase of TDD: the test fails because the method is missing.
+
+The next step is to implement the title_upper method in the Task class, then rerun the tests to see them pass ("green" phase)
 
 1. **Write the test first (it will fail):**
 ```python
@@ -197,7 +199,8 @@ def test_title_upper(self):
 ```python
 class Task:
     # ...existing code...
-    def title_upper(self):
+    # ===== task UPPERCASE (TDD feature) =====
+    def title_upper(self) -> str:
         return self.title.upper()
 ```
 3. **Refactor if needed:**

@@ -25,7 +25,6 @@ from .utils import print_no_tasks
 
 # ========= Task class =========
 class Task:
-    """A single task with title and completion status"""
     
     # ===== Create new task =====
     def __init__(self, title: str) -> None:
@@ -42,6 +41,10 @@ class Task:
 
     def __str__(self) -> str:
         return self.title
+
+    # ===== task UPPERCASE (TDD feature) =====
+    def title_upper(self) -> str:
+        return self.title.upper()
 
 # ========= Task priority =========
 class PriorityTask(Task):
