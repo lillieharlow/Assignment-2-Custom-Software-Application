@@ -183,7 +183,7 @@ TDD makes sure every feature is tested from the start and helps catch bugs early
 A practical TDD example: adding a method to return the task title in uppercase.
 
 **User Story:**
-- As a user, I want to see my task titles in uppercase for emphasis or when I need to quickly scan my list, so that important tasks stand out.
+- As a user, I want to see my task titles in uppercase for emphasis or when I need to quickly scan my list, so that important tasks stand out. the user is asked if they would like thier task in UPPERCASE or lowercase. Personally, when words are written in uppercase it highlights importance and urgency helping the user to easily identify tasks ata glance from others, along side the priority task.
 
 Here’s how I could use TDD to add this feature:
 
@@ -204,6 +204,18 @@ class Task:
 - This method is already as simple as it gets.
 
 This feature is useful for users who want to highlight or visually separate certain tasks. By using TDD, I made sure the method worked exactly as intended before adding it to the app, and the user story helped me focus on a real-world need.
+
+This code is a loop that asks the user if they want their new task title to be in UPPERCASE:
+
+It prompts:
+"Would you like this task written in UPPERCASE? (Click 'U' for UPPERCASE or any other key to keep as is 😊):"
+If the user enters "u", the title is converted to uppercase (title.upper()).
+If the user enters anything else (or just presses Enter), the title stays as the user typed it.
+The while True loop is used so the prompt can repeat if you want to add more input validation, but as written, it will only run once because both branches have a break.
+
+example 2 TDD
+
+
 
 ### Manual Testing and User Stories
 

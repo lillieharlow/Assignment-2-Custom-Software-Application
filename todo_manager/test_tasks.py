@@ -11,11 +11,10 @@ class TestTask(unittest.TestCase):
         task = Task("Supermarket Shopping")
         task.mark_complete()
         self.assertTrue(task.completed)
+        
+    def test_title_upper(self): # TDD test 1
+        task = Task("Supermarket Shopping")
+        self.assertEqual(task.title_upper(), "SUPERMARKET SHOPPING") # verify task title is correctly set and produces expected result
 
 if __name__ == '__main__':
     unittest.main()
-    
-# TDD testing
-def test_title_upper(self):
-    task = Task("Supermarket Shopping")
-    self.assertEqual(task.title.upper(), "SUPERMARKET SHOPPING") # verify task title is correctly set and produces expected result

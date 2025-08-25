@@ -41,7 +41,7 @@ def get_task_input():
     if len(title) > 100:
         print_error("\nWhoah! That's a very long task. Let's keep it short and snappy!\n(less than 100 characters please)")
         return None
-        
+ 
     while True:  # Loop until user enters 'y' or 'n' for priority task input
         is_priority = input("\nIs this task important? (y/n): ").strip().lower()
         if is_priority == "y":
@@ -70,7 +70,7 @@ def get_task_input():
             return Task(title)
         else:
             print_error(f"\n {interesting} Please type 'y' or 'n'.")
-    
+
 # ========== Task Menu =========
 def task_menu(task_list: TaskList, username: str) -> None:
     """Main task menu for adding, seeing, completing, deleting tasks"""
