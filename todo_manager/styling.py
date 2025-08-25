@@ -29,6 +29,9 @@ def print_info(message):
     """Info messages in yellow"""
     console.print(message, style="#ffe600", markup=True)
 
+def red_text(message):
+    return f"[bold #ff0000]{message}[bold /#ff0000]" # red text for TDD testing implementation
+
 # ========= ASCII Art Title =========
 def print_rainbow_text(text, font='ANSI_Shadow'):
     """Rainbow ASCII art with pyfiglet and Rich"""
